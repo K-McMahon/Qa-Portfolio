@@ -32,6 +32,4 @@
 - `AE-API_Full-Collection_QA_2026-08-01-Summary-1.png`
 - `AE-API_Full-Collection_QA_2026-08-01-Summary-2.png`
 
-## Portfolio-use note
 
-Before publishing the screenshots, redact the visible email address and review all images for credentials, tokens, cookies, or personal information.
