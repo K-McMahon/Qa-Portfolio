@@ -1,0 +1,49 @@
+$kind: http-example
+request:
+  url: "{{base_url}}/updateAccount"
+  method: PUT
+  body:
+    type: urlencoded
+    content:
+      name: "{{user_name}}"
+      email: "{{account_email}}"
+      password: "{{account_password}}"
+      title: Mr
+      birth_date: "1"
+      birth_month: January
+      birth_year: "1990"
+      firstname: Kevin
+      lastname: Tester
+      company: QA Portfolio
+      address1: 123 Test Street
+      address2: Suite 1
+      country: United States
+      zipcode: "10001"
+      state: New York
+      city: New York
+      mobile_number: "5550101000"
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    date: Sat, 01 Aug 2026 05:15:01 GMT
+    content-type: text/html; charset=utf-8
+    content-length: "49"
+    connection: keep-alive
+    vary: Accept,Cookie
+    referrer-policy: same-origin
+    x-frame-options: DENY
+    x-content-type-options: nosniff
+    allow: PUT, OPTIONS
+    x-powered-by: Phusion Passenger(R) 6.1.2
+    status: 200 OK
+    server: cloudflare
+    cf-cache-status: DYNAMIC
+    nel: '{"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}'
+    report-to: '{"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=6pxHFmv%2FbHNK58s6tXcxxsItpI8IEjqkJ60U28Oo5sbcu%2Bal8gikMW%2BxhBBaFcgIMUZ3nMCop62UGIIFx0sp4SSa2d1JQ5XVRj8p8TNpI8ISCBrnoOEccJgx2TtvrZYjaX5fm6lT4qVrNNBAeipZ6PV7kheG"}]}'
+    cf-ray: a2425cd5bb6e1efb-MIA
+    alt-svc: h3=":443"; ma=86400
+  body:
+    type: html
+    content: '{"responseCode": 200, "message": "User updated!"}'
+order: 1785561451814

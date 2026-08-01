@@ -1,0 +1,36 @@
+$kind: http-example
+request:
+  url: "{{base_url}}/searchProduct?=top"
+  method: POST
+  queryParams:
+    "": top
+  body:
+    type: urlencoded
+    content:
+      search_product: top
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    date: Sat, 01 Aug 2026 04:33:57 GMT
+    content-type: text/html; charset=utf-8
+    transfer-encoding: chunked
+    connection: keep-alive
+    vary: Accept,Cookie,Accept-Encoding
+    referrer-policy: same-origin
+    x-frame-options: DENY
+    x-content-type-options: nosniff
+    allow: PUT, OPTIONS, GET, POST, DELETE
+    x-powered-by: Phusion Passenger(R) 6.1.2
+    status: 200 OK
+    report-to: '{"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=qEHa7cKALN%2FEW%2FtLlppG9dVSaaiYpt2y7QpWfHHxYmeOzuuKRNDNw3EdbRW5sh8sws3Uz7pRCJaPnUBQ8TOKO0x%2BLUn7trvPGae4ckVRo81GlN1gmo4OuApUFQgPrT0DTIg2zdcw9j0JowA%2Bo4KC%2FqpQ4Dhx"}]}'
+    server: cloudflare
+    cf-cache-status: DYNAMIC
+    nel: '{"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}'
+    content-encoding: br
+    cf-ray: a24220ace857b249-MIA
+    alt-svc: h3=":443"; ma=86400
+  body:
+    type: html
+    content: '{"responseCode": 200, "products": [{"id": 1, "name": "Blue Top", "price": "Rs. 500", "brand": "Polo", "category": {"usertype": {"usertype": "Women"}, "category": "Tops"}}, {"id": 5, "name": "Winter Top", "price": "Rs. 600", "brand": "Mast & Harbour", "category": {"usertype": {"usertype": "Women"}, "category": "Tops"}}, {"id": 6, "name": "Summer White Top", "price": "Rs. 400", "brand": "H&M", "category": {"usertype": {"usertype": "Women"}, "category": "Tops"}}, {"id": 7, "name": "Madame Top For Women", "price": "Rs. 1000", "brand": "Madame", "category": {"usertype": {"usertype": "Women"}, "category": "Tops"}}, {"id": 8, "name": "Fancy Green Top", "price": "Rs. 700", "brand": "Polo", "category": {"usertype": {"usertype": "Women"}, "category": "Tops"}}, {"id": 11, "name": "Sleeves Printed Top - White", "price": "Rs. 499", "brand": "Babyhug", "category": {"usertype": {"usertype": "Kids"}, "category": "Tops & Shirts"}}, {"id": 12, "name": "Half Sleeves Top Schiffli Detailing - Pink", "price": "Rs. 359", "brand": "Babyhug", "category": {"usertype": {"usertype": "Kids"}, "category": "Tops & Shirts"}}, {"id": 13, "name": "Frozen Tops For Kids", "price": "Rs. 278", "brand": "Allen Solly Junior", "category": {"usertype": {"usertype": "Kids"}, "category": "Tops & Shirts"}}, {"id": 14, "name": "Full Sleeves Top Cherry - Pink", "price": "Rs. 679", "brand": "Kookie Kids", "category": {"usertype": {"usertype": "Kids"}, "category": "Tops & Shirts"}}, {"id": 15, "name": "Printed Off Shoulder Top - White", "price": "Rs. 315", "brand": "Babyhug", "category": {"usertype": {"usertype": "Kids"}, "category": "Tops & Shirts"}}, {"id": 16, "name": "Sleeves Top and Short - Blue & Pink", "price": "Rs. 478", "brand": "Babyhug", "category": {"usertype": {"usertype": "Kids"}, "category": "Dress"}}, {"id": 18, "name": "Little Girls Mr. Panda Shirt", "price": "Rs. 1200", "brand": "Kookie Kids", "category": {"usertype": {"usertype": "Kids"}, "category": "Tops & Shirts"}}, {"id": 24, "name": "Colour Blocked Shirt \u2013 Sky Blue", "price": "Rs. 849", "brand": "Allen Solly Junior", "category": {"usertype": {"usertype": "Kids"}, "category": "Tops & Shirts"}}, {"id": 42, "name": "Lace Top For Women", "price": "Rs. 1400", "brand": "Mast & Harbour", "category": {"usertype": {"usertype": "Women"}, "category": "Tops"}}]}'
+order: 1785559010069

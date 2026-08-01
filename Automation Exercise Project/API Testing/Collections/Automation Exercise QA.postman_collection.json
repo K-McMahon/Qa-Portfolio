@@ -1,0 +1,91 @@
+{
+  "info": {
+    "_postman_id": "5aaed03a-a10e-4b20-ae01-000000000001",
+    "name": "Automation Exercise QA",
+    "description": "Portfolio API test collection mapped to REQ-API-001 through REQ-API-014 in the Automation Exercise RTM.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "01 - Products",
+      "item": [
+        {
+          "name": "API-PRODUCT-001 - Get All Products List",
+          "request": {"method": "GET", "header": [], "url": "{{base_url}}/productsList", "description": "RTM: REQ-API-001 | Expected response code: 200 | Expected response: All products list"}
+        },
+        {
+          "name": "API-PRODUCT-002 - POST to All Products List",
+          "request": {"method": "POST", "header": [], "url": "{{base_url}}/productsList", "description": "RTM: REQ-API-002 | Expected response code: 405 | Expected message: This request method is not supported."}
+        }
+      ]
+    },
+    {
+      "name": "02 - Brands",
+      "item": [
+        {
+          "name": "API-BRAND-001 - Get All Brands List",
+          "request": {"method": "GET", "header": [], "url": "{{base_url}}/brandsList", "description": "RTM: REQ-API-003 | Expected response code: 200 | Expected response: All brands list"}
+        },
+        {
+          "name": "API-BRAND-002 - PUT to All Brands List",
+          "request": {"method": "PUT", "header": [], "url": "{{base_url}}/brandsList", "description": "RTM: REQ-API-004 | Expected response code: 405 | Expected message: This request method is not supported."}
+        }
+      ]
+    },
+    {
+      "name": "03 - Product Search",
+      "item": [
+        {
+          "name": "API-SEARCH-001 - Search Product",
+          "request": {"method": "POST", "header": [], "body": {"mode": "urlencoded", "urlencoded": [{"key": "search_product", "value": "top", "type": "text"}]}, "url": "{{base_url}}/searchProduct", "description": "RTM: REQ-API-005 | Expected response code: 200 | Expected response: Searched products list"}
+        },
+        {
+          "name": "API-SEARCH-002 - Search Without Parameter",
+          "request": {"method": "POST", "header": [], "body": {"mode": "urlencoded", "urlencoded": []}, "url": "{{base_url}}/searchProduct", "description": "RTM: REQ-API-006 | Expected response code: 400 | Expected message: Bad request, search_product parameter is missing in POST request."}
+        }
+      ]
+    },
+    {
+      "name": "04 - Authentication",
+      "item": [
+        {
+          "name": "API-AUTH-001 - Verify Login with Valid Details",
+          "request": {"method": "POST", "header": [], "body": {"mode": "urlencoded", "urlencoded": [{"key": "email", "value": "{{valid_email}}", "type": "text"}, {"key": "password", "value": "{{valid_password}}", "type": "text"}]}, "url": "{{base_url}}/verifyLogin", "description": "RTM: REQ-API-007 | Expected response code: 200 | Expected message: User exists!"}
+        },
+        {
+          "name": "API-AUTH-002 - Verify Login Without Email",
+          "request": {"method": "POST", "header": [], "body": {"mode": "urlencoded", "urlencoded": [{"key": "password", "value": "{{valid_password}}", "type": "text"}]}, "url": "{{base_url}}/verifyLogin", "description": "RTM: REQ-API-008 | Expected response code: 400 | Expected message: Bad request, email or password parameter is missing in POST request."}
+        },
+        {
+          "name": "API-AUTH-003 - DELETE to Verify Login",
+          "request": {"method": "DELETE", "header": [], "url": "{{base_url}}/verifyLogin", "description": "RTM: REQ-API-009 | Expected response code: 405 | Expected message: This request method is not supported."}
+        },
+        {
+          "name": "API-AUTH-004 - Verify Login with Invalid Details",
+          "request": {"method": "POST", "header": [], "body": {"mode": "urlencoded", "urlencoded": [{"key": "email", "value": "{{invalid_email}}", "type": "text"}, {"key": "password", "value": "{{invalid_password}}", "type": "text"}]}, "url": "{{base_url}}/verifyLogin", "description": "RTM: REQ-API-010 | Expected response code: 404 | Expected message: User not found!"}
+        }
+      ]
+    },
+    {
+      "name": "05 - Account Management",
+      "item": [
+        {
+          "name": "API-ACCOUNT-001 - Create User Account",
+          "request": {"method": "POST", "header": [], "body": {"mode": "urlencoded", "urlencoded": [{"key": "name", "value": "{{user_name}}", "type": "text"}, {"key": "email", "value": "{{account_email}}", "type": "text"}, {"key": "password", "value": "{{account_password}}", "type": "text"}, {"key": "title", "value": "Mr", "type": "text"}, {"key": "birth_date", "value": "1", "type": "text"}, {"key": "birth_month", "value": "January", "type": "text"}, {"key": "birth_year", "value": "1990", "type": "text"}, {"key": "firstname", "value": "Kevin", "type": "text"}, {"key": "lastname", "value": "Tester", "type": "text"}, {"key": "company", "value": "QA Portfolio", "type": "text"}, {"key": "address1", "value": "123 Test Street", "type": "text"}, {"key": "address2", "value": "Suite 1", "type": "text"}, {"key": "country", "value": "United States", "type": "text"}, {"key": "zipcode", "value": "10001", "type": "text"}, {"key": "state", "value": "New York", "type": "text"}, {"key": "city", "value": "New York", "type": "text"}, {"key": "mobile_number", "value": "5550101000", "type": "text"}]}, "url": "{{base_url}}/createAccount", "description": "RTM: REQ-API-011 | Expected response code: 201 | Expected message: User created!"}
+        },
+        {
+          "name": "API-ACCOUNT-002 - Delete User Account",
+          "request": {"method": "DELETE", "header": [], "body": {"mode": "urlencoded", "urlencoded": [{"key": "email", "value": "{{account_email}}", "type": "text"}, {"key": "password", "value": "{{account_password}}", "type": "text"}]}, "url": "{{base_url}}/deleteAccount", "description": "RTM: REQ-API-012 | Expected response code: 200 | Expected message: Account deleted!"}
+        },
+        {
+          "name": "API-ACCOUNT-003 - Update User Account",
+          "request": {"method": "PUT", "header": [], "body": {"mode": "urlencoded", "urlencoded": [{"key": "name", "value": "{{user_name}}", "type": "text"}, {"key": "email", "value": "{{account_email}}", "type": "text"}, {"key": "password", "value": "{{account_password}}", "type": "text"}, {"key": "title", "value": "Mr", "type": "text"}, {"key": "birth_date", "value": "1", "type": "text"}, {"key": "birth_month", "value": "January", "type": "text"}, {"key": "birth_year", "value": "1990", "type": "text"}, {"key": "firstname", "value": "Kevin", "type": "text"}, {"key": "lastname", "value": "Tester", "type": "text"}, {"key": "company", "value": "QA Portfolio", "type": "text"}, {"key": "address1", "value": "123 Test Street", "type": "text"}, {"key": "address2", "value": "Suite 1", "type": "text"}, {"key": "country", "value": "United States", "type": "text"}, {"key": "zipcode", "value": "10001", "type": "text"}, {"key": "state", "value": "New York", "type": "text"}, {"key": "city", "value": "New York", "type": "text"}, {"key": "mobile_number", "value": "5550101000", "type": "text"}]}, "url": "{{base_url}}/updateAccount", "description": "RTM: REQ-API-013 | Expected response code: 200 | Expected message: User updated!"}
+        },
+        {
+          "name": "API-ACCOUNT-004 - Get User Details by Email",
+          "request": {"method": "GET", "header": [], "url": {"raw": "{{base_url}}/getUserDetailByEmail?email={{account_email}}", "host": ["{{base_url}}"], "path": ["getUserDetailByEmail"], "query": [{"key": "email", "value": "{{account_email}}"}]}, "description": "RTM: REQ-API-014 | Expected response code: 200 | Expected response: User Detail"}
+        }
+      ]
+    }
+  ]
+}

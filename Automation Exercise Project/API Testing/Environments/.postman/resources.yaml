@@ -1,0 +1,7 @@
+# Use this workspace to collaborate
+workspace:
+  id: 84bc797d-5f97-4a52-85ff-4299600c1a75
+
+localResources:
+  environments:
+    - ../Automation Exercise QA.postman_environment.json

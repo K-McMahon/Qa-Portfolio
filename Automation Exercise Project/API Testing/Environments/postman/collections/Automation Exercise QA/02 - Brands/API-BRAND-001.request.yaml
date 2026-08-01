@@ -1,0 +1,51 @@
+$kind: http-request
+name: API-BRAND-001 - Get All Brands List
+description: "RTM: REQ-API-003 | Expected response code: 200 | Expected response: All brands list"
+url: "{{base_url}}/brandsList"
+method: GET
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"HTTP status code is 200\", function () {\r
+
+      \    pm.response.to.have.status(200);\r
+
+      });\r
+
+      \r
+
+      const response = pm.response.json();\r
+
+      \r
+
+      pm.test(\"Business response code is 200\", function () {\r
+
+      \    pm.expect(Number(response.responseCode)).to.eql(200);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Brands list is present and not empty\", function () {\r
+
+      \    pm.expect(response.brands).to.be.an(\"array\");\r
+
+      \    pm.expect(response.brands.length).to.be.above(0);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Brand records contain expected fields\", function () {\r
+
+      \    const brand = response.brands[0];\r
+
+      \r
+
+      \    pm.expect(brand).to.have.property(\"id\");\r
+
+      \    pm.expect(brand).to.have.property(\"brand\");\r
+
+      });"
+    language: text/javascript
+examples: .resources/API-BRAND-001.resources/examples
+order: 1000

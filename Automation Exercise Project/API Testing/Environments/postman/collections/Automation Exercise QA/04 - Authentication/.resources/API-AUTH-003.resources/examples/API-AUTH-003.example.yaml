@@ -1,0 +1,30 @@
+$kind: http-example
+request:
+  url: "{{base_url}}/verifyLogin"
+  method: DELETE
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    date: Sat, 01 Aug 2026 04:58:27 GMT
+    content-type: text/html; charset=utf-8
+    transfer-encoding: chunked
+    connection: keep-alive
+    vary: Accept,Cookie,Accept-Encoding
+    referrer-policy: same-origin
+    x-frame-options: DENY
+    x-content-type-options: nosniff
+    allow: PUT, OPTIONS, GET, POST, DELETE
+    x-powered-by: Phusion Passenger(R) 6.1.2
+    status: 200 OK
+    report-to: '{"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=2CXm%2BbwDIe0KQGLibGE2oYfukEwanLAb3sFYONMIz3HFtyUVPdTNX%2FjtrHlIqrpaj2kXYPFm6bWOeDFA4IzZgrX8VoVbuylUW55gE8BOmYOz9DXv4Qx8UDrz99J9Z%2BzZIFOOYNCX5HgoWw0quAFnufuRWQ0O"}]}'
+    server: cloudflare
+    cf-cache-status: DYNAMIC
+    nel: '{"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}'
+    content-encoding: br
+    cf-ray: a242449039ee087c-MIA
+    alt-svc: h3=":443"; ma=86400
+  body:
+    type: html
+    content: '{"responseCode": 405, "message": "This request method is not supported."}'
+order: 1785560420384

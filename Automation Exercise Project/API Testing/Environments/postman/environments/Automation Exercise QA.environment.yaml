@@ -1,0 +1,18 @@
+name: Automation Exercise QA
+values:
+  - key: base_url
+    value: 'https://automationexercise.com/api'
+  - key: valid_email
+    value: ''
+  - key: valid_password
+    value: ''
+  - key: invalid_email
+    value: notregistered@example.com
+  - key: invalid_password
+    value: InvalidPassword123!
+  - key: user_name
+    value: Kevin Tester
+  - key: account_email
+    value: ''
+  - key: account_password
+    value: ''

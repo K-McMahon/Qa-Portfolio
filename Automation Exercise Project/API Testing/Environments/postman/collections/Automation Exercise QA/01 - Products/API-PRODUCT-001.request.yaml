@@ -1,0 +1,45 @@
+$kind: http-request
+name: API-PRODUCT-001 - Get All Products List
+description: "RTM: REQ-API-001 | Expected response code: 200 | Expected response: All products list"
+url: "{{base_url}}/productsList"
+method: GET
+scripts:
+  - type: beforeRequest
+    code: "pm.test(\"HTTP status code is 200\", function () {\r
+
+      \    pm.response.to.have.status(200);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Response body is valid JSON\", function () {\r
+
+      \    pm.response.to.be.json;\r
+
+      });\r
+
+      \r
+
+      const response = pm.response.json();\r
+
+      \r
+
+      pm.test(\"Business response code is 200\", function () {\r
+
+      \    pm.expect(response.responseCode).to.eql(200);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Products list is present and not empty\", function () {\r
+
+      \    pm.expect(response.products).to.be.an(\"array\");\r
+
+      \    pm.expect(response.products.length).to.be.above(0);\r
+
+      });"
+    language: text/javascript
+examples: .resources/API-PRODUCT-001.resources/examples
+order: 1000

@@ -1,0 +1,37 @@
+$kind: http-request
+name: API-BRAND-002 - PUT to All Brands List
+description: "RTM: REQ-API-004 | Expected response code: 405 | Expected message: This request method is not supported."
+url: "{{base_url}}/brandsList"
+method: PUT
+scripts:
+  - type: beforeRequest
+    code: "pm.test(\"HTTP status code is 405\", function () {\r
+
+      \    pm.response.to.have.status(405);\r
+
+      });\r
+
+      \r
+
+      const response = pm.response.json();\r
+
+      \r
+
+      pm.test(\"Business response code is 405\", function () {\r
+
+      \    pm.expect(Number(response.responseCode)).to.eql(405);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Unsupported method message is correct\", function () {\r
+
+      \    pm.expect(response.message)\r
+
+      \        .to.eql(\"This request method is not supported.\");\r
+
+      });"
+    language: text/javascript
+examples: .resources/API-BRAND-002.resources/examples
+order: 2000

@@ -1,0 +1,61 @@
+$kind: http-request
+name: API-ACCOUNT-004 - Get User Details by Email
+description: "RTM: REQ-API-014 | Expected response code: 200 | Expected response: User Detail"
+url: "{{base_url}}/getUserDetailByEmail?email={{account_email}}"
+method: GET
+queryParams:
+  email: "{{account_email}}"
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"HTTP status code is 200\", function () {\r
+
+      \    pm.response.to.have.status(200);\r
+
+      });\r
+
+      \r
+
+      const response = pm.response.json();\r
+
+      \r
+
+      pm.test(\"Business response code is 200\", function () {\r
+
+      \    pm.expect(Number(response.responseCode)).to.eql(200);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"User details are returned\", function () {\r
+
+      \    pm.expect(response).to.have.property(\"user\");\r
+
+      \    pm.expect(response.user).to.be.an(\"object\");\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Returned email matches the requested account\", function () {\r
+
+      \    pm.expect(response.user.email)\r
+
+      \        .to.eql(pm.environment.get(\"account_email\"));\r
+
+      });\r
+
+      \r
+
+      pm.test(\"User record contains expected fields\", function () {\r
+
+      \    pm.expect(response.user).to.have.property(\"id\");\r
+
+      \    pm.expect(response.user).to.have.property(\"name\");\r
+
+      \    pm.expect(response.user).to.have.property(\"email\");\r
+
+      });"
+    language: text/javascript
+examples: .resources/API-ACCOUNT-004.resources/examples
+order: 4000
