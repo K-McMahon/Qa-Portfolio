@@ -25,7 +25,7 @@ This project contains Playwright browser automation tests for the Automation Exe
 
 ## Credential handling
 
-Credentials are loaded from a private `.env` file that is excluded from Git. The tracked `.env.example` documents the required variable names without containing real values. On a failed login, the test clears the credential fields before Playwright creates its diagnostic artifacts.
+Credentials are loaded from a private `.env` file that is excluded from Git. 
 
 ## Latest execution
 
