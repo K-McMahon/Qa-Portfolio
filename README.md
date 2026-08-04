@@ -193,6 +193,7 @@ The repository includes a reproducible schema, sanitized sample data, and 15 ver
 
 ## Repository Structure
 
+
 ```text
 Qa-Portfolio/
 ├── Automation Exercise Project/
