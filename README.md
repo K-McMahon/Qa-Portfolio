@@ -124,7 +124,7 @@ The test:
 - [Execution summary](Automation%20Exercise%20Project/Automation/Test%20Results/AE-LOGIN-001-2026-08-01.md)
 - [Passing-test evidence](Automation%20Exercise%20Project/Automation/Execution%20Evidence/AE-LOGIN-001-success.png)
 
-## Featured Project 2: Online Sales Portal SQL Analysis
+## Featured Project 2: Online Sales Portal SQL and Power BI Analysis
 
 This project demonstrates database design and analytical SQL using a fictional online-sales dataset. The database contains six related tables:
 
@@ -135,7 +135,7 @@ This project demonstrates database design and analytical SQL using a fictional o
 - `payments`
 - `inventory_logs`
 
-The repository includes a reproducible schema, sanitized sample data, and 15 verified business-analysis queries.
+The repository includes a reproducible schema, sanitized sample data, 15 verified business-analysis queries, and a two-page interactive Power BI dashboard covering sales and inventory.
 
 ### SQL Skills Demonstrated
 
@@ -154,6 +154,8 @@ The repository includes a reproducible schema, sanitized sample data, and 15 ver
 - [Sanitized sample data](SQL%20Analysis%20Project/Database/online_sales_portal_sample_data.sql)
 - [Complete 15-query analysis script](SQL%20Analysis%20Project/Queries/online_sales_portal_analysis.sql)
 - [Consolidated query results report](SQL%20Analysis%20Project/Documentation/online_sales_portal_query_results_report.md)
+- [Power BI dashboard overview](SQL%20Analysis%20Project/Power%20Bi/README.md)
+- [Power BI report file](SQL%20Analysis%20Project/Power%20Bi/online_sales_portal_dashboard.pbix)
 
 ## Tools and Technologies
 
@@ -164,7 +166,7 @@ The repository includes a reproducible schema, sanitized sample data, and 15 ver
 | API testing | Postman, collection runner, JSON validation, environment variables |
 | Automation | Playwright, TypeScript, Node.js, Chromium |
 | Database and analysis | MySQL, MySQL Workbench, SQL |
-| Visualization practice | Microsoft Power BI |
+| Business intelligence | Microsoft Power BI, Power Query, DAX, ODBC |
 | Version control | Git, GitHub, GitHub Desktop |
 
 ## Core Competencies Demonstrated
@@ -181,6 +183,7 @@ The repository includes a reproducible schema, sanitized sample data, and 15 ver
 - Automated browser testing and failure diagnostics
 - Secure handling of credentials and sanitized evidence
 - Relational database design and SQL analysis
+- Power BI data modeling, DAX measures, interactive slicers, and dashboard design
 - Professional repository organization and version control
 
 ## Current Development Focus
@@ -188,7 +191,7 @@ The repository includes a reproducible schema, sanitized sample data, and 15 ver
 - Expand Playwright coverage beyond successful login
 - Create manual cases for the remaining RTM coverage gaps
 - Retest documented defects when fixes become available
-- Continue Power BI dashboard development and add a publishable dashboard artifact
+- Refine Power BI presentation styling and expand the dataset over time
 - Add concise project-level summaries as each workstream matures
 
 ## Repository Structure
