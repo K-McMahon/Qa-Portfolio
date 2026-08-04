@@ -209,6 +209,3 @@ Qa-Portfolio/
 └── README.md
 ```
 
-## Portfolio Safety
-
-Credentials, passwords, tokens, cookies, and private environment values are excluded from version control. Published database data is fictional and sanitized. Evidence should be reviewed for personal or session information before being committed.
