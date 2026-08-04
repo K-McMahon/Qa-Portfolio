@@ -1,0 +1,25 @@
+# Codex-generated previews and local helper tooling
+.codex-previews/
+tools/
+
+# Node and Playwright generated dependencies/results
+node_modules/
+**/node_modules/
+**/test-results/
+**/playwright-report/
+**/blob-report/
+
+# Private environment and credential files
+.env
+**/.env
+
+# Empty-folder placeholders and operating-system clutter
+**/.gitkeep
+Thumbs.db
+.DS_Store
+
+# Local logs and temporary files
+*.log
+*.tmp
+*.temp
+~$*
