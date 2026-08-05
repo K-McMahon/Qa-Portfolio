@@ -1,0 +1,1385 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>QA Wolf Take-Home | Hacker News Validation Report</title>
+  <style>
+    :root {
+      --wolf-blue: #3b3bef;
+      --wolf-blue-dark: #2b2bb9;
+      --wolf-lavender: #94a5f7;
+      --wolf-mint: #0df2cc;
+      --wolf-pink: #ffb8f5;
+      --ink: #050505;
+      --muted: #606072;
+      --paper: #ffffff;
+      --soft: #f4f5ff;
+      --line: #dfe1ff;
+      --danger: #b42318;
+      --danger-soft: #fff0ee;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(rgba(255,255,255,.94), rgba(255,255,255,.94)),
+        repeating-linear-gradient(0deg, transparent 0 31px, var(--line) 31px 32px),
+        repeating-linear-gradient(90deg, transparent 0 31px, var(--line) 31px 32px);
+      font-family: Barlow, Inter, "Segoe UI", Arial, sans-serif;
+      line-height: 1.5;
+    }
+
+    a { color: var(--wolf-blue-dark); font-weight: 700; text-decoration-thickness: 2px; }
+    a:hover { color: var(--ink); }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 52px max(24px, calc((100vw - 1180px) / 2));
+      color: white;
+      background: var(--wolf-blue);
+      border-bottom: 8px solid var(--ink);
+    }
+
+    .hero::after {
+      content: "// RUN EVIDENCE // RUN EVIDENCE // RUN EVIDENCE";
+      position: absolute;
+      right: -28px;
+      bottom: 12px;
+      color: rgba(255,255,255,.14);
+      font: 900 34px/1 monospace;
+      transform: rotate(-5deg);
+      white-space: nowrap;
+    }
+
+    .brand-row { display: flex; align-items: center; gap: 18px; }
+    .brand-logo {
+      display: block;
+      width: min(300px, 62vw);
+      height: auto;
+    }
+
+    .brand-name { font-size: 14px; font-weight: 900; letter-spacing: .16em; text-transform: uppercase; }
+    .eyebrow { font: 800 12px/1.2 monospace; letter-spacing: .12em; text-transform: uppercase; }
+
+    h1 {
+      position: relative;
+      z-index: 1;
+      max-width: 850px;
+      margin: 30px 0 12px;
+      font-size: clamp(42px, 7vw, 84px);
+      line-height: .92;
+      letter-spacing: -.045em;
+      text-transform: uppercase;
+    }
+
+    .subtitle { position: relative; z-index: 1; max-width: 700px; margin: 0; font-size: 18px; }
+
+    main { width: min(1180px, calc(100% - 32px)); margin: 36px auto 72px; }
+
+    .run-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 24px;
+      padding: 24px;
+      background: var(--wolf-mint);
+      border: 3px solid var(--ink);
+      box-shadow: 8px 8px 0 var(--ink);
+    }
+
+    .run-banner h2 { margin: 3px 0 0; font-size: clamp(24px, 4vw, 42px); line-height: 1; text-transform: uppercase; }
+    .result-stamp { font: 900 clamp(36px, 7vw, 72px)/1 monospace; letter-spacing: -.08em; }
+
+    .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 32px 0; }
+    .metric {
+      min-height: 142px;
+      padding: 22px;
+      background: var(--paper);
+      border: 2px solid var(--ink);
+    }
+    .metric:nth-child(2) { background: var(--soft); }
+    .metric:nth-child(3) { background: #effffb; }
+    .metric:nth-child(4) { background: #fff3fd; }
+    .metric-value { margin-top: 20px; font-size: clamp(28px, 4vw, 46px); font-weight: 900; line-height: 1; }
+    .metric-detail { margin-top: 8px; color: var(--muted); font-size: 13px; }
+
+    .failure-panel {
+      margin: 30px 0;
+      padding: 26px;
+      background: var(--danger-soft);
+      border: 3px solid var(--danger);
+    }
+    .failure-panel h2 { margin: 8px 0 14px; }
+    pre { overflow: auto; margin: 0; padding: 16px; color: white; background: var(--ink); white-space: pre-wrap; }
+
+    .assumptions {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 28px;
+      margin: 38px 0;
+      padding: 26px;
+      background: var(--ink);
+      color: white;
+    }
+    .assumptions h2 { margin: 6px 0 0; font-size: 25px; text-transform: uppercase; }
+    .assumptions ul { margin: 0; padding-left: 20px; }
+    .assumptions li + li { margin-top: 8px; }
+
+    .evidence-header { display: flex; justify-content: space-between; gap: 20px; align-items: end; margin: 46px 0 14px; }
+    .evidence-header h2 { margin: 6px 0 0; font-size: 32px; text-transform: uppercase; }
+    .evidence-header p { max-width: 520px; margin: 0; color: var(--muted); }
+
+    .table-shell { overflow-x: auto; background: var(--paper); border: 2px solid var(--ink); }
+    table { width: 100%; border-collapse: collapse; }
+    th {
+      padding: 15px 14px;
+      color: white;
+      background: var(--wolf-blue-dark);
+      font: 800 12px/1.2 monospace;
+      letter-spacing: .08em;
+      text-align: left;
+      text-transform: uppercase;
+    }
+    td { padding: 16px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    tbody tr:hover { background: var(--soft); }
+    tbody tr:last-child td { border-bottom: 0; }
+    .position { width: 70px; font: 900 18px/1 monospace; }
+    .timestamp { min-width: 205px; font: 600 13px/1.4 monospace; }
+    .article-id { margin-top: 5px; color: var(--muted); font: 11px/1.2 monospace; }
+    .row-status { display: inline-block; padding: 5px 8px; border: 1px solid currentColor; font: 800 11px/1 monospace; text-transform: uppercase; white-space: nowrap; }
+    .status-pass { color: #006b59; background: #e7fffb; }
+    .status-fail { color: var(--danger); background: var(--danger-soft); }
+    .empty-state { padding: 40px; color: var(--muted); text-align: center; }
+
+    footer {
+      padding: 30px max(24px, calc((100vw - 1180px) / 2));
+      color: white;
+      background: var(--ink);
+      font: 12px/1.5 monospace;
+    }
+
+    @media (max-width: 800px) {
+      .metrics { grid-template-columns: repeat(2, 1fr); }
+      .assumptions { grid-template-columns: 1fr; }
+      .evidence-header { display: block; }
+      .evidence-header p { margin-top: 10px; }
+    }
+
+    @media (max-width: 520px) {
+      .metrics { grid-template-columns: 1fr; }
+      .run-banner { align-items: flex-start; flex-direction: column; }
+    }
+
+    @media print {
+      body { background: white; }
+      .hero { padding: 28px; }
+      main { width: 100%; margin: 20px 0; }
+      .run-banner { box-shadow: none; }
+      .table-shell { overflow: visible; }
+      a { color: inherit; text-decoration: none; }
+      tr { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="brand-row">
+      <img
+        class="brand-logo"
+        src="../assets/qa-wolf-logo.png"
+        alt="QA Wolf"
+        width="348"
+        height="116"
+      />
+      <div>
+        <div class="brand-name">Take-Home Assignment</div>
+        <div class="eyebrow">Automated test evidence</div>
+      </div>
+    </div>
+    <h1>Fast, fearless validation.</h1>
+    <p class="subtitle">A Playwright audit of the first 100 articles on Hacker News Newest.</p>
+  </header>
+
+  <main>
+    <section class="run-banner" aria-label="Test result">
+      <div>
+        <div class="eyebrow">Execution result</div>
+        <h2>Sorted newest to oldest</h2>
+      </div>
+      <div class="result-stamp">PASS</div>
+    </section>
+
+    <section class="metrics" aria-label="Run metrics">
+      <article class="metric">
+        <div class="eyebrow">Articles collected</div>
+        <div class="metric-value">100 / 100</div>
+        <div class="metric-detail">Exactly 100 required</div>
+      </article>
+      <article class="metric">
+        <div class="eyebrow">Unique IDs</div>
+        <div class="metric-value">100</div>
+        <div class="metric-detail">Duplicate protection enabled</div>
+      </article>
+      <article class="metric">
+        <div class="eyebrow">Pages inspected</div>
+        <div class="metric-value">4</div>
+        <div class="metric-detail">Pagination followed automatically</div>
+      </article>
+      <article class="metric">
+        <div class="eyebrow">Run duration</div>
+        <div class="metric-value">1.91 seconds</div>
+        <div class="metric-detail">Started 8/5/2026, 12:13:27 AM</div>
+      </article>
+    </section>
+
+    
+
+    <section class="assumptions">
+      <div>
+        <div class="eyebrow">Test interpretation</div>
+        <h2>What “sorted” means</h2>
+      </div>
+      <ul>
+        <li>The first 100 visible article rows are collected across Hacker News pagination.</li>
+        <li>Exact machine-readable timestamps are used instead of relative labels such as “5 minutes ago.”</li>
+        <li>Each timestamp must be greater than or equal to the timestamp that follows it.</li>
+        <li>Equal timestamps are valid, while missing timestamps and duplicate IDs fail the run.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="evidence-heading">
+      <div class="evidence-header">
+        <div>
+          <div class="eyebrow">Traceable results</div>
+          <h2 id="evidence-heading">Article evidence</h2>
+        </div>
+        <p>Every row links to its Hacker News item and records the exact timestamp used by the ordering assertion.</p>
+      </div>
+      <div class="table-shell">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Position</th>
+              <th scope="col">Article</th>
+              <th scope="col">Published at</th>
+              <th scope="col">Check</th>
+            </tr>
+          </thead>
+          <tbody>
+        <tr>
+          <td class="position">1</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178476" target="_blank" rel="noreferrer">
+              The Grid That Doubles the Strength of the Ground
+            </a>
+            <div class="article-id">ID 49178476</div>
+          </td>
+          <td class="timestamp">2026-08-05T04:11:13</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">2</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178464" target="_blank" rel="noreferrer">
+              An SLM trained on $8 ESP32-S3
+            </a>
+            <div class="article-id">ID 49178464</div>
+          </td>
+          <td class="timestamp">2026-08-05T04:07:27</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">3</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178447" target="_blank" rel="noreferrer">
+              The Walls Are Closing in on Musk in Wisconsin Criminal Bribery Investigation
+            </a>
+            <div class="article-id">ID 49178447</div>
+          </td>
+          <td class="timestamp">2026-08-05T04:04:54</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">4</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178425" target="_blank" rel="noreferrer">
+              The Body Remembers but the Doctor Cannot- Experiments with AI in Personal Health
+            </a>
+            <div class="article-id">ID 49178425</div>
+          </td>
+          <td class="timestamp">2026-08-05T04:01:19</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">5</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178418" target="_blank" rel="noreferrer">
+              The Despair of the Professor in the Age of A.I
+            </a>
+            <div class="article-id">ID 49178418</div>
+          </td>
+          <td class="timestamp">2026-08-05T03:58:51</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">6</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178398" target="_blank" rel="noreferrer">
+              Airlines Don&#039;t Want You to Buy Their Cheapest Tickets
+            </a>
+            <div class="article-id">ID 49178398</div>
+          </td>
+          <td class="timestamp">2026-08-05T03:52:18</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">7</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178393" target="_blank" rel="noreferrer">
+              Do You Think OpenAI Is Apple Circa the 1980s?
+            </a>
+            <div class="article-id">ID 49178393</div>
+          </td>
+          <td class="timestamp">2026-08-05T03:50:17</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">8</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178380" target="_blank" rel="noreferrer">
+              I cracked 150 PRs a week [video]
+            </a>
+            <div class="article-id">ID 49178380</div>
+          </td>
+          <td class="timestamp">2026-08-05T03:47:11</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">9</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178348" target="_blank" rel="noreferrer">
+              Amtrak Bicycle Access
+            </a>
+            <div class="article-id">ID 49178348</div>
+          </td>
+          <td class="timestamp">2026-08-05T03:40:45</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">10</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178328" target="_blank" rel="noreferrer">
+              Tell HN: Wife used Chat GPT to set up her new biz domain, email, and website
+            </a>
+            <div class="article-id">ID 49178328</div>
+          </td>
+          <td class="timestamp">2026-08-05T03:37:36</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">11</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178327" target="_blank" rel="noreferrer">
+              Wargamer&#039;s shed named UK Shed of the Year 2026
+            </a>
+            <div class="article-id">ID 49178327</div>
+          </td>
+          <td class="timestamp">2026-08-05T03:36:52</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">12</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178324" target="_blank" rel="noreferrer">
+              Neats and Scruffies
+            </a>
+            <div class="article-id">ID 49178324</div>
+          </td>
+          <td class="timestamp">2026-08-05T03:36:05</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">13</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178317" target="_blank" rel="noreferrer">
+              The auto industry is building for a past that&#039;s never coming back
+            </a>
+            <div class="article-id">ID 49178317</div>
+          </td>
+          <td class="timestamp">2026-08-05T03:35:10</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">14</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178316" target="_blank" rel="noreferrer">
+              Show HN: Aidress – open-source discovery and trust registry for agents
+            </a>
+            <div class="article-id">ID 49178316</div>
+          </td>
+          <td class="timestamp">2026-08-05T03:35:05</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">15</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178273" target="_blank" rel="noreferrer">
+              How to secure Manticore Search with built-in authentication and authorization
+            </a>
+            <div class="article-id">ID 49178273</div>
+          </td>
+          <td class="timestamp">2026-08-05T03:28:18</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">16</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178247" target="_blank" rel="noreferrer">
+              How to export Claude chats to Markdown [video]
+            </a>
+            <div class="article-id">ID 49178247</div>
+          </td>
+          <td class="timestamp">2026-08-05T03:24:43</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">17</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178246" target="_blank" rel="noreferrer">
+              America&#039;s Bet on AI – The winner takes it all. What if we lose?
+            </a>
+            <div class="article-id">ID 49178246</div>
+          </td>
+          <td class="timestamp">2026-08-05T03:24:25</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">18</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178231" target="_blank" rel="noreferrer">
+              Mysterious elephant deaths in Kenya raise questions around pesticides
+            </a>
+            <div class="article-id">ID 49178231</div>
+          </td>
+          <td class="timestamp">2026-08-05T03:22:09</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">19</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178214" target="_blank" rel="noreferrer">
+              Rands Management Glossary
+            </a>
+            <div class="article-id">ID 49178214</div>
+          </td>
+          <td class="timestamp">2026-08-05T03:19:50</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">20</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178213" target="_blank" rel="noreferrer">
+              OcuClaw: One Human, a Fleet of Agents
+            </a>
+            <div class="article-id">ID 49178213</div>
+          </td>
+          <td class="timestamp">2026-08-05T03:19:49</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">21</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178172" target="_blank" rel="noreferrer">
+              America&#039;s obsession with whey protein has a delicious consequence: More cheese
+            </a>
+            <div class="article-id">ID 49178172</div>
+          </td>
+          <td class="timestamp">2026-08-05T03:14:11</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">22</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178169" target="_blank" rel="noreferrer">
+              Disney Data Dump: What&#039;s the Best Day of the Week to Visit the Magic Kingdom?
+            </a>
+            <div class="article-id">ID 49178169</div>
+          </td>
+          <td class="timestamp">2026-08-05T03:13:47</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">23</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178163" target="_blank" rel="noreferrer">
+              David Ellison: Here&#039;s Why You Can Trust Me with the News
+            </a>
+            <div class="article-id">ID 49178163</div>
+          </td>
+          <td class="timestamp">2026-08-05T03:12:47</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">24</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178159" target="_blank" rel="noreferrer">
+              New museum find shows nature can&#039;t stop inventing seahorses
+            </a>
+            <div class="article-id">ID 49178159</div>
+          </td>
+          <td class="timestamp">2026-08-05T03:11:46</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">25</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178136" target="_blank" rel="noreferrer">
+              The Investing Heavyweights That Backed Situational Awareness Before It Blew Up
+            </a>
+            <div class="article-id">ID 49178136</div>
+          </td>
+          <td class="timestamp">2026-08-05T03:07:19</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">26</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178129" target="_blank" rel="noreferrer">
+              Google AI Studio exposed. Drive Trash is fake
+            </a>
+            <div class="article-id">ID 49178129</div>
+          </td>
+          <td class="timestamp">2026-08-05T03:06:21</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">27</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178123" target="_blank" rel="noreferrer">
+              Dark Mode for Pinterest – Themes and Night Mode
+            </a>
+            <div class="article-id">ID 49178123</div>
+          </td>
+          <td class="timestamp">2026-08-05T03:05:44</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">28</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178119" target="_blank" rel="noreferrer">
+              OpenAI&#039;s Unreleased Model Astra Solves Ten Major Open Mathematics Problems
+            </a>
+            <div class="article-id">ID 49178119</div>
+          </td>
+          <td class="timestamp">2026-08-05T03:05:16</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">29</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178115" target="_blank" rel="noreferrer">
+              Cyberpunk on 1GB of VRAM [video]
+            </a>
+            <div class="article-id">ID 49178115</div>
+          </td>
+          <td class="timestamp">2026-08-05T03:04:34</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">30</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178110" target="_blank" rel="noreferrer">
+              Roby Yonge
+            </a>
+            <div class="article-id">ID 49178110</div>
+          </td>
+          <td class="timestamp">2026-08-05T03:04:07</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">31</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178106" target="_blank" rel="noreferrer">
+              Hackerne.ws Cert Needs Updating
+            </a>
+            <div class="article-id">ID 49178106</div>
+          </td>
+          <td class="timestamp">2026-08-05T03:03:36</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">32</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178098" target="_blank" rel="noreferrer">
+              Ukrainian and Iran War Coalescence Discussion
+            </a>
+            <div class="article-id">ID 49178098</div>
+          </td>
+          <td class="timestamp">2026-08-05T03:03:04</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">33</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178085" target="_blank" rel="noreferrer">
+              Designing a Query System
+            </a>
+            <div class="article-id">ID 49178085</div>
+          </td>
+          <td class="timestamp">2026-08-05T03:01:45</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">34</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178082" target="_blank" rel="noreferrer">
+              In-Terminal Jupyter Notebook for Agentic Data Science
+            </a>
+            <div class="article-id">ID 49178082</div>
+          </td>
+          <td class="timestamp">2026-08-05T03:01:32</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">35</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178070" target="_blank" rel="noreferrer">
+              Cookies leaked to the wrong host: a URL parsing differential in tough-cookie
+            </a>
+            <div class="article-id">ID 49178070</div>
+          </td>
+          <td class="timestamp">2026-08-05T02:58:59</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">36</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178052" target="_blank" rel="noreferrer">
+              Survey Statistics: structured MRP to smooth survey weights
+            </a>
+            <div class="article-id">ID 49178052</div>
+          </td>
+          <td class="timestamp">2026-08-05T02:54:29</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">37</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178049" target="_blank" rel="noreferrer">
+              Economy in an automated post-scarcity society
+            </a>
+            <div class="article-id">ID 49178049</div>
+          </td>
+          <td class="timestamp">2026-08-05T02:54:10</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">38</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178043" target="_blank" rel="noreferrer">
+              Lunch With Freeman Dyson, in 196,883 Dimensions
+            </a>
+            <div class="article-id">ID 49178043</div>
+          </td>
+          <td class="timestamp">2026-08-05T02:52:58</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">39</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178034" target="_blank" rel="noreferrer">
+              The little-told story of the WWII pet cull (2013)
+            </a>
+            <div class="article-id">ID 49178034</div>
+          </td>
+          <td class="timestamp">2026-08-05T02:51:55</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">40</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178033" target="_blank" rel="noreferrer">
+              Cloudflare Wallet, developers who need it can reserve a name they like
+            </a>
+            <div class="article-id">ID 49178033</div>
+          </td>
+          <td class="timestamp">2026-08-05T02:51:42</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">41</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178026" target="_blank" rel="noreferrer">
+              Show HN: Structured search for Who is hiring threads
+            </a>
+            <div class="article-id">ID 49178026</div>
+          </td>
+          <td class="timestamp">2026-08-05T02:50:08</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">42</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178016" target="_blank" rel="noreferrer">
+              All Knowledge Is Provisional (2024)
+            </a>
+            <div class="article-id">ID 49178016</div>
+          </td>
+          <td class="timestamp">2026-08-05T02:48:04</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">43</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49178007" target="_blank" rel="noreferrer">
+              Farewell Etaoin Shrdlu (1978) [video]
+            </a>
+            <div class="article-id">ID 49178007</div>
+          </td>
+          <td class="timestamp">2026-08-05T02:46:53</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">44</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177999" target="_blank" rel="noreferrer">
+              Seeing the World Through Your Field (2024)
+            </a>
+            <div class="article-id">ID 49177999</div>
+          </td>
+          <td class="timestamp">2026-08-05T02:45:36</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">45</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177998" target="_blank" rel="noreferrer">
+              BorrowSanitizer
+            </a>
+            <div class="article-id">ID 49177998</div>
+          </td>
+          <td class="timestamp">2026-08-05T02:45:30</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">46</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177993" target="_blank" rel="noreferrer">
+              Tests for a PDF
+            </a>
+            <div class="article-id">ID 49177993</div>
+          </td>
+          <td class="timestamp">2026-08-05T02:45:09</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">47</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177986" target="_blank" rel="noreferrer">
+              Show HN: Memcode launches a new terminal coding agent
+            </a>
+            <div class="article-id">ID 49177986</div>
+          </td>
+          <td class="timestamp">2026-08-05T02:44:07</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">48</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177978" target="_blank" rel="noreferrer">
+              Telegram Briefly Removed from App Store
+            </a>
+            <div class="article-id">ID 49177978</div>
+          </td>
+          <td class="timestamp">2026-08-05T02:42:59</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">49</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177928" target="_blank" rel="noreferrer">
+              Show HN: MCP for building secured apps on SQL databases
+            </a>
+            <div class="article-id">ID 49177928</div>
+          </td>
+          <td class="timestamp">2026-08-05T02:36:20</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">50</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177895" target="_blank" rel="noreferrer">
+              Who coined the term &quot;spin doctor&quot;?
+            </a>
+            <div class="article-id">ID 49177895</div>
+          </td>
+          <td class="timestamp">2026-08-05T02:30:10</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">51</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177887" target="_blank" rel="noreferrer">
+              Cyberattacks target water systems in at least 12 states
+            </a>
+            <div class="article-id">ID 49177887</div>
+          </td>
+          <td class="timestamp">2026-08-05T02:29:09</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">52</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177877" target="_blank" rel="noreferrer">
+              Sendspin: Open standard for the complete music listening experience
+            </a>
+            <div class="article-id">ID 49177877</div>
+          </td>
+          <td class="timestamp">2026-08-05T02:26:45</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">53</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177860" target="_blank" rel="noreferrer">
+              Are Native Americans in the final stages of cultural eradication in the USA?
+            </a>
+            <div class="article-id">ID 49177860</div>
+          </td>
+          <td class="timestamp">2026-08-05T02:23:13</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">54</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177801" target="_blank" rel="noreferrer">
+              The Moral Compass of AI: Why Fairness Shapes Our Future
+            </a>
+            <div class="article-id">ID 49177801</div>
+          </td>
+          <td class="timestamp">2026-08-05T02:13:02</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">55</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177798" target="_blank" rel="noreferrer">
+              SpaceX hit by surging AI costs as insiders prepare to sell their shares
+            </a>
+            <div class="article-id">ID 49177798</div>
+          </td>
+          <td class="timestamp">2026-08-05T02:12:39</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">56</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177787" target="_blank" rel="noreferrer">
+              Funding found for free meals in Seattle schools
+            </a>
+            <div class="article-id">ID 49177787</div>
+          </td>
+          <td class="timestamp">2026-08-05T02:10:27</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">57</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177784" target="_blank" rel="noreferrer">
+              Do you find paid contribution on AI Annotation (e.g. DataAnnotation), moral?
+            </a>
+            <div class="article-id">ID 49177784</div>
+          </td>
+          <td class="timestamp">2026-08-05T02:09:42</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">58</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177780" target="_blank" rel="noreferrer">
+              Massive Worms, Tiny Bodies: Why Horsehair Worms Might Be Good for Nature [video]
+            </a>
+            <div class="article-id">ID 49177780</div>
+          </td>
+          <td class="timestamp">2026-08-05T02:09:26</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">59</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177765" target="_blank" rel="noreferrer">
+              Solving the Shortest Vector Problem in $2^{0.6039n}$ Time via Mid-Point Hessian
+            </a>
+            <div class="article-id">ID 49177765</div>
+          </td>
+          <td class="timestamp">2026-08-05T02:07:06</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">60</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177761" target="_blank" rel="noreferrer">
+              Trump administration drafting ban on Chinese data center devices, sources say
+            </a>
+            <div class="article-id">ID 49177761</div>
+          </td>
+          <td class="timestamp">2026-08-05T02:06:14</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">61</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177753" target="_blank" rel="noreferrer">
+              I built an AI tool that turns your photo into a Greek mythology character
+            </a>
+            <div class="article-id">ID 49177753</div>
+          </td>
+          <td class="timestamp">2026-08-05T02:05:45</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">62</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177742" target="_blank" rel="noreferrer">
+              Rochelle Hudson
+            </a>
+            <div class="article-id">ID 49177742</div>
+          </td>
+          <td class="timestamp">2026-08-05T02:03:37</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">63</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177728" target="_blank" rel="noreferrer">
+              Nucleus – A lightweight dashboard for Linux dev environments (PHP and systemd)
+            </a>
+            <div class="article-id">ID 49177728</div>
+          </td>
+          <td class="timestamp">2026-08-05T02:01:31</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">64</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177723" target="_blank" rel="noreferrer">
+              The White House Is Keeping Its AI Cybersecurity Framework Secret
+            </a>
+            <div class="article-id">ID 49177723</div>
+          </td>
+          <td class="timestamp">2026-08-05T02:00:22</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">65</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177709" target="_blank" rel="noreferrer">
+              The Bitwarden subscription is now $20 a year
+            </a>
+            <div class="article-id">ID 49177709</div>
+          </td>
+          <td class="timestamp">2026-08-05T01:57:45</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">66</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177701" target="_blank" rel="noreferrer">
+              Reliability Lessons from SQLite – Richard Hipp | SSW (2026) [video]
+            </a>
+            <div class="article-id">ID 49177701</div>
+          </td>
+          <td class="timestamp">2026-08-05T01:56:33</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">67</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177693" target="_blank" rel="noreferrer">
+              Learning BASIC Like It&#039;s 1983 (2018)
+            </a>
+            <div class="article-id">ID 49177693</div>
+          </td>
+          <td class="timestamp">2026-08-05T01:55:22</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">68</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177685" target="_blank" rel="noreferrer">
+              NPM Registry Protocol
+            </a>
+            <div class="article-id">ID 49177685</div>
+          </td>
+          <td class="timestamp">2026-08-05T01:53:24</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">69</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177599" target="_blank" rel="noreferrer">
+              DiCaprio and Bezos set USD$200M fund to recover endangered species
+            </a>
+            <div class="article-id">ID 49177599</div>
+          </td>
+          <td class="timestamp">2026-08-05T01:42:05</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">70</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177577" target="_blank" rel="noreferrer">
+              Show HN: AI Version of My Resume
+            </a>
+            <div class="article-id">ID 49177577</div>
+          </td>
+          <td class="timestamp">2026-08-05T01:38:15</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">71</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177559" target="_blank" rel="noreferrer">
+              NexBoard
+            </a>
+            <div class="article-id">ID 49177559</div>
+          </td>
+          <td class="timestamp">2026-08-05T01:35:18</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">72</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177556" target="_blank" rel="noreferrer">
+              AI used new levels of &#039;autonomy and deception&#039;
+            </a>
+            <div class="article-id">ID 49177556</div>
+          </td>
+          <td class="timestamp">2026-08-05T01:35:01</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">73</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177554" target="_blank" rel="noreferrer">
+              After Losses, Retail Investors Flock to 3x Leverage as 2x Product Are Restricted
+            </a>
+            <div class="article-id">ID 49177554</div>
+          </td>
+          <td class="timestamp">2026-08-05T01:34:26</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">74</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177526" target="_blank" rel="noreferrer">
+              Wine Planted in Sand
+            </a>
+            <div class="article-id">ID 49177526</div>
+          </td>
+          <td class="timestamp">2026-08-05T01:29:41</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">75</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177513" target="_blank" rel="noreferrer">
+              Show HN: Hubmesh – Multi-hop RAG retrieval with zero LLM calls in the query path
+            </a>
+            <div class="article-id">ID 49177513</div>
+          </td>
+          <td class="timestamp">2026-08-05T01:27:25</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">76</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177458" target="_blank" rel="noreferrer">
+              CrewAI in Python: Coordinating Teams of AI Agents
+            </a>
+            <div class="article-id">ID 49177458</div>
+          </td>
+          <td class="timestamp">2026-08-05T01:18:53</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">77</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177455" target="_blank" rel="noreferrer">
+              Show HN: AI gateway open source integrated with cursor and open router
+            </a>
+            <div class="article-id">ID 49177455</div>
+          </td>
+          <td class="timestamp">2026-08-05T01:18:34</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">78</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177389" target="_blank" rel="noreferrer">
+              You can finally move passkeys between password managers
+            </a>
+            <div class="article-id">ID 49177389</div>
+          </td>
+          <td class="timestamp">2026-08-05T01:08:07</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">79</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177326" target="_blank" rel="noreferrer">
+              $20M+ in Microsoft bug bounties paid out in last 12 months
+            </a>
+            <div class="article-id">ID 49177326</div>
+          </td>
+          <td class="timestamp">2026-08-05T00:57:54</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">80</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177301" target="_blank" rel="noreferrer">
+              Gallium: Why the US Cannot Produce Precision Missiles and Fully-Functional F-35s
+            </a>
+            <div class="article-id">ID 49177301</div>
+          </td>
+          <td class="timestamp">2026-08-05T00:54:18</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">81</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177224" target="_blank" rel="noreferrer">
+              From your doorbell to your home network
+            </a>
+            <div class="article-id">ID 49177224</div>
+          </td>
+          <td class="timestamp">2026-08-05T00:43:25</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">82</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177207" target="_blank" rel="noreferrer">
+              Any L1 crypto devs out there looking for a new challenge?
+            </a>
+            <div class="article-id">ID 49177207</div>
+          </td>
+          <td class="timestamp">2026-08-05T00:40:47</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">83</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177177" target="_blank" rel="noreferrer">
+              Virtual Mac on iPad
+            </a>
+            <div class="article-id">ID 49177177</div>
+          </td>
+          <td class="timestamp">2026-08-05T00:36:19</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">84</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177162" target="_blank" rel="noreferrer">
+              Bending Spoons to buy Airtable for $1.28B
+            </a>
+            <div class="article-id">ID 49177162</div>
+          </td>
+          <td class="timestamp">2026-08-05T00:34:16</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">85</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177157" target="_blank" rel="noreferrer">
+              Show HN: Design cinematic mecha startup sequences in seconds
+            </a>
+            <div class="article-id">ID 49177157</div>
+          </td>
+          <td class="timestamp">2026-08-05T00:33:33</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">86</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177154" target="_blank" rel="noreferrer">
+              CFPB supervisor warned staff of unpleasant fallout if they go too hard on firms
+            </a>
+            <div class="article-id">ID 49177154</div>
+          </td>
+          <td class="timestamp">2026-08-05T00:33:24</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">87</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177152" target="_blank" rel="noreferrer">
+              A heat spike in March ruined pistachio pollination, decimating crops
+            </a>
+            <div class="article-id">ID 49177152</div>
+          </td>
+          <td class="timestamp">2026-08-05T00:33:18</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">88</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177151" target="_blank" rel="noreferrer">
+              Show HN: A terminal AI coding agent that compiles natively on Termux – no root
+            </a>
+            <div class="article-id">ID 49177151</div>
+          </td>
+          <td class="timestamp">2026-08-05T00:33:11</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">89</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177138" target="_blank" rel="noreferrer">
+              Show HN: Merona – x402 settlement index (raw feeds overstate volume ~100x)
+            </a>
+            <div class="article-id">ID 49177138</div>
+          </td>
+          <td class="timestamp">2026-08-05T00:31:51</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">90</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177126" target="_blank" rel="noreferrer">
+              It looks like &#039;Big Short&#039; investor Michael Burry nailed bet against chip stocks
+            </a>
+            <div class="article-id">ID 49177126</div>
+          </td>
+          <td class="timestamp">2026-08-05T00:30:23</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">91</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177118" target="_blank" rel="noreferrer">
+              AI-generated stories rated better quality than human-written ones, study finds
+            </a>
+            <div class="article-id">ID 49177118</div>
+          </td>
+          <td class="timestamp">2026-08-05T00:29:15</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">92</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177116" target="_blank" rel="noreferrer">
+              To Save Japan&#039;s Heritage Homes, People Are Shipping Them Across the World
+            </a>
+            <div class="article-id">ID 49177116</div>
+          </td>
+          <td class="timestamp">2026-08-05T00:29:13</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">93</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177102" target="_blank" rel="noreferrer">
+              Kilometer-high Saudi tower inches closer to world&#039;s tallest record
+            </a>
+            <div class="article-id">ID 49177102</div>
+          </td>
+          <td class="timestamp">2026-08-05T00:27:32</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">94</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177063" target="_blank" rel="noreferrer">
+              Young South Korean investors are finding company in collective misery
+            </a>
+            <div class="article-id">ID 49177063</div>
+          </td>
+          <td class="timestamp">2026-08-05T00:21:36</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">95</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49177018" target="_blank" rel="noreferrer">
+              Show HN: Misalignments when using AI for hacking
+            </a>
+            <div class="article-id">ID 49177018</div>
+          </td>
+          <td class="timestamp">2026-08-05T00:15:03</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">96</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49176987" target="_blank" rel="noreferrer">
+              A Lightweight Open-Source LLM Benchmark Tool – Compare Any Model on OpenRouter
+            </a>
+            <div class="article-id">ID 49176987</div>
+          </td>
+          <td class="timestamp">2026-08-05T00:11:22</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">97</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49176983" target="_blank" rel="noreferrer">
+              Zigbee vs. Matter over Thread:Understanding IoT Protocol Performance in Practice
+            </a>
+            <div class="article-id">ID 49176983</div>
+          </td>
+          <td class="timestamp">2026-08-05T00:10:37</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">98</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49176947" target="_blank" rel="noreferrer">
+              Bugtraq Is Back
+            </a>
+            <div class="article-id">ID 49176947</div>
+          </td>
+          <td class="timestamp">2026-08-05T00:05:49</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">99</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49176927" target="_blank" rel="noreferrer">
+              Spotted: Mac Studio with M3 Ultra 256GB RAM and M4 Max with 128GB RAM
+            </a>
+            <div class="article-id">ID 49176927</div>
+          </td>
+          <td class="timestamp">2026-08-05T00:03:07</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr>
+        <tr>
+          <td class="position">100</td>
+          <td>
+            <a href="https://news.ycombinator.com/item?id=49176920" target="_blank" rel="noreferrer">
+              Flowise Is Shutting Down
+            </a>
+            <div class="article-id">ID 49176920</div>
+          </td>
+          <td class="timestamp">2026-08-05T00:02:40</td>
+          <td><span class="row-status status-pass">Verified</span></td>
+        </tr></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Generated 8/5/2026, 12:13:28 AM · Source: https://news.ycombinator.com/newest<br />
+    Newest: 2026-08-05T04:11:13 · Oldest: 2026-08-05T00:02:40
+  </footer>
+</body>
+</html>

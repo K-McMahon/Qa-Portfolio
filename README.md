@@ -1,4 +1,4 @@
-# Kevin McMahon — QA Analyst & Data Portfolio
+# Kevin McMahon | QA Analyst & Data Portfolio
 
 ## About Me
 
@@ -16,6 +16,7 @@ I am transitioning into software quality assurance and data analysis. This portf
 | API testing | 14 Postman API cases with execution evidence | 12 passed, 2 failed |
 | API collection run | Automated Postman assertions across the collection | 37 assertions: 28 passed, 9 failed; 2 runner errors documented |
 | Browser automation | Playwright end-to-end login scenario | 1 passing Chromium test with evidence |
+| Hacker News validation | Playwright ordering audit across paginated results | Exactly 100 unique articles verified with a branded HTML evidence report |
 | SQL analysis | Six-table relational sales database and 15 analytical queries | Schema, sanitized data, queries, joins, subquery, and results report complete |
 
 ## Featured Project 1: Automation Exercise QA
@@ -107,7 +108,7 @@ Included assets:
 
 ### Playwright Automation
 
-The automation project currently includes a passing Chromium test for `AE-LOGIN-001 — Login with valid credentials`.
+The automation project currently includes a passing Chromium test for `AE-LOGIN-001 - Login with valid credentials`.
 
 The test:
 
@@ -157,6 +158,39 @@ The repository includes a reproducible schema, sanitized sample data, 15 verifie
 - [Power BI dashboard overview](SQL%20Analysis%20Project/Power%20Bi/README.md)
 - [Power BI report file](SQL%20Analysis%20Project/Power%20Bi/online_sales_portal_dashboard.pbix)
 
+## Featured Project 3: Hacker News Playwright Validation
+
+This JavaScript and Playwright project validates that exactly the first 100 articles on [Hacker News Newest](https://news.ycombinator.com/newest) are ordered from newest to oldest.
+
+Because Hacker News uses pagination, the script follows the `More` link across four pages, collects exact machine-readable timestamps, and compares every neighboring article. Equal timestamps are accepted, while incomplete records, duplicate IDs, invalid timestamps, and ordering inversions fail the run with a specific diagnostic message.
+
+### Reliability and Reporting Features
+
+- Bounded retries for temporary navigation failures
+- HTTP response and article-row readiness checks
+- Exact 100-article collection limit
+- Duplicate-ID and missing-data protection
+- Timestamp validation using JavaScript `Date` objects
+- Guaranteed browser cleanup with `try` / `finally`
+- Headless execution for automation and headed execution for demonstrations
+- Automatically generated QA Wolf-styled HTML evidence report
+- PASS/FAIL summary, run duration, pagination metrics, and 100 traceable article results
+- Automatic report opening after headed runs
+
+### Project Deliverables
+
+- [Project instructions and setup](QA%20Wolf%20Take%20Home/README.md)
+- [Playwright validation script](QA%20Wolf%20Take%20Home/index.js)
+- [HTML evidence reporter](QA%20Wolf%20Take%20Home/reporter.js)
+- [Latest execution report](QA%20Wolf%20Take%20Home/reports/qa-wolf-hacker-news-report.html)
+
+Run the visible demonstration from the project directory with:
+
+```powershell
+npm.cmd install
+npm.cmd run test:headed
+```
+
 ## Tools and Technologies
 
 | Category | Tools |
@@ -164,7 +198,7 @@ The repository includes a reproducible schema, sanitized sample data, 15 verifie
 | Test management | Microsoft Excel, requirements traceability matrix, defect log |
 | Manual testing | Browser developer workflow, screenshot evidence, exploratory testing |
 | API testing | Postman, collection runner, JSON validation, environment variables |
-| Automation | Playwright, TypeScript, Node.js, Chromium |
+| Automation | Playwright, JavaScript, TypeScript, Node.js, Chromium |
 | Database and analysis | MySQL, MySQL Workbench, SQL |
 | Business intelligence | Microsoft Power BI, Power Query, DAX, ODBC |
 | Version control | Git, GitHub, GitHub Desktop |
@@ -181,6 +215,8 @@ The repository includes a reproducible schema, sanitized sample data, 15 verifie
 - API request construction and response validation
 - Distinguishing transport-level HTTP status from JSON business response codes
 - Automated browser testing and failure diagnostics
+- Pagination-aware data collection and chronological-order validation
+- Stakeholder-friendly automated HTML evidence reporting
 - Secure handling of credentials and sanitized evidence
 - Relational database design and SQL analysis
 - Power BI data modeling, DAX measures, interactive slicers, and dashboard design
@@ -210,6 +246,11 @@ Qa-Portfolio/
 │   ├── Database/
 │   ├── Documentation/
 │   └── Queries/
+├── QA Wolf Take Home/
+│   ├── assets/
+│   ├── reports/
+│   ├── index.js
+│   └── reporter.js
 └── README.md
 ```
 
