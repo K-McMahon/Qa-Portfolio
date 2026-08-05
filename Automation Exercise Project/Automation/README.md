@@ -1,6 +1,8 @@
 # Automation Exercise Playwright Tests
 
-This project contains Playwright browser automation tests for the Automation Exercise QA portfolio.
+## Project Synopsis
+
+This workstream introduces browser automation to the Automation Exercise QA portfolio. The current Playwright and TypeScript suite performs a complete valid-login flow, protects credentials through environment variables, and preserves execution evidence and an HTML report.
 
 ## Current coverage
 

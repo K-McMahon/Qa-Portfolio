@@ -21,6 +21,8 @@ I am transitioning into software quality assurance and data analysis. This portf
 
 ## Featured Project 1: Automation Exercise QA
 
+- [Open the complete Automation Exercise project overview](Automation%20Exercise%20Project/README.md)
+
 **Application under test:** [Automation Exercise](https://automationexercise.com/)
 
 **Testing performed:** Manual functional testing, negative testing, security-oriented input validation, API testing, traceability analysis, defect reporting, and Playwright automation.
@@ -126,6 +128,8 @@ The test:
 - [Passing-test evidence](Automation%20Exercise%20Project/Automation/Execution%20Evidence/AE-LOGIN-001-success.png)
 
 ## Featured Project 2: Online Sales Portal SQL and Power BI Analysis
+
+- [Open the complete SQL Analysis project overview](SQL%20Analysis%20Project/README.md)
 
 This project demonstrates database design and analytical SQL using a fictional online-sales dataset. The database contains six related tables:
 

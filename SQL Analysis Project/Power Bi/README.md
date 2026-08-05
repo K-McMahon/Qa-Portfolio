@@ -1,5 +1,7 @@
 # Online Sales Portal Power BI Dashboard
 
+## Project Synopsis
+
 This two-page Power BI report turns the fictional `online_sales_portal` MySQL database into an interactive sales and inventory analysis dashboard. It demonstrates data preparation, relational modeling, DAX measures, KPI design, filtering, and business-focused visualization.
 
 ## Dashboard File
@@ -142,4 +144,3 @@ Power Query was used to:
 - KPI, bar-chart, column-chart, table, and slicer configuration
 - Interactive dashboard design
 - Business insight communication
-

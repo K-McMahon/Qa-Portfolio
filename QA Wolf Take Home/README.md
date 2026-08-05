@@ -12,6 +12,10 @@
   <strong>JavaScript</strong> | <strong>Playwright</strong> | <strong>Chromium</strong> | <strong>HTML Reporting</strong>
 </p>
 
+## Project Synopsis
+
+This take-home project uses Playwright and JavaScript to collect exactly the first 100 articles from Hacker News, verify that they are ordered from newest to oldest across multiple pages, and generate a branded HTML evidence report for the completed run.
+
 ## Result
 
 ```text
