@@ -1,96 +1,198 @@
-# 🐺 QA Wolf Take Home Assignment
+<p align="center">
+  <img src="assets/qa-wolf-logo.png" alt="QA Wolf" width="300" />
+</p>
 
-## Completed Portfolio Implementation
+<h1 align="center">Hacker News Sorting Validation</h1>
 
-This implementation uses JavaScript and Playwright to collect exactly the first 100 articles from Hacker News Newest and verify that their exact timestamps are ordered from newest to oldest.
+<p align="center">
+  A Playwright coding challenge that verifies exactly the first 100 Hacker News articles are sorted from newest to oldest.
+</p>
 
-The solution includes pagination handling, unique-ID validation, timestamp validation, bounded navigation retries, clear failure diagnostics, and guaranteed browser cleanup. Every run also creates a styled HTML evidence report containing execution metrics and a traceable row for each article.
+<p align="center">
+  <strong>JavaScript</strong> | <strong>Playwright</strong> | <strong>Chromium</strong> | <strong>HTML Reporting</strong>
+</p>
 
-### Run the Project
+## Result
 
-Install the small set of declared dependencies:
+```text
+Collected 30 of 100 articles (Hacker News page 1).
+Collected 60 of 100 articles (Hacker News page 2).
+Collected 90 of 100 articles (Hacker News page 3).
+Collected 100 of 100 articles (Hacker News page 4).
 
-```powershell
-npm.cmd install
+PASS: Exactly 100 articles are sorted newest to oldest.
 ```
 
-Run headlessly:
+The test creates a styled HTML evidence report containing the run result, duration, pages inspected, and all 100 verified articles.
 
-```powershell
-npm.cmd test
+[View the latest HTML evidence report](reports/qa-wolf-hacker-news-report.html)
+
+## Challenge
+
+The goal was to use JavaScript and Playwright to:
+
+1. Visit [Hacker News Newest](https://news.ycombinator.com/newest).
+2. Collect exactly the first 100 articles.
+3. Confirm that they are ordered from newest to oldest.
+4. Produce a successful, repeatable execution.
+
+Hacker News displays about 30 articles per page, so reaching 100 articles requires pagination across four pages.
+
+## Test Flow
+
+```mermaid
+flowchart LR
+    A[Open Hacker News Newest] --> B[Collect article rows]
+    B --> C{Have 100 articles?}
+    C -- No --> D[Follow the More link]
+    D --> B
+    C -- Yes --> E[Check IDs and timestamps]
+    E --> F[Compare neighboring articles]
+    F --> G{Correct order?}
+    G -- Yes --> H[Print PASS]
+    G -- No --> I[Print useful failure details]
+    H --> J[Generate HTML report]
+    I --> J
 ```
 
-Run with Chromium visible and open the generated report automatically:
+## What the Test Validates
+
+- Exactly 100 articles are collected.
+- Every article has a unique Hacker News ID.
+- Every article has a usable timestamp.
+- Each article is newer than or equal to the article that follows it.
+- Pagination continues until the required count is reached.
+- Temporary navigation failures receive up to three attempts.
+- The browser closes after both successful and failed runs.
+
+Equal timestamps are accepted because two articles can be submitted during the same second.
+
+## Why Exact Timestamps Matter
+
+Hacker News displays relative labels such as `5 minutes ago`, but the page also provides exact timestamps.
+
+The test uses the exact value because it is:
+
+- More precise
+- Easier to compare
+- Less likely to change during execution
+- Better evidence when diagnosing a failure
+
+## HTML Evidence Report
+
+Every run writes a fresh report to:
+
+```text
+reports/qa-wolf-hacker-news-report.html
+```
+
+The report includes:
+
+- Clear PASS or FAIL result
+- Number of articles collected
+- Unique article count
+- Number of pages inspected
+- Total execution time
+- Test assumptions
+- All 100 article titles and timestamps
+- Direct links to each Hacker News item
+- Row-level verification status
+- Detailed diagnostics when validation fails
+
+Headed runs open the report automatically in the default browser.
+
+## Run Locally
+
+### 1. Install dependencies
+
+```bash
+npm install
+```
+
+### 2. Install Chromium if Playwright requests it
+
+```bash
+npx playwright install chromium
+```
+
+### 3. Run headlessly
+
+```bash
+npm test
+```
+
+### 4. Run with Chromium visible
+
+```bash
+npm run test:headed
+```
+
+On Windows PowerShell, use `npm.cmd` if the local execution policy blocks `npm`:
 
 ```powershell
 npm.cmd run test:headed
 ```
 
-The latest report is saved at [`reports/qa-wolf-hacker-news-report.html`](reports/qa-wolf-hacker-news-report.html).
+## Project Structure
 
-### Portfolio Files
+```text
+QA Wolf Take Home/
+|-- assets/
+|   `-- qa-wolf-logo.png
+|-- reports/
+|   `-- qa-wolf-hacker-news-report.html
+|-- index.js
+|-- index-explained.js
+|-- reporter.js
+|-- package.json
+|-- package-lock.json
+`-- README.md
+```
 
-- `index.js` - browser navigation, article collection, and chronological validation
-- `reporter.js` - offline HTML evidence-report generation and report opening
-- `assets/qa-wolf-logo.png` - local report branding asset
-- `reports/qa-wolf-hacker-news-report.html` - latest execution evidence
+| File | Purpose |
+|---|---|
+| `index.js` | Runs the browser, collects articles, and validates chronological order |
+| `index-explained.js` | Study copy with short plain-language comments |
+| `reporter.js` | Builds and opens the HTML evidence report |
+| `reports/qa-wolf-hacker-news-report.html` | Latest saved execution evidence |
+| `assets/qa-wolf-logo.png` | Local branding asset used by the report and README |
 
----
+## Design Decisions
 
-Welcome to the QA Wolf take home assignment for our [QA Engineer](https://www.task-wolf.com/apply-qae) role! We appreciate your interest and look forward to seeing what you come up with.
+### Stop at exactly 100
 
-## Instructions
+The fourth Hacker News page contains more articles than needed. The collector stops as soon as the results array reaches 100.
 
-This assignment has two questions as outlined below. When you are done, upload your assignment to our [application page](https://www.task-wolf.com/apply-qae):
+### Validate the validator's inputs
 
+The test checks IDs and timestamps before comparing dates. A result should not pass when its underlying evidence is incomplete.
 
-### Question 1
+### Use bounded retries
 
-In this assignment, you will create a script on [Hacker News](https://news.ycombinator.com/) using JavaScript and Microsoft's [Playwright](https://playwright.dev/) framework. 
+The script retries temporary page-loading problems up to three times. The limit improves reliability without hiding a persistent failure.
 
-1. Install node modules by running `npm i`.
+### Create evidence for people
 
-2. Edit the `index.js` file in this project to go to [Hacker News/newest](https://news.ycombinator.com/newest) and validate that EXACTLY the first 100 articles are sorted from newest to oldest. You can run your script with the `node index.js` command.
+Terminal output is useful for the person running the test. The HTML report makes the result easier for customers, managers, and other stakeholders to review.
 
-Note that you are welcome to update Playwright or install other packages as you see fit, however you must utilize Playwright in this assignment.
+## Skills Demonstrated
 
-### Question 2
+- Browser automation with Playwright
+- CSS locator selection
+- Pagination handling
+- Asynchronous JavaScript
+- Data extraction and validation
+- Chronological comparisons
+- Defensive error handling
+- Duplicate detection
+- Automated HTML reporting
+- Customer-focused presentation of QA evidence
 
-Why do you want to work at QA Wolf? Please record a short, ~2 min video using [Loom](https://www.loom.com/) that includes:
+## Original Assignment
 
-1. Your answer 
+This project was created for the [QA Wolf QA Engineer coding challenge](https://www.task-wolf.com/apply-qae). The original requirement was to edit `index.js`, use Playwright, and verify exactly the first 100 Hacker News articles are sorted from newest to oldest.
 
-2. A walk-through demonstration of your code, showing a successful execution
+## Author
 
-The answer and walkthrough should be combined into *one* video, and must be recorded using Loom as the submission page only accepts Loom links.
-
-## Frequently Asked Questions
-
-### What is your hiring process? When will I hear about next steps?
-
-This take home assignment is the first step in our hiring process, followed by a final round interview if it goes well. **We review every take home assignment submission and promise to get back to you either way within two weeks (usually sooner).** The only caveat is if we are out of the office, in which case we will get back to you when we return. If it has been more than two weeks and you have not heard from us, please do follow up.
-
-The final round interview is a 2-hour technical work session that reflects what it is like to work here. We provide a $150 stipend for your time for the final round interview regardless of how it goes. After that, there may be a short chat with our director about your experience and the role.
-
-Our hiring process is rolling where we review candidates until we have filled our openings. If there are no openings left, we will keep your contact information on file and reach out when we are hiring again.
-
-### Having trouble uploading your assignment?
-Be sure to delete your `node_modules` file, then zip your assignment folder prior to upload. 
-
-### How do you decide who to hire?
-
-We evaluate candidates based on three criteria:
-
-- Technical ability (as demonstrated in the take home and final round)
-- Customer service orientation (as this role is customer facing)
-- Alignment with our mission and values (captured [here](https://qawolf.notion.site/Mission-and-Values-859c7d0411ba41349e1b318f4e7abc8f))
-
-This means whether we hire you is based on how you do during our interview process, not on your previous experience (or lack thereof). Note that you will also need to pass a background check to work here as our customers require this.
-
-### How can I help my application stand out?
-
-While the assignment has clear requirements, we encourage applicants to treat it as more than a checklist. If you're genuinely excited about QA Wolf, consider going a step further - whether that means building a simple user interface, adding detailed error handling or reporting, improving the structure of the script, or anything else that showcases your unique perspective.
-
-There's no "right" answer - we're curious to see what you choose to do when given freedom and ambiguity. In a world where tools can help generate working code quickly and make it easier than ever to complete technical take-homes, we value originality and intentionality. If that resonates with you, use this assignment as a chance to show us how you think.
-
-Applicants who approach the assignment as a creative challenge, not just a checklist, tend to perform best in our process.
+**Kevin McMahon**  
+QA Analyst portfolio project
