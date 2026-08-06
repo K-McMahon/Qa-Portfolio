@@ -1,5 +1,6 @@
 # Codex-generated previews and local helper tooling
 .codex-previews/
+.codex-tmp/
 tools/
 
 # Node and Playwright generated dependencies/results

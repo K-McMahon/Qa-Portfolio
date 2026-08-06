@@ -7,11 +7,15 @@ export default defineConfig({
   forbidOnly: Boolean(process.env.CI),
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
-  reporter: [['html', { outputFolder: 'test-results/html-report' }], ['list']],
+  reporter: [
+    ['./reporting/qa-analytics-reporter.ts'],
+    ['html', { outputFolder: 'test-results/html-report', open: 'never' }],
+    ['list'],
+  ],
   use: {
     baseURL: 'https://automationexercise.com',
     trace: 'on-first-retry',
-    screenshot: 'only-on-failure',
+    screenshot: 'on',
     video: 'retain-on-failure',
   },
   outputDir: 'test-results/artifacts',

@@ -4,9 +4,11 @@
   "description": "Playwright automation tests for the Automation Exercise QA portfolio",
   "scripts": {
     "test": "playwright test",
-    "test:headed": "playwright test --headed",
-    "test:ui": "playwright test --ui",
-    "report": "playwright show-report"
+    "test:api": "playwright test tests/api",
+    "test:headed": "playwright test tests/ui --headed --workers=1",
+    "test:ui": "playwright test tests/ui --ui",
+    "report": "node scripts/open-qa-report.cjs",
+    "report:playwright": "playwright show-report test-results/html-report"
   },
   "keywords": [],
   "author": "",
