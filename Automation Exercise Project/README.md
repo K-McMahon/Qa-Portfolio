@@ -12,12 +12,12 @@ This project demonstrates a complete quality-assurance workflow for the Automati
 
 | Workstream | Result |
 |---|---|
-| Manual UI testing | 21 executed, 18 passed, 3 failed |
-| Defect management | 6 open defects documented with evidence |
+| Manual UI testing | 21 executed, 19 passed, 2 failed |
+| Defect management | 6 investigated defects: 3 open and 3 rejected after reconciliation or retest |
 | Requirements traceability | 44 requirements, 31 fully covered, 1 partially covered, 12 not covered |
-| API testing | 14 cases, 12 passed, 2 failed |
-| Postman collection run | 37 assertions, 28 passed, 9 failed, 2 runner errors |
-| Browser automation | 1 passing Playwright login scenario in Chromium |
+| API testing | 14 canonical cases, 14 passed, 0 failed |
+| Postman collection run | Historical baseline: 37 assertions, 28 passed, 9 failed, 2 runner errors; corrected collection ready for rerun |
+| Browser automation | 14 API and 14 portfolio UI scenarios implemented in Playwright with linked evidence |
 
 ## Project Artifacts
 
@@ -38,8 +38,8 @@ Manual scenarios cover registration, authentication, logout, account management,
 - Repeated logout triggers an unhandled Django `KeyError` and exposes internal debugging information.
 - The cart does not display an overall total.
 - Cart quantity cannot be edited as expected.
-- Unsupported API methods return HTTP 200 while the response body reports the intended error code.
-- Product search returns all products when the required search parameter is omitted.
+- Two apparent API defects were rejected after contract reconciliation confirmed that the service uses HTTP 200 transport responses with business response codes in the JSON body.
+- The corrected Postman collection now validates transport status, business response codes, response messages, and payload structure across all 14 endpoints.
 
 ## Tools and Skills
 

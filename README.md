@@ -10,12 +10,12 @@ I am transitioning into software quality assurance and data analysis. This portf
 
 | Area | Completed Work | Current Result |
 |---|---|---|
-| Manual UI testing | 21 documented and executed test cases | 18 passed, 3 failed |
+| Manual UI testing | 21 documented and executed test cases | 19 passed, 2 failed |
 | Defect reporting | 6 independently documented defects | 6 open, 3 High severity |
 | Requirements traceability | 44 UI, API, and tester-derived requirements | 31 fully covered, 1 partially covered, 12 not covered |
-| API testing | 14 Postman API cases with execution evidence | 12 passed, 2 failed |
-| API collection run | Automated Postman assertions across the collection | 37 assertions: 28 passed, 9 failed; 2 runner errors documented |
-| Browser automation | Playwright end-to-end login scenario | 1 passing Chromium test with evidence |
+| API testing | 14 canonical API cases with Postman and Playwright evidence | 14 passed, 0 failed; 2 observations rejected as test-configuration issues |
+| API collection run | Corrected automated assertions across the collection | Historical baseline: 37 assertions, 28 passed, 9 failed, 2 errors; fresh native Postman rerun pending |
+| Browser automation | Playwright API and browser suites | 14 API and 14 portfolio UI scenarios implemented with linked evidence |
 | Hacker News validation | Playwright ordering audit across paginated results | Exactly 100 unique articles verified with a branded HTML evidence report |
 | SQL analysis | Six-table relational sales database and 15 analytical queries | Schema, sanitized data, queries, joins, subquery, and results report complete |
 
@@ -45,11 +45,11 @@ The workbook records preconditions, controlled test data, numbered steps, expect
 - [Open the manual test-case repository](Automation%20Exercise%20Project/Test%20Cases/Automation%20Exercise%20-%20Test%20Case%20Repository.xlsx)
 - [Browse UI execution evidence](Automation%20Exercise%20Project/Screenshots)
 
-**Execution summary:** 21 executed; 18 passed; 3 failed; 0 not run.
+**Execution summary:** 21 executed; 19 passed; 2 failed; 0 not run.
 
 ### Defect Management
 
-Six open defects are documented with reproducible steps, expected and actual behavior, severity, priority, environment, evidence, retest status, and QA notes.
+Six investigated defects are documented with reproducible steps, expected and actual behavior, severity, priority, environment, evidence, retest status, and QA notes. Three remain open and three were rejected after requirements reconciliation or successful retest.
 
 Key findings include:
 
@@ -57,8 +57,7 @@ Key findings include:
 - An unhandled logout `KeyError` exposing internal Django debugging information
 - Missing overall cart total
 - Product quantity field not responding to edits
-- Unsupported API method returning HTTP 200 instead of HTTP 405
-- Product-search API returning all products when a required parameter is omitted
+- Two API observations that were rejected after contract reconciliation showed the service reports business response codes inside an HTTP 200 JSON response
 
 - [Open the defect log](Automation%20Exercise%20Project/Bug%20Report/Automation%20Exercise%20Defect%20Log.xlsx)
 
@@ -95,11 +94,11 @@ Included assets:
 - API execution workbook
 - 14 execution screenshots
 - Reconstructed collection-run report and JSON record
-- Defect links for failed API behavior
+- Traceability and disposition links for investigated API observations
 
-**Manual API execution:** 14 executed; 12 passed; 2 failed.
+**Current reconciled API execution:** 14 executed; 14 passed; 0 failed. Current Playwright API evidence, the API workbook, and the RTM agree on the final status.
 
-**Collection-run diagnostics:** 37 assertions ran; 28 passed and 9 failed. Two runner errors and one request without attached tests were preserved in the report rather than hidden, demonstrating investigation of both application behavior and test-script reliability.
+**Historical Postman baseline:** 37 assertions ran; 28 passed and 9 failed, with two runner errors and one request without tests. That August 1 record remains preserved for audit history. The failures were reconciled to stale assertions, missing scripts, or credentials rather than confirmed API defects. The corrected collection now contains tests for all 14 requests and is ready for a fresh native Postman run.
 
 - [API testing overview](Automation%20Exercise%20Project/API%20Testing/README.md)
 - [API test execution workbook](Automation%20Exercise%20Project/API%20Testing/Documentation/Automation%20Exercise%20API%20Test%20Cases.xlsx)
