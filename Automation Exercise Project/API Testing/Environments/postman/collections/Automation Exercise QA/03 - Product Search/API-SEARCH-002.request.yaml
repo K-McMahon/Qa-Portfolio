@@ -1,7 +1,0 @@
-$kind: http-request
-description: "RTM: REQ-API-006 | Expected response code: 400 | Expected message: Bad request, search_product parameter is missing in POST request."
-url: "{{base_url}}/searchProduct"
-method: POST
-body:
-  type: urlencoded
-order: 2000

@@ -1,0 +1,29 @@
+$kind: http-request
+description: "RTM: REQ-API-014 | Expected response code: 200 | Expected response: User Detail"
+url: "{{base_url}}/getUserDetailByEmail?email={{account_email}}"
+method: GET
+queryParams:
+  email: "{{account_email}}"
+scripts:
+  - type: afterResponse
+    code: |-
+      // check the transport response
+      pm.test('transport status is 200', function () {
+        pm.response.to.have.status(200);
+      });
+
+      // read the api result
+      const body = pm.response.json();
+
+      // check the documented business code
+      pm.test('business response code is 200', function () {
+        pm.expect(Number(body.responseCode)).to.eql(200);
+      });
+
+      // check the returned user
+      pm.test('user detail is returned', function () {
+        pm.expect(body.user).to.be.an('object');
+        pm.expect(body.user.email).to.eql(pm.environment.get('account_email'));
+      });
+    language: text/javascript
+order: 3000

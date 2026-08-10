@@ -1,0 +1,31 @@
+$kind: http-request
+description: "RTM: REQ-API-012 | Expected response code: 200 | Expected message: Account deleted!"
+url: "{{base_url}}/deleteAccount"
+method: DELETE
+body:
+  type: urlencoded
+  content:
+    email: "{{account_email}}"
+    password: "{{account_password}}"
+scripts:
+  - type: afterResponse
+    code: |-
+      // check the transport response
+      pm.test('transport status is 200', function () {
+        pm.response.to.have.status(200);
+      });
+
+      // read the api result
+      const body = pm.response.json();
+
+      // check the documented business code
+      pm.test('business response code is 200', function () {
+        pm.expect(Number(body.responseCode)).to.eql(200);
+      });
+
+      // check the documented message
+      pm.test('response message is correct', function () {
+        pm.expect(body.message).to.eql("Account deleted!");
+      });
+    language: text/javascript
+order: 4000

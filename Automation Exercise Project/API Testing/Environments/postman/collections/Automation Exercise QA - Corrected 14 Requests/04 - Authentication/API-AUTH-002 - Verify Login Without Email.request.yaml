@@ -1,0 +1,30 @@
+$kind: http-request
+description: "RTM: REQ-API-008 | Expected response code: 400 | Expected message: Bad request, email or password parameter is missing in POST request."
+url: "{{base_url}}/verifyLogin"
+method: POST
+body:
+  type: urlencoded
+  content:
+    password: "{{valid_password}}"
+scripts:
+  - type: afterResponse
+    code: |-
+      // check the transport response
+      pm.test('transport status is 200', function () {
+        pm.response.to.have.status(200);
+      });
+
+      // read the api result
+      const body = pm.response.json();
+
+      // check the documented business code
+      pm.test('business response code is 400', function () {
+        pm.expect(Number(body.responseCode)).to.eql(400);
+      });
+
+      // check the documented message
+      pm.test('response message is correct', function () {
+        pm.expect(body.message).to.eql("Bad request, email or password parameter is missing in POST request.");
+      });
+    language: text/javascript
+order: 2000

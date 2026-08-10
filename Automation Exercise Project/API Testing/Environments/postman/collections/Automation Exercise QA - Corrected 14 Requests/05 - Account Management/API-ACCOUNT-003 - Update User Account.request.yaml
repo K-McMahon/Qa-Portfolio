@@ -1,0 +1,46 @@
+$kind: http-request
+description: "RTM: REQ-API-013 | Expected response code: 200 | Expected message: User updated!"
+url: "{{base_url}}/updateAccount"
+method: PUT
+body:
+  type: urlencoded
+  content:
+    name: "{{user_name}}"
+    email: "{{account_email}}"
+    password: "{{account_password}}"
+    title: Mr
+    birth_date: "1"
+    birth_month: January
+    birth_year: "1990"
+    firstname: Kevin
+    lastname: Tester
+    company: QA Portfolio
+    address1: 123 Test Street
+    address2: Suite 1
+    country: United States
+    zipcode: "10001"
+    state: New York
+    city: New York
+    mobile_number: "5550101000"
+scripts:
+  - type: afterResponse
+    code: |-
+      // check the transport response
+      pm.test('transport status is 200', function () {
+        pm.response.to.have.status(200);
+      });
+
+      // read the api result
+      const body = pm.response.json();
+
+      // check the documented business code
+      pm.test('business response code is 200', function () {
+        pm.expect(Number(body.responseCode)).to.eql(200);
+      });
+
+      // check the documented message
+      pm.test('response message is correct', function () {
+        pm.expect(body.message).to.eql("User updated!");
+      });
+    language: text/javascript
+order: 2000

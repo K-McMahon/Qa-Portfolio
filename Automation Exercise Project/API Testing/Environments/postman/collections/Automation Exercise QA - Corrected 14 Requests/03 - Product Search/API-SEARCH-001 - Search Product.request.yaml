@@ -1,0 +1,30 @@
+$kind: http-request
+description: "RTM: REQ-API-005 | Expected response code: 200 | Expected response: Searched products list"
+url: "{{base_url}}/searchProduct"
+method: POST
+body:
+  type: urlencoded
+  content:
+    search_product: top
+scripts:
+  - type: afterResponse
+    code: |-
+      // check the transport response
+      pm.test('transport status is 200', function () {
+        pm.response.to.have.status(200);
+      });
+
+      // read the api result
+      const body = pm.response.json();
+
+      // check the documented business code
+      pm.test('business response code is 200', function () {
+        pm.expect(Number(body.responseCode)).to.eql(200);
+      });
+
+      // check the returned list
+      pm.test('products list is present', function () {
+        pm.expect(body.products).to.be.an('array').that.is.not.empty;
+      });
+    language: text/javascript
+order: 1000

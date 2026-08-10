@@ -1,6 +1,0 @@
-$kind: http-request
-description: "RTM: REQ-API-002 | Expected response code: 405 | Expected message: This request method is not supported."
-url: "{{base_url}}/productsList"
-method: POST
-examples: .resources/API-PRODUCT-002.resources/examples
-order: 2000

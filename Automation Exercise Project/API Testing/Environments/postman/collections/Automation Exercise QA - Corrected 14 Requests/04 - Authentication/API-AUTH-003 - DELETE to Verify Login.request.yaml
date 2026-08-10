@@ -1,0 +1,26 @@
+$kind: http-request
+description: "RTM: REQ-API-009 | Expected response code: 405 | Expected message: This request method is not supported."
+url: "{{base_url}}/verifyLogin"
+method: DELETE
+scripts:
+  - type: afterResponse
+    code: |-
+      // check the transport response
+      pm.test('transport status is 200', function () {
+        pm.response.to.have.status(200);
+      });
+
+      // read the api result
+      const body = pm.response.json();
+
+      // check the documented business code
+      pm.test('business response code is 405', function () {
+        pm.expect(Number(body.responseCode)).to.eql(405);
+      });
+
+      // check the documented message
+      pm.test('response message is correct', function () {
+        pm.expect(body.message).to.eql("This request method is not supported.");
+      });
+    language: text/javascript
+order: 3000
