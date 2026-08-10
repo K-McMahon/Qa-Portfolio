@@ -51,6 +51,6 @@ This historical report remains part of the audit trail. It should not be present
 - `../Screenshots/` for request-level Postman evidence.
 - `../../../Automation/Execution Evidence/` for current Playwright API evidence.
 
-## Next Controlled Action
+## Completed Follow-Up
 
-Rerun the corrected Postman collection and archive a new native runner result. Keep this August 1 baseline alongside that new report to show the failure analysis, correction, and verified outcome.
+The corrected 14-request collection was rerun on August 9, 2026. The clean run completed one iteration with 42 of 42 assertions passing and zero errors. See `AE-API_Full-Collection_QA_2026-08-09-Run-Summary.md` and the companion reconstructed JSON record. This August 1 baseline remains preserved to show the failure analysis, correction, and verified outcome.

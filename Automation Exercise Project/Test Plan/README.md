@@ -30,5 +30,4 @@ Evidence references and defect IDs have separate columns. A disagreement between
 | Not covered | 12 |
 | API requirements | 14 fully covered |
 
-The corrected Postman collection still requires a fresh native runner execution. The August 1 Postman baseline remains historical, while current Playwright API verification passed all 14 scenarios.
-
+The corrected Postman collection completed a clean run on August 9: 14 requests, 42 of 42 assertions passed, and zero errors. Playwright independently passed all 14 API scenarios. The August 1 Postman baseline remains historical and is retained separately for auditability.

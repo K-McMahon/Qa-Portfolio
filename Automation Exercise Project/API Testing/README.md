@@ -169,7 +169,7 @@ The RTM records API outcomes without blending test coverage and runner status:
 | RTM field | Meaning |
 |---|---|
 | Execution Environment | QA target and configuration context |
-| Postman Result | Historical August 1 outcome plus corrected-rerun status |
+| Postman Result | Current August 9 clean-run status; historical August 1 outcome retained separately |
 | Playwright Result | Current independent automated result |
 | Overall Execution Status | Reconciled current conclusion |
 | Evidence Reference(s) | Screenshots and reports only |

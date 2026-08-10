@@ -11,15 +11,19 @@ I am transitioning into software quality assurance and data analysis. This portf
 | Area | Completed Work | Current Result |
 |---|---|---|
 | Manual UI testing | 21 documented and executed test cases | 19 passed, 2 failed |
-| Defect reporting | 6 independently documented defects | 6 open, 3 High severity |
+| Defect reporting | 6 investigated defects | 3 open, 3 rejected after reconciliation or retest |
 | Requirements traceability | 44 UI, API, and tester-derived requirements | 31 fully covered, 1 partially covered, 12 not covered |
-| API testing | 14 canonical API cases with Postman and Playwright evidence | 14 passed, 0 failed; 2 observations rejected as test-configuration issues |
-| API collection run | Corrected automated assertions across the collection | Historical baseline: 37 assertions, 28 passed, 9 failed, 2 errors; fresh native Postman rerun pending |
+| API testing | 14 canonical API cases with separate Postman and Playwright results | Postman: 14/14 passed; Playwright: 14/14 passed |
+| API collection run | Corrected 14-request regression collection | Fresh run: 42/42 assertions passed, 0 errors; historical August 1 baseline retained |
 | Browser automation | Playwright API and browser suites | 14 API and 14 portfolio UI scenarios implemented with linked evidence |
 | Hacker News validation | Playwright ordering audit across paginated results | Exactly 100 unique articles verified with a branded HTML evidence report |
 | SQL analysis | Six-table relational sales database and 15 analytical queries | Schema, sanitized data, queries, joins, subquery, and results report complete |
 
 ## Featured Project 1: Automation Exercise QA
+
+<p align="center">
+  <img src="Automation%20Exercise%20Project/Assets/automation-exercise-logo.png" alt="Automation Exercise" width="380" />
+</p>
 
 - [Open the complete Automation Exercise project overview](Automation%20Exercise%20Project/README.md)
 
@@ -56,10 +60,10 @@ Key findings include:
 - Authenticated user information remaining visible after logout/back navigation
 - An unhandled logout `KeyError` exposing internal Django debugging information
 - Missing overall cart total
-- Product quantity field not responding to edits
+- Product quantity observation rejected after corrected retesting confirmed quantity 4 works
 - Two API observations that were rejected after contract reconciliation showed the service reports business response codes inside an HTTP 200 JSON response
 
-- [Open the defect log](Automation%20Exercise%20Project/Bug%20Report/Automation%20Exercise%20Defect%20Log.xlsx)
+- [Open the defect-management landing page](Automation%20Exercise%20Project/Bug%20Report/README.md)
 
 ### Requirements Traceability Matrix
 
@@ -80,7 +84,7 @@ The RTM cross-references:
 
 The remaining gaps are primarily checkout, additional catalog behavior, product reviews, recommended items, and scroll-navigation scenarios.
 
-- [Open the requirements traceability matrix](Automation%20Exercise%20Project/Test%20Plan/Automation%20Exercise%20Requirements%20Traceability%20Matrix.xlsx)
+- [Open the requirements-traceability landing page](Automation%20Exercise%20Project/Test%20Plan/README.md)
 
 ### API Testing With Postman
 
@@ -98,33 +102,24 @@ Included assets:
 
 **Current reconciled API execution:** 14 executed; 14 passed; 0 failed. Current Playwright API evidence, the API workbook, and the RTM agree on the final status.
 
-**Historical Postman baseline:** 37 assertions ran; 28 passed and 9 failed, with two runner errors and one request without tests. That August 1 record remains preserved for audit history. The failures were reconciled to stale assertions, missing scripts, or credentials rather than confirmed API defects. The corrected collection now contains tests for all 14 requests and is ready for a fresh native Postman run.
+**Current clean Postman run:** The corrected 14-request collection ran on August 9 with one iteration. All 42 assertions passed with zero failures and zero errors. The reconstructed JSON and Markdown summary are sanitized because native run export was unavailable on the active Postman account.
+
+**Historical Postman baseline:** 37 assertions ran; 28 passed and 9 failed, with two runner errors and one request without tests. That August 1 record remains preserved for audit history. The failures were reconciled to stale assertions, missing scripts, or credentials rather than confirmed API defects.
 
 - [API testing overview](Automation%20Exercise%20Project/API%20Testing/README.md)
 - [API test execution workbook](Automation%20Exercise%20Project/API%20Testing/Documentation/Automation%20Exercise%20API%20Test%20Cases.xlsx)
-- [Postman collection](Automation%20Exercise%20Project/API%20Testing/Collections/Automation%20Exercise%20QA.postman_collection.json)
+- [Corrected Postman collection](Automation%20Exercise%20Project/API%20Testing/Collections/Automation%20Exercise%20QA%20-%20Corrected%2014%20Requests.postman_collection.json)
 - [Postman environment](Automation%20Exercise%20Project/API%20Testing/Environments/Automation%20Exercise%20QA.postman_environment.json)
 - [Collection-run summary](Automation%20Exercise%20Project/API%20Testing/Execution%20Results/Postman%20Reports/AE-API_Full-Collection_QA_2026-08-01-Run-Summary.md)
+- [Clean August 9 collection-run summary](Automation%20Exercise%20Project/API%20Testing/Execution%20Results/Postman%20Reports/AE-API_Full-Collection_QA_2026-08-09-Run-Summary.md)
 - [API execution screenshots](Automation%20Exercise%20Project/API%20Testing/Execution%20Results/Screenshots)
 
 ### Playwright Automation
 
-The automation project currently includes a passing Chromium test for `AE-LOGIN-001 - Login with valid credentials`.
+The Playwright project contains 14 API scenarios and 14 mapped UI scenarios. It captures evidence, protects credentials through a private environment file, and produces both a stakeholder-oriented QA analytics report and Playwright's technical report. API automation currently passes all 14 canonical requirements; UI results remain independently traceable from the manual execution record.
 
-The test:
-
-1. Opens the application.
-2. Navigates to Signup / Login.
-3. Verifies the login form.
-4. Uses credentials stored in a private `.env` file.
-5. Submits valid credentials.
-6. Verifies the authenticated username indicator.
-7. Saves execution evidence without committing credentials.
-
-- [Automation project and commands](Automation%20Exercise%20Project/Automation/README.md)
-- [Playwright test](Automation%20Exercise%20Project/Automation/tests/login-success.spec.ts)
-- [Execution summary](Automation%20Exercise%20Project/Automation/Test%20Results/AE-LOGIN-001-2026-08-01.md)
-- [Passing-test evidence](Automation%20Exercise%20Project/Automation/Execution%20Evidence/AE-LOGIN-001-success.png)
+- [Automation project, coverage, and commands](Automation%20Exercise%20Project/Automation/README.md)
+- [Automation execution evidence](Automation%20Exercise%20Project/Automation/Execution%20Evidence)
 
 ## Featured Project 2: Online Sales Portal SQL and Power BI Analysis
 
@@ -162,6 +157,10 @@ The repository includes a reproducible schema, sanitized sample data, 15 verifie
 - [Power BI report file](SQL%20Analysis%20Project/Power%20Bi/online_sales_portal_dashboard.pbix)
 
 ## Featured Project 3: Hacker News Playwright Validation
+
+<p align="center">
+  <img src="QA%20Wolf%20Take%20Home/assets/qa-wolf-logo.png" alt="QA Wolf" width="260" />
+</p>
 
 This JavaScript and Playwright project validates that exactly the first 100 articles on [Hacker News Newest](https://news.ycombinator.com/newest) are ordered from newest to oldest.
 
@@ -227,11 +226,11 @@ npm.cmd run test:headed
 
 ## Current Development Focus
 
-- Expand Playwright coverage beyond successful login
+- Complete the fresh native Postman collection run and archive its runner evidence
 - Create manual cases for the remaining RTM coverage gaps
 - Retest documented defects when fixes become available
 - Refine Power BI presentation styling and expand the dataset over time
-- Add concise project-level summaries as each workstream matures
+- Keep README landing pages and traceability links synchronized as each workstream matures
 
 ## Repository Structure
 
