@@ -226,9 +226,8 @@ npm.cmd run test:headed
 
 ## Current Development Focus
 
-- Complete the fresh native Postman collection run and archive its runner evidence
 - Create manual cases for the remaining RTM coverage gaps
-- Retest documented defects when fixes become available
+- Retest open defects when fixes become available
 - Refine Power BI presentation styling and expand the dataset over time
 - Keep README landing pages and traceability links synchronized as each workstream matures
 
