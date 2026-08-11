@@ -1,0 +1,626 @@
+Space Key,Work Type,Summary,Description,Priority,Labels,Requirement ID
+AEQA,Requirement,REQ-AUTH-001 - Register User,"Feature: Registration
+Requirement source: Site Scenario
+Source scenario ID: SRC-TC-01
+Coverage status: Partially Covered
+Coverage rationale: Registration and deletion are covered, but the complete continuous workflow and optional newsletter/partner selections are not documented.
+Test type: Functional — Positive
+Execution environment: QA | automationexercise.com
+Manual result: Pass
+Postman result: N/A
+Playwright result: Not Automated
+Overall execution status: Pass
+Evidence reference(s): ..\Screenshots\AE-SIGNUP-001.png
+..\Screenshots\AE-SIGNUP-002.png
+..\Screenshots\AE-ACCOUNT-001.png
+Gap / reconciliation note: Add an end-to-end registration case or explicitly document why the workflow is decomposed. Verify newsletter and partner selections if they are in scope.",Highest,rtm-requirement,REQ-AUTH-001
+AEQA,Requirement,REQ-AUTH-002 - Login User with correct email and password,"Feature: Login / Account
+Requirement source: Site Scenario
+Source scenario ID: SRC-TC-02
+Coverage status: Fully Covered
+Coverage rationale: Valid login, username confirmation, and account deletion are covered across two focused test cases.
+Test type: Functional — Positive
+Execution environment: QA | automationexercise.com
+Manual result: Pass
+Postman result: N/A
+Playwright result: Pass
+Overall execution status: Pass
+Evidence reference(s): ..\Screenshots\AE-LOGIN-001.png
+..\Screenshots\AE-ACCOUNT-001.png
+Gap / reconciliation note: No immediate gap. Maintain cross-reference between the two focused cases.",Highest,rtm-requirement,REQ-AUTH-002
+AEQA,Requirement,REQ-AUTH-003 - Login User with incorrect email and password,"Feature: Login
+Requirement source: Site Scenario
+Source scenario ID: SRC-TC-03
+Coverage status: Fully Covered
+Coverage rationale: Incorrect-password handling is covered by AE-LOGIN-003, and rejection of an unregistered email address is covered by AE-LOGIN-004.
+Test type: Functional — Negative
+Execution environment: QA | automationexercise.com
+Manual result: Pass
+Postman result: N/A
+Playwright result: Pass
+Overall execution status: Pass
+Evidence reference(s): ..\Screenshots\AE-LOGIN-003.png
+..\Screenshots\AE-LOGIN-004.png
+Gap / reconciliation note: No immediate coverage gap. Retain both cases so invalid-password and unregistered-email behavior remain independently traceable.",High,rtm-requirement,REQ-AUTH-003
+AEQA,Requirement,REQ-AUTH-004 - Logout User,"Feature: Logout
+Requirement source: Site Scenario
+Source scenario ID: SRC-TC-04
+Coverage status: Fully Covered
+Coverage rationale: The source logout flow and additional browser-back session behavior were executed.
+Test type: Functional — Positive
+Execution environment: QA | automationexercise.com
+Manual result: Fail
+Postman result: N/A
+Playwright result: Fail
+Overall execution status: Fail
+Evidence reference(s): ..\Screenshots\AE-LOGOUT-001.png
+Defect ID(s): AE-BUG-001
+AE-BUG-002
+Gap / reconciliation note: Retest after defects are corrected. Keep the additional browser-back check as enhanced coverage.",High,rtm-requirement,REQ-AUTH-004
+AEQA,Requirement,REQ-AUTH-005 - Register User with existing email,"Feature: Registration
+Requirement source: Site Scenario
+Source scenario ID: SRC-TC-05
+Coverage status: Fully Covered
+Coverage rationale: Registration with an already registered email address was executed successfully and the expected duplicate-email error was displayed.
+Test type: Functional — Negative
+Execution environment: QA | automationexercise.com
+Manual result: Pass
+Postman result: N/A
+Playwright result: Pass
+Overall execution status: Pass
+Evidence reference(s): ..\Screenshots\AE-SIGNUP-005.png
+Gap / reconciliation note: No immediate gap. Continue using a dedicated QA account and sanitized evidence.",High,rtm-requirement,REQ-AUTH-005
+AEQA,Requirement,REQ-CONTACT-001 - Contact Us Form,"Feature: Contact
+Requirement source: Site Scenario
+Source scenario ID: SRC-TC-06
+Coverage status: Fully Covered
+Coverage rationale: Text entry, permitted file upload, the confirmation dialog, success messaging, and return to Home all matched the expected result.
+Test type: Functional — Positive
+Execution environment: QA | automationexercise.com
+Manual result: Pass
+Postman result: N/A
+Playwright result: Pass
+Overall execution status: Pass
+Evidence reference(s): ..\Screenshots\AE-CONTACT-001.png
+Gap / reconciliation note: No immediate gap. Preserve the sanitized AE-CONTACT-001 screenshot and successful return-to-Home observation for regression evidence.",Medium,rtm-requirement,REQ-CONTACT-001
+AEQA,Requirement,REQ-NAV-001 - Verify Test Cases Page,"Feature: Navigation
+Requirement source: Site Scenario
+Source scenario ID: SRC-TC-07
+Coverage status: Fully Covered
+Coverage rationale:  Navigation to the Test Cases page completed without error and the published scenarios were visible as expected.
+Test type: Functional — Positive
+Execution environment: QA | automationexercise.com
+Manual result: Pass
+Postman result: N/A
+Playwright result: Pass
+Overall execution status: Pass
+Evidence reference(s): ..\Screenshots\AE-NAV-001.png
+Gap / reconciliation note: No immediate gap. Retain AE-NAV-001 evidence showing both successful navigation and the published Test Cases page content.",Low,rtm-requirement,REQ-NAV-001
+AEQA,Requirement,REQ-PRODUCT-001 - Verify All Products and product detail page,"Feature: Products
+Requirement source: Site Scenario
+Source scenario ID: SRC-TC-08
+Coverage status: Fully Covered
+Coverage rationale: The All Products page, complete product list, product-detail navigation, and required product attributes were verified successfully.
+Test type: Functional — Positive
+Execution environment: QA | automationexercise.com
+Manual result: Pass
+Postman result: N/A
+Playwright result: Pass
+Overall execution status: Pass
+Evidence reference(s): ..\Screenshots\AE-PRODUCT-001.png
+Gap / reconciliation note: No immediate gap. Preserve evidence showing both the product list and product-detail information.",High,rtm-requirement,REQ-PRODUCT-001
+AEQA,Requirement,REQ-PRODUCT-002 - Search Product,"Feature: Products
+Requirement source: Site Scenario
+Source scenario ID: SRC-TC-09
+Coverage status: Fully Covered
+Coverage rationale: Product search was executed successfully and the returned products were verified as relevant to the selected search term.
+Test type: Functional — Positive
+Execution environment: QA | automationexercise.com
+Manual result: Pass
+Postman result: N/A
+Playwright result: Pass
+Overall execution status: Pass
+Evidence reference(s): ..\Screenshots\AE-PRODUCT-002.png
+Gap / reconciliation note: No immediate gap. Record the exact search term with each future execution.",High,rtm-requirement,REQ-PRODUCT-002
+AEQA,Requirement,REQ-SUB-001 - Verify Subscription in home page,"Feature: Subscription
+Requirement source: Site Scenario
+Source scenario ID: SRC-TC-10
+Coverage status: Fully Covered
+Coverage rationale: The home-page footer displayed the subscription heading, accepted the sanitized email, and showed the expected success message.
+Test type: Functional — Positive
+Execution environment: QA | automationexercise.com
+Manual result: Pass
+Postman result: N/A
+Playwright result: Pass
+Overall execution status: Pass
+Evidence reference(s): ..\Screenshots\AE-SUB-001.png
+Gap / reconciliation note: No immediate gap. Retain the sanitized AE-SUB-001 screenshot and reuse a controlled email value during regression testing.",Medium,rtm-requirement,REQ-SUB-001
+AEQA,Requirement,REQ-SUB-002 - Verify Subscription in Cart page,"Feature: Subscription
+Requirement source: Site Scenario
+Source scenario ID: SRC-TC-11
+Coverage status: Fully Covered
+Coverage rationale: The cart-page footer displayed the subscription heading, accepted the sanitized email, showed the expected success message, and remained on the cart page.
+Test type: Functional — Positive
+Execution environment: QA | automationexercise.com
+Manual result: Pass
+Postman result: N/A
+Playwright result: Pass
+Overall execution status: Pass
+Evidence reference(s): ..\Screenshots\AE-SUB-002.png
+Gap / reconciliation note: No immediate gap. Retain AE-SUB-002 evidence confirming both the success message and continued cart-page context.",Medium,rtm-requirement,REQ-SUB-002
+AEQA,Requirement,REQ-CART-001 - Add Products in Cart,"Feature: Cart
+Requirement source: Site Scenario
+Source scenario ID: SRC-TC-12
+Coverage status: Fully Covered
+Coverage rationale: Two products, their unit prices, default quantities, and line totals were verified. The case failed because the overall cart total was not displayed.
+Test type: Functional — Positive
+Execution environment: QA | automationexercise.com
+Manual result: Fail
+Postman result: N/A
+Playwright result: Fail
+Overall execution status: Fail
+Evidence reference(s): ..\Screenshots\AE-CART-001.png
+Defect ID(s): AE-BUG-003
+Gap / reconciliation note: Retest AE-CART-001 after AE-BUG-003 is corrected and confirm the overall total equals the sum of all line totals.",Highest,rtm-requirement,REQ-CART-001
+AEQA,Requirement,REQ-CART-002 - Verify Product quantity in Cart,"Feature: Cart
+Requirement source: Site Scenario
+Source scenario ID: SRC-TC-13
+Coverage status: Fully Covered
+Coverage rationale: Manual retest and corrected Playwright automation confirmed that quantity 4 can be selected on the product-detail page and is displayed correctly in the cart with the expected line total.
+Test type: Functional — Positive
+Execution environment: QA | automationexercise.com
+Manual result: Pass
+Postman result: N/A
+Playwright result: Pass
+Overall execution status: Pass
+Evidence reference(s): ..\Screenshots\AE-CART-002.png
+Defect ID(s): AE-BUG-004
+Gap / reconciliation note: No immediate coverage gap. Retain AE-CART-002 in regression and preserve AE-BUG-004 as a rejected defect record.",High,rtm-requirement,REQ-CART-002
+AEQA,Requirement,REQ-ORDER-001 - Place Order: Register while Checkout,"Feature: Checkout
+Requirement source: Site Scenario
+Source scenario ID: SRC-TC-14
+Coverage status: Not Covered
+Coverage rationale: No checkout registration-during-order workflow exists.
+Test type: End-to-End — Positive
+Execution environment: QA | automationexercise.com
+Manual result: Not Run
+Postman result: N/A
+Playwright result: Not Automated
+Overall execution status: Not Run
+Gap / reconciliation note: Create an end-to-end checkout case for registration during checkout.",Highest,rtm-requirement,REQ-ORDER-001
+AEQA,Requirement,REQ-ORDER-002 - Place Order: Register before Checkout,"Feature: Checkout
+Requirement source: Site Scenario
+Source scenario ID: SRC-TC-15
+Coverage status: Not Covered
+Coverage rationale: No register-before-checkout workflow exists.
+Test type: End-to-End — Positive
+Execution environment: QA | automationexercise.com
+Manual result: Not Run
+Postman result: N/A
+Playwright result: Not Automated
+Overall execution status: Not Run
+Gap / reconciliation note: Create an end-to-end checkout case for registration before checkout.",Highest,rtm-requirement,REQ-ORDER-002
+AEQA,Requirement,REQ-ORDER-003 - Place Order: Login before Checkout,"Feature: Checkout
+Requirement source: Site Scenario
+Source scenario ID: SRC-TC-16
+Coverage status: Not Covered
+Coverage rationale: No login-before-checkout workflow exists.
+Test type: End-to-End — Positive
+Execution environment: QA | automationexercise.com
+Manual result: Not Run
+Postman result: N/A
+Playwright result: Not Automated
+Overall execution status: Not Run
+Gap / reconciliation note: Create an end-to-end checkout case for login before checkout.",Highest,rtm-requirement,REQ-ORDER-003
+AEQA,Requirement,REQ-CART-003 - Remove Products From Cart,"Feature: Cart
+Requirement source: Site Scenario
+Source scenario ID: SRC-TC-17
+Coverage status: Fully Covered
+Coverage rationale: A product was added to the cart, removed using the remove control, and verified as no longer displayed or included in cart totals.
+Test type: Functional — Positive
+Execution environment: QA | automationexercise.com
+Manual result: Pass
+Postman result: N/A
+Playwright result: Pass
+Overall execution status: Pass
+Evidence reference(s): ..\Screenshots\AE-CART-003.png
+Gap / reconciliation note: No immediate gap. Retain before-and-after cart evidence for future executions.",High,rtm-requirement,REQ-CART-003
+AEQA,Requirement,REQ-CATALOG-001 - View Category Products,"Feature: Catalog
+Requirement source: Site Scenario
+Source scenario ID: SRC-TC-18
+Coverage status: Not Covered
+Coverage rationale: No category-navigation test exists.
+Test type: Functional — Positive
+Execution environment: QA | automationexercise.com
+Manual result: Not Run
+Postman result: N/A
+Playwright result: Not Automated
+Overall execution status: Not Run
+Gap / reconciliation note: Create category and subcategory navigation coverage.",Medium,rtm-requirement,REQ-CATALOG-001
+AEQA,Requirement,REQ-CATALOG-002 - View & Cart Brand Products,"Feature: Catalog
+Requirement source: Site Scenario
+Source scenario ID: SRC-TC-19
+Coverage status: Not Covered
+Coverage rationale: No brand-navigation test exists.
+Test type: Functional — Positive
+Execution environment: QA | automationexercise.com
+Manual result: Not Run
+Postman result: N/A
+Playwright result: Not Automated
+Overall execution status: Not Run
+Gap / reconciliation note: Create brand-list and brand-switching coverage.",Medium,rtm-requirement,REQ-CATALOG-002
+AEQA,Requirement,REQ-CART-004 - Search Products and Verify Cart After Login,"Feature: Search / Cart
+Requirement source: Site Scenario
+Source scenario ID: SRC-TC-20
+Coverage status: Not Covered
+Coverage rationale: No cart-persistence-after-login workflow exists.
+Test type: End-to-End — Positive
+Execution environment: QA | automationexercise.com
+Manual result: Not Run
+Postman result: N/A
+Playwright result: Not Automated
+Overall execution status: Not Run
+Gap / reconciliation note: Create search, cart, login, and cart-persistence coverage.",High,rtm-requirement,REQ-CART-004
+AEQA,Requirement,REQ-REVIEW-001 - Add review on product,"Feature: Product Review
+Requirement source: Site Scenario
+Source scenario ID: SRC-TC-21
+Coverage status: Not Covered
+Coverage rationale: No product-review test exists.
+Test type: Functional — Positive
+Execution environment: QA | automationexercise.com
+Manual result: Not Run
+Postman result: N/A
+Playwright result: Not Automated
+Overall execution status: Not Run
+Gap / reconciliation note: Create product-review submission coverage.",Medium,rtm-requirement,REQ-REVIEW-001
+AEQA,Requirement,REQ-CART-005 - Add to cart from Recommended items,"Feature: Recommended Items
+Requirement source: Site Scenario
+Source scenario ID: SRC-TC-22
+Coverage status: Not Covered
+Coverage rationale: No recommended-item cart test exists.
+Test type: Functional — Positive
+Execution environment: QA | automationexercise.com
+Manual result: Not Run
+Postman result: N/A
+Playwright result: Not Automated
+Overall execution status: Not Run
+Gap / reconciliation note: Create recommended-item cart coverage.",Medium,rtm-requirement,REQ-CART-005
+AEQA,Requirement,REQ-ORDER-004 - Verify address details in checkout page,"Feature: Checkout
+Requirement source: Site Scenario
+Source scenario ID: SRC-TC-23
+Coverage status: Not Covered
+Coverage rationale: No billing/delivery address verification exists.
+Test type: Functional — Positive
+Execution environment: QA | automationexercise.com
+Manual result: Not Run
+Postman result: N/A
+Playwright result: Not Automated
+Overall execution status: Not Run
+Gap / reconciliation note: Create checkout-address verification coverage.",Highest,rtm-requirement,REQ-ORDER-004
+AEQA,Requirement,REQ-ORDER-005 - Download Invoice after purchase order,"Feature: Checkout / Invoice
+Requirement source: Site Scenario
+Source scenario ID: SRC-TC-24
+Coverage status: Not Covered
+Coverage rationale: No invoice-download test exists.
+Test type: End-to-End — Positive
+Execution environment: QA | automationexercise.com
+Manual result: Not Run
+Postman result: N/A
+Playwright result: Not Automated
+Overall execution status: Not Run
+Gap / reconciliation note: Create purchase and invoice-download coverage.",High,rtm-requirement,REQ-ORDER-005
+AEQA,Requirement,REQ-NAV-002 - Verify Scroll Up using 'Arrow' button and Scroll Down functionality,"Feature: Navigation
+Requirement source: Site Scenario
+Source scenario ID: SRC-TC-25
+Coverage status: Not Covered
+Coverage rationale: No arrow-assisted scrolling test exists.
+Test type: Functional — Positive
+Execution environment: QA | automationexercise.com
+Manual result: Not Run
+Postman result: N/A
+Playwright result: Not Automated
+Overall execution status: Not Run
+Gap / reconciliation note: Create scroll-down and arrow-assisted scroll-up coverage.",Low,rtm-requirement,REQ-NAV-002
+AEQA,Requirement,REQ-NAV-003 - Verify Scroll Up without 'Arrow' button and Scroll Down functionality,"Feature: Navigation
+Requirement source: Site Scenario
+Source scenario ID: SRC-TC-26
+Coverage status: Not Covered
+Coverage rationale: No manual scroll-up test exists.
+Test type: Functional — Positive
+Execution environment: QA | automationexercise.com
+Manual result: Not Run
+Postman result: N/A
+Playwright result: Not Automated
+Overall execution status: Not Run
+Gap / reconciliation note: Create manual scroll-down and scroll-up coverage.",Low,rtm-requirement,REQ-NAV-003
+AEQA,Requirement,REQ-EXT-001 - Reject invalid email format during registration,"Feature: Registration
+Requirement source: Tester-Derived
+Source scenario ID: CUSTOM-01
+Coverage status: Fully Covered
+Coverage rationale: Tester-derived negative validation coverage was executed successfully.
+Test type: Functional — Negative
+Execution environment: QA | automationexercise.com
+Manual result: Pass
+Postman result: N/A
+Playwright result: Not Automated
+Overall execution status: Pass
+Evidence reference(s): ..\Screenshots\AE-SIGNUP-003.png
+Gap / reconciliation note: Retain as enhanced coverage beyond the published scenarios.",High,rtm-requirement,REQ-EXT-001
+AEQA,Requirement,REQ-EXT-002 - Prevent account creation when required fields are blank,"Feature: Registration
+Requirement source: Tester-Derived
+Source scenario ID: CUSTOM-02
+Coverage status: Fully Covered
+Coverage rationale: Tester-derived required-field validation was executed successfully.
+Test type: Functional — Negative
+Execution environment: QA | automationexercise.com
+Manual result: Pass
+Postman result: N/A
+Playwright result: Not Automated
+Overall execution status: Pass
+Evidence reference(s): ..\Screenshots\AE-SIGNUP-004.png
+Gap / reconciliation note: Consider splitting each required field into an independently traceable case.",High,rtm-requirement,REQ-EXT-002
+AEQA,Requirement,REQ-EXT-003 - Reject SQL injection input without authenticating the user,"Feature: Login Security
+Requirement source: Tester-Derived
+Source scenario ID: CUSTOM-03
+Coverage status: Fully Covered
+Coverage rationale: Tester-derived security-focused input validation was executed successfully.
+Test type: Security — Negative
+Execution environment: QA | automationexercise.com
+Manual result: Pass
+Postman result: N/A
+Playwright result: Pass
+Overall execution status: Pass
+Evidence reference(s): ..\Screenshots\AE-LOGIN-002.png
+Gap / reconciliation note: Retain as authorized security coverage; do not use destructive payloads.",High,rtm-requirement,REQ-EXT-003
+AEQA,Requirement,REQ-EXT-004 - Preserve an active account across logout and a new browser tab,"Feature: Account Management
+Requirement source: Tester-Derived
+Source scenario ID: CUSTOM-04
+Coverage status: Fully Covered
+Coverage rationale: Tester-derived account-persistence coverage was executed successfully.
+Test type: Functional — Positive
+Execution environment: QA | automationexercise.com
+Manual result: Pass
+Postman result: N/A
+Playwright result: Not Automated
+Overall execution status: Pass
+Evidence reference(s): ..\Screenshots\AE-ACCOUNT-002.png
+Gap / reconciliation note: Retain as enhanced account-lifecycle coverage.",High,rtm-requirement,REQ-EXT-004
+AEQA,Requirement,REQ-API-001 - Get All Products List,"Feature: Product API
+Requirement source: Site API Scenario
+Source scenario ID: SRC-API-01
+Coverage status: Fully Covered
+Coverage rationale: Fresh Postman Collection Runner execution and independent Playwright verification both passed the HTTP transport, documented JSON responseCode, and scenario-specific payload or message assertions.
+Test type: API — Positive
+Execution environment: QA | automationexercise.com
+Manual result: N/A
+Postman result: Pass
+Playwright result: Pass
+Overall execution status: Pass
+Evidence reference(s): ..\API Testing\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09-Run-Summary.md
+..\API Testing\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09.reconstructed.postman_run.json
+..\API Testing\Execution Results\Screenshots\API-PRODUCT-001.png
+..\Automation\Execution Evidence\API-PRODUCT-001.png
+..\Automation\test-results\qa-analytics\index.html
+Gap / reconciliation note: 200 | products list returned. Fresh Postman run: 3/3 assertions passed on 2026-08-09; full collection: 42/42 passed, 0 errors. Historical August 1 baseline remains retained separately for auditability.",High,rtm-requirement,REQ-API-001
+AEQA,Requirement,REQ-API-002 - POST To All Products List,"Feature: Product API
+Requirement source: Site API Scenario
+Source scenario ID: SRC-API-02
+Coverage status: Fully Covered
+Coverage rationale: Fresh Postman Collection Runner execution and independent Playwright verification both passed the HTTP transport, documented JSON responseCode, and scenario-specific payload or message assertions.
+Test type: API — Negative
+Execution environment: QA | automationexercise.com
+Manual result: N/A
+Postman result: Pass
+Playwright result: Pass
+Overall execution status: Pass
+Evidence reference(s): ..\API Testing\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09-Run-Summary.md
+..\API Testing\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09.reconstructed.postman_run.json
+..\API Testing\Execution Results\Screenshots\API-PRODUCT-002.png
+..\Automation\Execution Evidence\API-PRODUCT-002.png
+..\Automation\test-results\qa-analytics\index.html
+Gap / reconciliation note: 200 transport | responseCode 405 | method not supported. Fresh Postman run: 3/3 assertions passed on 2026-08-09; full collection: 42/42 passed, 0 errors. Historical August 1 baseline remains retained separately for auditability.",Medium,rtm-requirement,REQ-API-002
+AEQA,Requirement,REQ-API-003 - Get All Brands List,"Feature: Brand API
+Requirement source: Site API Scenario
+Source scenario ID: SRC-API-03
+Coverage status: Fully Covered
+Coverage rationale: Fresh Postman Collection Runner execution and independent Playwright verification both passed the HTTP transport, documented JSON responseCode, and scenario-specific payload or message assertions.
+Test type: API — Positive
+Execution environment: QA | automationexercise.com
+Manual result: N/A
+Postman result: Pass
+Playwright result: Pass
+Overall execution status: Pass
+Evidence reference(s): ..\API Testing\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09-Run-Summary.md
+..\API Testing\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09.reconstructed.postman_run.json
+..\API Testing\Execution Results\Screenshots\API-BRAND-001.png
+..\Automation\Execution Evidence\API-BRAND-001.png
+..\Automation\test-results\qa-analytics\index.html
+Gap / reconciliation note: 200 | brands list returned. Fresh Postman run: 3/3 assertions passed on 2026-08-09; full collection: 42/42 passed, 0 errors. Historical August 1 baseline remains retained separately for auditability.",High,rtm-requirement,REQ-API-003
+AEQA,Requirement,REQ-API-004 - PUT To All Brands List,"Feature: Brand API
+Requirement source: Site API Scenario
+Source scenario ID: SRC-API-04
+Coverage status: Fully Covered
+Coverage rationale: Fresh Postman Collection Runner execution and independent Playwright verification both passed the HTTP transport, documented JSON responseCode, and scenario-specific payload or message assertions.
+Test type: API — Negative
+Execution environment: QA | automationexercise.com
+Manual result: N/A
+Postman result: Pass
+Playwright result: Pass
+Overall execution status: Pass
+Evidence reference(s): ..\API Testing\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09-Run-Summary.md
+..\API Testing\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09.reconstructed.postman_run.json
+..\API Testing\Execution Results\Screenshots\API-BRAND-002.png
+..\Automation\Execution Evidence\API-BRAND-002.png
+..\Automation\test-results\qa-analytics\index.html
+Gap / reconciliation note: 200 transport | responseCode 405 | method not supported. Fresh Postman run: 3/3 assertions passed on 2026-08-09; full collection: 42/42 passed, 0 errors. Historical August 1 baseline remains retained separately for auditability.",Medium,rtm-requirement,REQ-API-004
+AEQA,Requirement,REQ-API-005 - POST To Search Product,"Feature: Search API
+Requirement source: Site API Scenario
+Source scenario ID: SRC-API-05
+Coverage status: Fully Covered
+Coverage rationale: Fresh Postman Collection Runner execution and independent Playwright verification both passed the HTTP transport, documented JSON responseCode, and scenario-specific payload or message assertions.
+Test type: API — Positive
+Execution environment: QA | automationexercise.com
+Manual result: N/A
+Postman result: Pass
+Playwright result: Pass
+Overall execution status: Pass
+Evidence reference(s): ..\API Testing\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09-Run-Summary.md
+..\API Testing\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09.reconstructed.postman_run.json
+..\API Testing\Execution Results\Screenshots\API-SEARCH-001.png
+..\Automation\Execution Evidence\API-SEARCH-001.png
+..\Automation\test-results\qa-analytics\index.html
+Gap / reconciliation note: 200 | searched products list returned. Fresh Postman run: 3/3 assertions passed on 2026-08-09; full collection: 42/42 passed, 0 errors. Historical August 1 baseline remains retained separately for auditability.",High,rtm-requirement,REQ-API-005
+AEQA,Requirement,"REQ-API-006 - POST To Search Product without search_product 
+parameter","Feature: Search API
+Requirement source: Site API Scenario
+Source scenario ID: SRC-API-06
+Coverage status: Fully Covered
+Coverage rationale: Fresh Postman Collection Runner execution and independent Playwright verification both passed the HTTP transport, documented JSON responseCode, and scenario-specific payload or message assertions.
+Test type: API — Negative
+Execution environment: QA | automationexercise.com
+Manual result: N/A
+Postman result: Pass
+Playwright result: Pass
+Overall execution status: Pass
+Evidence reference(s): ..\API Testing\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09-Run-Summary.md
+..\API Testing\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09.reconstructed.postman_run.json
+..\API Testing\Execution Results\Screenshots\API-SEARCH-002.png
+..\Automation\Execution Evidence\API-SEARCH-002.png
+..\Automation\test-results\qa-analytics\index.html
+Gap / reconciliation note: 200 transport | responseCode 400 | missing search_product message returned. Fresh Postman run: 3/3 assertions passed on 2026-08-09; full collection: 42/42 passed, 0 errors. Historical August 1 baseline remains retained separately for auditability.",High,rtm-requirement,REQ-API-006
+AEQA,Requirement,REQ-API-007 - POST To Verify Login with valid details,"Feature: Authentication API
+Requirement source: Site API Scenario
+Source scenario ID: SRC-API-07
+Coverage status: Fully Covered
+Coverage rationale: Fresh Postman Collection Runner execution and independent Playwright verification both passed the HTTP transport, documented JSON responseCode, and scenario-specific payload or message assertions.
+Test type: API — Positive
+Execution environment: QA | automationexercise.com
+Manual result: N/A
+Postman result: Pass
+Playwright result: Pass
+Overall execution status: Pass
+Evidence reference(s): ..\API Testing\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09-Run-Summary.md
+..\API Testing\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09.reconstructed.postman_run.json
+..\API Testing\Execution Results\Screenshots\API-AUTH-001.png
+..\Automation\Execution Evidence\API-AUTH-001.png
+..\Automation\test-results\qa-analytics\index.html
+Gap / reconciliation note: 200 transport | responseCode 200 | User exists!. Fresh Postman run: 3/3 assertions passed on 2026-08-09; full collection: 42/42 passed, 0 errors. Historical August 1 baseline remains retained separately for auditability.",Highest,rtm-requirement,REQ-API-007
+AEQA,Requirement,REQ-API-008 - POST To Verify Login without email parameter,"Feature: Authentication API
+Requirement source: Site API Scenario
+Source scenario ID: SRC-API-08
+Coverage status: Fully Covered
+Coverage rationale: Fresh Postman Collection Runner execution and independent Playwright verification both passed the HTTP transport, documented JSON responseCode, and scenario-specific payload or message assertions.
+Test type: API — Negative
+Execution environment: QA | automationexercise.com
+Manual result: N/A
+Postman result: Pass
+Playwright result: Pass
+Overall execution status: Pass
+Evidence reference(s): ..\API Testing\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09-Run-Summary.md
+..\API Testing\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09.reconstructed.postman_run.json
+..\API Testing\Execution Results\Screenshots\API-AUTH-002.png
+..\Automation\Execution Evidence\API-AUTH-002.png
+..\Automation\test-results\qa-analytics\index.html
+Gap / reconciliation note: 200 transport | responseCode 400 | missing credential message returned. Fresh Postman run: 3/3 assertions passed on 2026-08-09; full collection: 42/42 passed, 0 errors. Historical August 1 baseline remains retained separately for auditability.",High,rtm-requirement,REQ-API-008
+AEQA,Requirement,REQ-API-009 - DELETE To Verify Login,"Feature: Authentication API
+Requirement source: Site API Scenario
+Source scenario ID: SRC-API-09
+Coverage status: Fully Covered
+Coverage rationale: Fresh Postman Collection Runner execution and independent Playwright verification both passed the HTTP transport, documented JSON responseCode, and scenario-specific payload or message assertions.
+Test type: API — Negative
+Execution environment: QA | automationexercise.com
+Manual result: N/A
+Postman result: Pass
+Playwright result: Pass
+Overall execution status: Pass
+Evidence reference(s): ..\API Testing\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09-Run-Summary.md
+..\API Testing\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09.reconstructed.postman_run.json
+..\API Testing\Execution Results\Screenshots\API-AUTH-003.png
+..\Automation\Execution Evidence\API-AUTH-003.png
+..\Automation\test-results\qa-analytics\index.html
+Gap / reconciliation note: 200 transport | responseCode 405 | method not supported. Fresh Postman run: 3/3 assertions passed on 2026-08-09; full collection: 42/42 passed, 0 errors. Historical August 1 baseline remains retained separately for auditability.",Medium,rtm-requirement,REQ-API-009
+AEQA,Requirement,REQ-API-010 - POST To Verify Login with invalid details,"Feature: Authentication API
+Requirement source: Site API Scenario
+Source scenario ID: SRC-API-10
+Coverage status: Fully Covered
+Coverage rationale: Fresh Postman Collection Runner execution and independent Playwright verification both passed the HTTP transport, documented JSON responseCode, and scenario-specific payload or message assertions.
+Test type: API — Negative
+Execution environment: QA | automationexercise.com
+Manual result: N/A
+Postman result: Pass
+Playwright result: Pass
+Overall execution status: Pass
+Evidence reference(s): ..\API Testing\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09-Run-Summary.md
+..\API Testing\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09.reconstructed.postman_run.json
+..\API Testing\Execution Results\Screenshots\API-AUTH-004.png
+..\Automation\Execution Evidence\API-AUTH-004.png
+..\Automation\test-results\qa-analytics\index.html
+Gap / reconciliation note: 200 transport | responseCode 404 | User not found!. Fresh Postman run: 3/3 assertions passed on 2026-08-09; full collection: 42/42 passed, 0 errors. Historical August 1 baseline remains retained separately for auditability.",High,rtm-requirement,REQ-API-010
+AEQA,Requirement,REQ-API-011 - POST To Create/Register User Account,"Feature: Account API
+Requirement source: Site API Scenario
+Source scenario ID: SRC-API-11
+Coverage status: Fully Covered
+Coverage rationale: Fresh Postman Collection Runner execution and independent Playwright verification both passed the HTTP transport, documented JSON responseCode, and scenario-specific payload or message assertions.
+Test type: API — Positive
+Execution environment: QA | automationexercise.com
+Manual result: N/A
+Postman result: Pass
+Playwright result: Pass
+Overall execution status: Pass
+Evidence reference(s): ..\API Testing\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09-Run-Summary.md
+..\API Testing\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09.reconstructed.postman_run.json
+..\API Testing\Execution Results\Screenshots\API-ACCOUNT-001.png
+..\Automation\Execution Evidence\API-ACCOUNT-001.png
+..\Automation\test-results\qa-analytics\index.html
+Gap / reconciliation note: 200 transport | responseCode 201 | User created!. Fresh Postman run: 3/3 assertions passed on 2026-08-09; full collection: 42/42 passed, 0 errors. Historical August 1 baseline remains retained separately for auditability.",Highest,rtm-requirement,REQ-API-011
+AEQA,Requirement,REQ-API-012 - DELETE METHOD To Delete User Account,"Feature: Account API
+Requirement source: Site API Scenario
+Source scenario ID: SRC-API-12
+Coverage status: Fully Covered
+Coverage rationale: Fresh Postman Collection Runner execution and independent Playwright verification both passed the HTTP transport, documented JSON responseCode, and scenario-specific payload or message assertions.
+Test type: API — Positive
+Execution environment: QA | automationexercise.com
+Manual result: N/A
+Postman result: Pass
+Playwright result: Pass
+Overall execution status: Pass
+Evidence reference(s): ..\API Testing\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09-Run-Summary.md
+..\API Testing\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09.reconstructed.postman_run.json
+..\API Testing\Execution Results\Screenshots\API-ACCOUNT-002.png
+..\Automation\Execution Evidence\API-ACCOUNT-002.png
+..\Automation\test-results\qa-analytics\index.html
+Gap / reconciliation note: 200 transport | responseCode 200 | Account deleted!. Fresh Postman run: 3/3 assertions passed on 2026-08-09; full collection: 42/42 passed, 0 errors. Historical August 1 baseline remains retained separately for auditability.",Highest,rtm-requirement,REQ-API-012
+AEQA,Requirement,REQ-API-013 - PUT METHOD To Update User Account,"Feature: Account API
+Requirement source: Site API Scenario
+Source scenario ID: SRC-API-13
+Coverage status: Fully Covered
+Coverage rationale: Fresh Postman Collection Runner execution and independent Playwright verification both passed the HTTP transport, documented JSON responseCode, and scenario-specific payload or message assertions.
+Test type: API — Positive
+Execution environment: QA | automationexercise.com
+Manual result: N/A
+Postman result: Pass
+Playwright result: Pass
+Overall execution status: Pass
+Evidence reference(s): ..\API Testing\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09-Run-Summary.md
+..\API Testing\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09.reconstructed.postman_run.json
+..\API Testing\Execution Results\Screenshots\API-ACCOUNT-003.png
+..\Automation\Execution Evidence\API-ACCOUNT-003.png
+..\Automation\test-results\qa-analytics\index.html
+Gap / reconciliation note: 200 transport | responseCode 200 | User updated!. Fresh Postman run: 3/3 assertions passed on 2026-08-09; full collection: 42/42 passed, 0 errors. Historical August 1 baseline remains retained separately for auditability.",High,rtm-requirement,REQ-API-013
+AEQA,Requirement,REQ-API-014 - GET user account detail by email,"Feature: Account API
+Requirement source: Site API Scenario
+Source scenario ID: SRC-API-14
+Coverage status: Fully Covered
+Coverage rationale: Fresh Postman Collection Runner execution and independent Playwright verification both passed the HTTP transport, documented JSON responseCode, and scenario-specific payload or message assertions.
+Test type: API — Positive
+Execution environment: QA | automationexercise.com
+Manual result: N/A
+Postman result: Pass
+Playwright result: Pass
+Overall execution status: Pass
+Evidence reference(s): ..\API Testing\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09-Run-Summary.md
+..\API Testing\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09.reconstructed.postman_run.json
+..\API Testing\Execution Results\Screenshots\API-ACCOUNT-004.png
+..\Automation\Execution Evidence\API-ACCOUNT-004.png
+..\Automation\test-results\qa-analytics\index.html
+Gap / reconciliation note: 200 transport | responseCode 200 | user detail returned. Fresh Postman run: 3/3 assertions passed on 2026-08-09; full collection: 42/42 passed, 0 errors. Historical August 1 baseline remains retained separately for auditability.",High,rtm-requirement,REQ-API-014

@@ -1,0 +1,667 @@
+Space Key,Work Type,Summary,Description,Priority,Labels,Test Case ID,Test Type,Preconditions,Test Data,Test Steps,Expected Result,Actual Result,Execution Status,Automation Status,Environment
+AEQA,Test Case,AE-SIGNUP-001 - Verify a new user can begin registration using a valid name and unregistered email address,"Module: Signup
+Requirement ID: REQ-AUTH-001
+Executed by: KM
+Execution date: 46223
+Evidence / screenshot: ..\Screenshots\AE-SIGNUP-001.png
+Defect ID: NA
+Notes: Use a dedicated test email. Remove or blur personal information before publishing evidence.",High,ui-test,AE-SIGNUP-001,Functional — Positive,"1. Automation Exercise website is available.
+2. User is not logged in.
+3. Email address has not already been registered.","Name: Kevin Tester
+Email: qa.portfolio@example.com","1. Open the Automation Exercise website.
+2. Click Signup / Login.
+3. Enter a valid name under New User Signup.
+4. Enter an unregistered email address.
+5. Click Signup.",The Enter Account Information page is displayed and the user can continue registration.,Enter Account Information page is displayed and the user can continue registration.,Pass,Manual,QA | automationexercise.com
+AEQA,Test Case,AE-SIGNUP-002 - Verify a new user can create an account using valid required information,"Module: Signup
+Requirement ID: REQ-AUTH-001
+Executed by: KM
+Execution date: 46223
+Evidence / screenshot: ..\Screenshots\AE-SIGNUP-002.png
+Defect ID: NA
+Notes: Newsletter and partner offer checkboxes are optional. Do not store the password in this workbook.",Highest,ui-test,AE-SIGNUP-002,Functional — Positive,"1. AE-SIGNUP-001 has passed.
+2. Enter Account Information page is displayed.
+3. User is not logged in.","Valid values for all required fields:
+Title, password, date of birth, first name, last name, address, country, state, city, ZIP code, and mobile number.","1. Select a title.
+2. Enter a valid password.
+3. Select a date of birth.
+4. Enter a valid first name.
+5. Enter a valid last name.
+6. Enter a valid street address.
+7. Select a country.
+8. Enter a valid state.
+9. Enter a valid city.
+10. Enter a valid ZIP code.
+11. Enter a valid mobile number.
+12. Click Create Account.",The account is created successfully and the Account Created confirmation page is displayed.,Account is created successfully and the Account Created confirmation page is displayed.,Pass,Manual,QA | automationexercise.com
+AEQA,Test Case,AE-SIGNUP-003 - Verify that registration is prevented when a user enters invalid email address,"Module: Signup
+Requirement ID: REQ-EXT-001
+Executed by: KM
+Execution date: 46223
+Evidence / screenshot: ..\Screenshots\AE-SIGNUP-003.png
+Defect ID: NA
+Notes: Leaving out the @ in the format produces a 'Missing @' error",High,ui-test,AE-SIGNUP-003,Functional — Negative,"1. Automation Exercise website is available.
+2. User is not logged in.","Name: Kevin Test
+Email: Any invalid email format","1. Open the Automation Exercise website.
+2. Click Signup / Login.
+3. Enter a name under New User Signup.
+4. Enter an invalid email address.
+5. Click Signup.",Account creation should fail and user should be prompted with an error,Account creation failed and was prompted with an error,Pass,Manual,QA | automationexercise.com
+AEQA,Test Case,AE-SIGNUP-004 - Verify that account creation is prevented when required fields are left blank,"Module: Signup
+Requirement ID: REQ-EXT-002
+Executed by: KM
+Execution date: 46223
+Evidence / screenshot: ..\Screenshots\AE-SIGNUP-004.png
+Defect ID: NA
+Notes: For better traceability user should test each required field individually.",High,ui-test,AE-SIGNUP-004,Functional — Negative,"1. AE-SIGNUP-001 has passed.
+2. Enter Account Information page is displayed.
+3. User is not logged in.",Leave any required field marked with '*' blank.,"1. Select a title.
+2. Leave all fields or any marked with '*' blank
+3. Click Create Account",Account creation should fail and user should be prompted with an error,Account creation failed and was prompted with an error,Pass,Manual,QA | automationexercise.com
+AEQA,Test Case,AE-LOGIN-001 - Verify that a registered user can login using valid credentials,"Module: Login
+Requirement ID: REQ-AUTH-002
+Executed by: KM
+Execution date: 46224
+Evidence / screenshot: ..\Screenshots\AE-LOGIN-001.png
+Defect ID: NA
+Notes: Account password is not provided in the workbook or screenshot",Highest,ui-test,AE-LOGIN-001,Functional — Positive,"1. The Automation Exercise website is available.
+2. The user has an active registered account.
+3. The user is logged out.
+4. The Signup / Login page is displayed.","Name: Kevin Tester
+Email: qa.portfolio@example.com
+Password: ********","1. Open the Automation Exercise website.
+2. Click Signup / Login.
+3. Enter valid email address in the Login to your account section.
+4. Enter the correct password.
+5. Click Login.","User is authenticated successfully and redirected to the homepage. The ""Logged in as [username]"" indicator is displayed","User was authenticated successfully and redirected to the homepage. The ""Logged in as [username]"" indicator was displayed",Pass,Manual,QA | automationexercise.com
+AEQA,Test Case,AE-LOGIN-002 - Verify that the login form rejects SQL injection input without authenticating the user,"Module: Login
+Requirement ID: REQ-EXT-003
+Executed by: KM
+Execution date: 46224
+Evidence / screenshot: ..\Screenshots\AE-LOGIN-002.png
+Defect ID: NA
+Notes: test input contains 3 common SQL injection elements.",High,ui-test,AE-LOGIN-002,Security — Negative,"1. The Automation Exercise website is available.
+2. The user is logged out.
+3. The Signup / Login page is displayed.","Email: ' OR '1'='1' OR --
+Password: Use a harmless test value","1. Open the Automation Exercise website.
+2. Click Signup / Login.
+3. Enter the SQL injection test input in the email field.
+4. Enter a harmless value in the password field.
+5. Click Login.",Login attempt is rejected and the user remains unauthenticated. The website displays a safe validation or login error without exposing any database details or crashing.,Login attempt was rejected. Website displayed an error without explosing any database details or crashing.,Pass,Manual,QA | automationexercise.com
+AEQA,Test Case,AE-LOGIN-003 - Verify that login is rejected when a registered email address is entered with an incorrect password,"Module: Login
+Requirement ID: REQ-AUTH-003
+Executed by: KM
+Execution date: 46224
+Evidence / screenshot: ..\Screenshots\AE-LOGIN-003.png
+Defect ID: NA
+Notes: Verified authentication handling when the email is valid, but the password doesn't match",High,ui-test,AE-LOGIN-003,Functional — Negative,"1. The Automation Exercise website is available.
+2. The user has an active registered account.
+3. The user is logged out.
+4. The Signup / Login page is displayed.","Email: qa.portfolio@example.com
+Password: Incorrect test password","1. Open the Automation Exercise website.
+2. Click Signup / Login.
+3. Enter a registered email address in the email field.
+4. Enter an incorrect password.
+5. Click Login.","Login attempt is rejected , the user remains unauthenticated, and the user is presented with a clear error message indicating that the email or password is incorrect. No account information exposed",Login attempt was rejected. Website displayed a clear error indicating the email or password was incorrect. No account information was exposed.,Pass,Manual,QA | automationexercise.com
+AEQA,Test Case,AE-LOGOUT-001 - Verify that an authenticated user can successfully logout,"Module: Logout
+Requirement ID: REQ-AUTH-004
+Executed by: KM
+Execution date: 46232
+Evidence / screenshot: ..\Screenshots\AE-LOGOUT-001.png
+Defect ID: AE-BUG-001
+AE-BUG-002
+Notes: Further verification is required to determine whether this is only a cached page or whether the authenticated session remains active.",High,ui-test,AE-LOGOUT-001,Functional — Positive,"1. The Automation Exercise website is available.
+2. The user has an active registered account.
+3. The user is successfully logged in.
+4. The “Logged in as [username]” indicator is displayed.","Email: qa.portfolio@example.com
+Password: *******","1. Open the Automation Exercise website.
+2. Click Signup / Login.
+3. Enter a registered test email address.
+4. Enter the correct password.
+5. Click Login.
+6. Verify that “Logged in as [username]” is displayed.
+7. Click Logout in the navigation menu.
+8. Observe the page displayed after logout.
+9. Click the browser’s Back button and check whether authenticated content is accessible.","User logs in successfully and can then log out. After logout, the Signup / Login page is displayed, User information is removed, and using the browser's 'Back' button does not restore authenticated access.","The first logout redirected the user to the Signup / Login page. After clicking the browser’s Back button, the previous page displayed “Logged in as Kevin Tester” and the Logout option. Clicking Logout again produced an unhandled KeyError at /logout and displayed a Django debug page containing internal application and session information.",Fail,Manual,QA | automationexercise.com
+AEQA,Test Case,AE-ACCOUNT-001 - Verify that an authenticated user can permanently delete their account,"Module: Account Management
+Requirement ID: REQ-AUTH-001
+REQ-AUTH-002
+Executed by: KM
+Execution date: 46232
+Evidence / screenshot: ..\Screenshots\AE-ACCOUNT-001.png
+Defect ID: NA
+Notes: Screenshot is post deletion, upon login attempt with previously authenticated credentials.",Highest,ui-test,AE-ACCOUNT-001,Functional — Positive,"1. The Automation Exercise website is available.
+2. An active disposable test account exists.
+3. The user is logged out.
+4. The test account is approved for permanent deletion.","Email: qa.portfolio@example.com
+Password: *******","1. Open the Automation Exercise website.
+2. Click Signup / Login.
+3. Enter the registered test email address.
+4. Enter the correct password.
+5. Click Login.
+6. Verify that “Logged in as [username]” is displayed.
+7. Click Delete Account.
+8. Complete any confirmation step displayed by the application.
+9. Verify the account-deletion confirmation.
+10. Click Continue, if available.
+11. Return to Signup / Login.
+12. Attempt to log in using the deleted account’s credentials.","The account is deleted successfully and an “Account Deleted” confirmation is displayed. After deletion, the user is logged out, the deleted account can no longer be used to log in, and the website does not expose errors or previously authenticated information.","The account was deleted successfully and an ""Account Deleted"" Confirmation is displayed. After deletion, the user was logged out, the deleted account can no longer be used to log in, and the website does not expose error or previously authenticated information.",Pass,Manual,QA | automationexercise.com
+AEQA,Test Case,AE-ACCOUNT-002 - Verify that a registered account remains active and accessible after the user logs out,"Module: Account Management
+Requirement ID: REQ-EXT-004
+Executed by: KM
+Execution date: 46232
+Evidence / screenshot: ..\Screenshots\AE-ACCOUNT-002.png
+Defect ID: NA
+Notes: Screenshot is displaying a successful login on second attempt, after a logout and tab was closed.",High,ui-test,AE-ACCOUNT-002,Functional — Positive,"1. The Automation Exercise website is available.
+2. The user has an active registered test account.
+3. The account has not been deleted.
+4. The user is logged out.","Email: qa.portfolio@example.com
+Password: *******","1. Open the Automation Exercise website.
+2. Click Signup / Login.
+3. Enter the registered test email address.
+4. Enter the correct password.
+5. Click Login.
+6. Verify that “Logged in as [username]” is displayed.
+7. Click Logout.
+8. Verify that the Signup / Login page is displayed.
+9. Close the browser tab.
+10. Open the Automation Exercise website in a new browser tab.
+11. Click Signup / Login.
+12. Enter the same registered test email address.
+13. Enter the correct password.
+14. Click Login.
+15. Verify that “Logged in as [username]” is displayed again.","The user logs in successfully during both sessions. Logging out ends the first session without deleting or modifying the account, and the same valid credentials provide access during the second session.","The user logs in successfully during both sessions. Logging out ends the first session without deleting or modifying the account, and the same valid credentials provide access during the second session.",Pass,Manual,QA | automationexercise.com
+AEQA,Test Case,AE-SIGNUP-005 - Verify that registration is rejected when an existing email address is used,"Module: Signup
+Requirement ID: REQ-AUTH-005
+Executed by: KM
+Execution date: 46233
+Evidence / screenshot: ..\Screenshots\AE-SIGNUP-005.png
+Defect ID: NA
+Notes: Use an existing QA test account. ",High,ui-test,AE-SIGNUP-005,Functional — Negative,"1. The Automation Exercise website is available.
+2. An active registered test account exists.
+3. The user is logged out.","Name: Existing Account Tester
+Email: An already registered test email address","1. Open https://automationexercise.com while logged out.
+2. Click the 'Signup / Login' button.
+3. Verify that 'New User Signup!' is visible.
+4. Enter a valid name.
+5. Enter an already registered email address.
+6. Click the 'Signup' button.","Registration is rejected. The user remains on the signup page, the error message 'Email Address already exist!' is visible, and no duplicate account is created.","Registration is rejected. The user remains on the signup page, the error message 'Email Address already exist!' is visible, and no duplicate account is created.",Pass,Manual,QA | automationexercise.com
+AEQA,Test Case,AE-LOGIN-004 - Verify that login is rejected when an unregistered email address is entered,"Module: Login
+Requirement ID: REQ-AUTH-003
+Executed by: KM
+Execution date: 46233
+Evidence / screenshot: ..\Screenshots\AE-LOGIN-004.png
+Defect ID: NA
+Notes: Use a fictional, non-production email address reserved for testing.",High,ui-test,AE-LOGIN-004,Functional — Negative,"1. The Automation Exercise website is available.
+2. The user is logged out.
+3. The Signup / Login page is accessible.","Email: A valid-format email address that is not registered
+Password: A harmless test password","1. Open https://automationexercise.com while logged out.
+2. Click the 'Signup / Login' button.
+3. Verify that 'Login to your account' is visible.
+4. Enter an unregistered email address.
+5. Enter a test password.
+6. Click the 'Login' button.","Login is rejected. The user remains unauthenticated, the error message 'Your email or password is incorrect!' is visible, and no account information is exposed.","Login is rejected. The user remains unauthenticated, the error message 'Your email or password is incorrect!' is visible, and no account information is exposed.",Pass,Manual,QA | automationexercise.com
+AEQA,Test Case,AE-PRODUCT-001 - Verify that the All Products page and product details display correctly,"Module: Products
+Requirement ID: REQ-PRODUCT-001
+Executed by: KM
+Execution date: 46233
+Evidence / screenshot: ..\Screenshots\AE-PRODUCT-001.png
+Defect ID: NA
+Notes: 34 out of 34 products were visible and all links and categories display products. All product detail pages open.",High,ui-test,AE-PRODUCT-001,Functional — Positive,"1. The Automation Exercise website is available.
+2. The user is logged out.
+3. At least one product is available.",Product: First product displayed in the product list,"1. Open https://automationexercise.com while logged out.
+2. Click the 'Products' button.
+3. Verify that the All Products page is displayed.
+4. Verify that the products list is visible.
+5. Click 'View Product' for the first product.
+6. Verify that the product detail page is displayed.
+7. Verify the product name, category, price, availability, condition, and brand.","The All Products page and product list display successfully. The selected product detail page opens and shows the product name, category, price, availability, condition, and brand.","The All Products page and product list display successfully. The selected product detail page opens and shows the product name, category, price, availability, condition, and brand.",Pass,Manual,QA | automationexercise.com
+AEQA,Test Case,AE-PRODUCT-002 - Verify that product search returns relevant products,"Module: Products
+Requirement ID: REQ-PRODUCT-002
+Executed by: KM
+Execution date: 46233
+Evidence / screenshot: ..\Screenshots\AE-PRODUCT-002.png
+Defect ID: NA
+Notes: Searched the term 'Shirt' and succesfully produced results ",High,ui-test,AE-PRODUCT-002,Functional — Positive,"1. The Automation Exercise website is available.
+2. The user is logged out.
+3. A known product search term is available.","Search term: A known product name or keyword, such as 'Shirt' or 'Dress'","1. Open https://automationexercise.com while logged out.
+2. Click the 'Products' button.
+3. Verify that the All Products page is displayed.
+4. Enter the selected term in the search field.
+5. Click the search button.
+6. Verify that 'SEARCHED PRODUCTS' is visible.
+7. Verify that every displayed product is related to the search term.","The searched-products section is displayed. All returned products are relevant to the entered search term, and unrelated products are not displayed.","The searched-products section is displayed. All returned products are relevant to the entered search term, and unrelated products are not displayed.",Pass,Manual,QA | automationexercise.com
+AEQA,Test Case,"AE-CART-001 - Verify that two products can be added to the cart with correct prices, quantities, and totals","Module: Cart
+Requirement ID: REQ-CART-001
+Executed by: KM
+Execution date: 46233
+Evidence / screenshot: ..\Screenshots\AE-CART-001.png
+Defect ID: AE-BUG-003
+Notes: Overall total not displayed.  ",Highest,ui-test,AE-CART-001,Functional — Positive,"1. The Automation Exercise website is available.
+2. The user is logged out.
+3. At least two products are available.",Products: First and second products displayed in the product list,"1. Open https://automationexercise.com while logged out.
+2. Click the 'Products' button.
+3. Add the first product to the cart.
+4. Click 'Continue Shopping'.
+5. Add the second product to the cart.
+6. Click 'View Cart'.
+7. Verify that both products are displayed.
+8. Verify each product's price, quantity, and total.","Both products are displayed in the cart. Each product has the correct unit price, a default quantity of 1, and an accurate line total. The cart total accurately reflects both products.",Both products are displayed in the cart. Each product has the correct unit price. A Default quantity of 1 and there is an accurate line total. The cart total is not displayed. ,Fail,Manual,QA | automationexercise.com
+AEQA,Test Case,AE-CART-002 - Verify that a product is displayed in the cart with the selected quantity,"Module: Cart
+Requirement ID: REQ-CART-002
+Executed by: KM
+Execution date: 46240
+Evidence / screenshot: ..\Automation\Execution Evidence\AE-CART-002.png
+Defect ID: AE-BUG-004
+Notes: Retest passed. The original execution attempted to edit the quantity in the cart instead of setting it on the product-detail page. AE-BUG-004 was rejected as not an application defect.",High,ui-test,AE-CART-002,Functional — Positive,"1. The Automation Exercise website is available.
+2. The user is logged out.
+3. At least one product is available.","Product: Any available product
+Quantity: 4","1. Open https://automationexercise.com while logged out.
+2. Click 'View Product' for any product.
+3. Verify that the product detail page is displayed.
+4. Set the quantity to 4.
+5. Click 'Add to cart'.
+6. Click 'View Cart'.
+7. Verify that the selected product is displayed with a quantity of 4.","The selected product is displayed in the cart with an exact quantity of 4, and the line total equals the unit price multiplied by 4.","The selected product was displayed in the cart with quantity 4, and the line total equaled the unit price multiplied by 4.",Pass,Manual,QA | automationexercise.com
+AEQA,Test Case,AE-CART-003 - Verify that a product can be removed from the cart,"Module: Cart
+Requirement ID: REQ-CART-003
+Executed by: KM
+Execution date: 46234
+Evidence / screenshot: ..\Screenshots\AE-CART-003.png
+Defect ID: NA
+Notes: If the product remains after a refresh, record that behavior in Actual Result.",High,ui-test,AE-CART-003,Functional — Positive,"1. The Automation Exercise website is available.
+2. The user is logged out.
+3. At least one product is available.",Product: Any available product,"1. Open https://automationexercise.com while logged out.
+2. Add any available product to the cart.
+3. Click the 'Cart' button.
+4. Verify that the cart page and added product are displayed.
+5. Click the remove (X) button for the product.
+6. Verify that the product is removed from the cart.","The selected product is removed from the cart, is no longer displayed, and is no longer included in cart totals.","The selected product is removed from the cart, is no longer displayed, and is no longer included in cart totals.",Pass,Manual,QA | automationexercise.com
+AEQA,Test Case,AE-CONTACT-001 - Verify that a logged-out user can submit the Contact Us form successfully with a file attachment,"Module: Contact
+Requirement ID: REQ-CONTACT-001
+Executed by: KM
+Execution date: 46235
+Evidence / screenshot: ..\Screenshots\AE-CONTACT-001.png
+Defect ID: NA
+Notes: Tester was returned to the 'home' page upon clicking 'home' button",Medium,ui-test,AE-CONTACT-001,Functional — Positive,"1. The Automation Exercise website is available.
+2. The user is not logged in.
+3. A permitted test file is available for upload.","Name: Kevin Tester
+Email: qa.tester@example.com
+Subject: Portfolio contact-form test
+Message: Contact-form functional test submission
+Attachment: contact-upload.txt","1. Open https://automationexercise.com while logged out.
+2. Verify that the home page is displayed.
+3. Click the 'Contact us' button.
+4. Verify that 'GET IN TOUCH' is visible.
+5. Enter the test name, email, subject, and message.
+6. Upload the permitted test file.
+7. Click the 'Submit' button.
+8. Accept the confirmation dialog by clicking 'OK'.
+9. Verify the success message 'Success! Your details have been submitted successfully.' is visible.
+10. Click the 'Home' button.
+11. Verify that the user returns to the home page successfully.","The contact form accepts the entered data and attachment, displays the expected success message after confirmation, and returns the user to the home page when 'Home' is selected.","The contact form accepts the entered data and attachment, displays the expected success message after confirmation, and returns the user to the home page when 'Home' is selected.",Pass,Manual,QA | automationexercise.com
+AEQA,Test Case,AE-NAV-001 - Verify that a logged-out user can navigate to the Test Cases page successfully,"Module: Navigation
+Requirement ID: REQ-NAV-001
+Executed by: KM
+Execution date: 46235
+Evidence / screenshot: ..\Screenshots\AE-NAV-001.png
+Defect ID: NA
+Notes: Test succeeded as expected",Low,ui-test,AE-NAV-001,Functional — Positive,"1. The Automation Exercise website is available.
+2. The user is not logged in.",No special test data required,"1. Open https://automationexercise.com while logged out.
+2. Verify that the home page is displayed.
+3. Click the 'Test Cases' button in the navigation menu.
+4. Verify that the Test Cases page is displayed.
+5. Verify that the published test-case scenarios are visible.",The Test Cases page opens successfully and displays the published Automation Exercise test-case scenarios without an error.,The Test Cases page opens successfully and displays the published Automation Exercise test-case scenarios without an error.,Pass,Manual,QA | automationexercise.com
+AEQA,Test Case,AE-SUB-001 - Verify that a logged-out user can subscribe successfully from the home-page footer,"Module: Subscription
+Requirement ID: REQ-SUB-001
+Executed by: KM
+Execution date: 46235
+Evidence / screenshot: ..\Screenshots\AE-SUB-001.png
+Defect ID: NA
+Notes: Test succeeded as expected",Medium,ui-test,AE-SUB-001,Functional — Positive,"1. The Automation Exercise website is available.
+2. The user is not logged in.
+3. A valid sanitized email address is available.",Email: qa.subscription.home@example.com,"1. Open https://automationexercise.com while logged out.
+2. Verify that the home page is displayed.
+3. Scroll to the footer.
+4. Verify that the 'SUBSCRIPTION' heading is visible.
+5. Enter the valid sanitized email address in the subscription field.
+6. Click the subscription arrow button.
+7. Verify the success message 'You have been successfully subscribed!' is visible.",The home-page footer accepts the valid email address and displays 'You have been successfully subscribed!' without navigating away from the page.,The home-page footer accepts the valid email address and displays 'You have been successfully subscribed!' without navigating away from the page.,Pass,Manual,QA | automationexercise.com
+AEQA,Test Case,AE-SUB-002 - Verify that a logged-out user can subscribe successfully from the cart-page footer,"Module: Subscription
+Requirement ID: REQ-SUB-002
+Executed by: KM
+Execution date: 46235
+Evidence / screenshot: ..\Screenshots\AE-SUB-002.png
+Defect ID: NA
+Notes: Test succeeded as expected",Medium,ui-test,AE-SUB-002,Functional — Positive,"1. The Automation Exercise website is available.
+2. The user is not logged in.
+3. A valid sanitized email address is available.",Email: qa.subscription.cart@example.com,"1. Open https://automationexercise.com while logged out.
+2. Verify that the home page is displayed.
+3. Click the 'Cart' button.
+4. Verify that the cart page is displayed.
+5. Scroll to the footer.
+6. Verify that the 'SUBSCRIPTION' heading is visible.
+7. Enter the valid sanitized email address and click the subscription arrow button.
+8. Verify the success message 'You have been successfully subscribed!' is visible.",The cart-page footer accepts the valid email address and displays 'You have been successfully subscribed!' without leaving the cart page.,The cart-page footer accepts the valid email address and displays 'You have been successfully subscribed!' without leaving the cart page.,Pass,Manual,QA | automationexercise.com
+AEQA,Test Case,API-PRODUCT-001 - Verify retrieval of the complete products list,"Module: Products
+Requirement ID: REQ-API-001
+Method: GET
+Endpoint: {{base_url}}/productsList
+Authentication: None
+Headers: None
+Parameters / body: None
+Expected HTTP status: 200
+Expected response: HTTP 200; JSON responseCode 200; a non-empty products array containing product details.
+Actual HTTP status: 200
+Actual response: 200 | products list returned
+Response time (ms): 530
+Executed by: KM
+Execution date: 46243
+Evidence / screenshot: ..\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09-Run-Summary.md
+..\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09.reconstructed.postman_run.json
+..\Execution Results\Screenshots\API-PRODUCT-001.png
+..\..\Automation\Execution Evidence\API-PRODUCT-001.png
+Defect ID: NA
+Notes: Fresh Postman collection run passed 3/3 assertions on 2026-08-09. Independent Playwright verification also passed. Historical August 1 evidence remains retained separately.",High,api-test,API-PRODUCT-001,API — Positive,"1. Automation Exercise QA environment is selected.
+2. base_url is configured.
+3. API service is available.",None,"1. Open API-PRODUCT-001 in Postman.
+2. Confirm GET and {{base_url}}/productsList.
+3. Click Send.
+4. Verify the HTTP status.
+5. Verify responseCode and products in the JSON body.",200 - HTTP 200; JSON responseCode 200; a non-empty products array containing product details.,200 - 200 | products list returned,Pass,Manual,QA | automationexercise.com
+AEQA,Test Case,API-PRODUCT-002 - Verify POST is rejected for the products-list endpoint,"Module: Products
+Requirement ID: REQ-API-002
+Method: POST
+Endpoint: {{base_url}}/productsList
+Authentication: None
+Headers: None
+Parameters / body: None
+Expected HTTP status: 200
+Expected response: HTTP 200; JSON responseCode 405; message: This request method is not supported.
+Actual HTTP status: 200
+Actual response: 200 transport | responseCode 405 | method not supported
+Response time (ms): 152
+Executed by: KM
+Execution date: 46243
+Evidence / screenshot: ..\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09-Run-Summary.md
+..\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09.reconstructed.postman_run.json
+..\Execution Results\Screenshots\API-PRODUCT-002.png
+..\..\Automation\Execution Evidence\API-PRODUCT-002.png
+Defect ID: BUG-API-001
+Notes: Fresh Postman collection run passed 3/3 assertions on 2026-08-09. Independent Playwright verification also passed. Historical August 1 evidence remains retained separately.",Medium,api-test,API-PRODUCT-002,API — Negative,Automation Exercise QA environment is selected and the API is available.,None,"1. Open the request.
+2. Confirm POST.
+3. Click Send.
+4. Compare the response with the expected method-not-supported response.",200 - HTTP 200; JSON responseCode 405; message: This request method is not supported.,200 - 200 transport | responseCode 405 | method not supported,Pass,Manual,QA | automationexercise.com
+AEQA,Test Case,API-BRAND-001 - Verify retrieval of the complete brands list,"Module: Brands
+Requirement ID: REQ-API-003
+Method: GET
+Endpoint: {{base_url}}/brandsList
+Authentication: None
+Headers: None
+Parameters / body: None
+Expected HTTP status: 200
+Expected response: HTTP 200; JSON responseCode 200; a non-empty brands array containing brand details.
+Actual HTTP status: 200
+Actual response: 200 | brands list returned
+Response time (ms): 142
+Executed by: KM
+Execution date: 46243
+Evidence / screenshot: ..\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09-Run-Summary.md
+..\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09.reconstructed.postman_run.json
+..\Execution Results\Screenshots\API-BRAND-001.png
+..\..\Automation\Execution Evidence\API-BRAND-001.png
+Defect ID: NA
+Notes: Fresh Postman collection run passed 3/3 assertions on 2026-08-09. Independent Playwright verification also passed. Historical August 1 evidence remains retained separately.",High,api-test,API-BRAND-001,API — Positive,Automation Exercise QA environment is selected and the API is available.,None,"1. Open the request.
+2. Confirm GET.
+3. Click Send.
+4. Verify the status and brands list.",200 - HTTP 200; JSON responseCode 200; a non-empty brands array containing brand details.,200 - 200 | brands list returned,Pass,Manual,QA | automationexercise.com
+AEQA,Test Case,API-BRAND-002 - Verify PUT is rejected for the brands-list endpoint,"Module: Brands
+Requirement ID: REQ-API-004
+Method: PUT
+Endpoint: {{base_url}}/brandsList
+Authentication: None
+Headers: None
+Parameters / body: None
+Expected HTTP status: 200
+Expected response: HTTP 200; JSON responseCode 405; message: This request method is not supported.
+Actual HTTP status: 200
+Actual response: 200 transport | responseCode 405 | method not supported
+Response time (ms): 145
+Executed by: KM
+Execution date: 46243
+Evidence / screenshot: ..\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09-Run-Summary.md
+..\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09.reconstructed.postman_run.json
+..\Execution Results\Screenshots\API-BRAND-002.png
+..\..\Automation\Execution Evidence\API-BRAND-002.png
+Defect ID: NA
+Notes: Fresh Postman collection run passed 3/3 assertions on 2026-08-09. Independent Playwright verification also passed. Historical August 1 evidence remains retained separately.",Medium,api-test,API-BRAND-002,API — Negative,Automation Exercise QA environment is selected and the API is available.,None,"1. Open the request.
+2. Confirm PUT.
+3. Click Send.
+4. Verify the method-not-supported response.",200 - HTTP 200; JSON responseCode 405; message: This request method is not supported.,200 - 200 transport | responseCode 405 | method not supported,Pass,Manual,QA | automationexercise.com
+AEQA,Test Case,API-SEARCH-001 - Verify products can be searched using a valid search_product value,"Module: Product Search
+Requirement ID: REQ-API-005
+Method: POST
+Endpoint: {{base_url}}/searchProduct
+Authentication: None
+Headers: Content-Type: application/x-www-form-urlencoded
+Parameters / body: search_product=top
+Expected HTTP status: 200
+Expected response: HTTP 200; JSON responseCode 200; a non-empty products array containing search results.
+Actual HTTP status: 200
+Actual response: 200 | searched products list returned
+Response time (ms): 173
+Executed by: KM
+Execution date: 46243
+Evidence / screenshot: ..\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09-Run-Summary.md
+..\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09.reconstructed.postman_run.json
+..\Execution Results\Screenshots\API-SEARCH-001.png
+..\..\Automation\Execution Evidence\API-SEARCH-001.png
+Defect ID: NA
+Notes: Fresh Postman collection run passed 3/3 assertions on 2026-08-09. Independent Playwright verification also passed. Historical August 1 evidence remains retained separately.",High,api-test,API-SEARCH-001,API — Positive,Automation Exercise QA environment is selected and the API is available.,search_product=top,"1. Open the request.
+2. Confirm POST and search_product data.
+3. Click Send.
+4. Verify status and searched products.",200 - HTTP 200; JSON responseCode 200; a non-empty products array containing search results.,200 - 200 | searched products list returned,Pass,Manual,QA | automationexercise.com
+AEQA,Test Case,API-SEARCH-002 - Verify search validation when search_product value is omitted,"Module: Product Search
+Requirement ID: REQ-API-006
+Method: POST
+Endpoint: {{base_url}}/searchProduct
+Authentication: None
+Headers: Content-Type: application/x-www-form-urlencoded
+Parameters / body: Parameter intentionally omitted
+Expected HTTP status: 200
+Expected response: HTTP 200; JSON responseCode 400; message: Bad request, search_product parameter is missing in POST request.
+Actual HTTP status: 200
+Actual response: 200 transport | responseCode 400 | missing search_product message returned
+Response time (ms): 149
+Executed by: KM
+Execution date: 46243
+Evidence / screenshot: ..\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09-Run-Summary.md
+..\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09.reconstructed.postman_run.json
+..\Execution Results\Screenshots\API-SEARCH-002.png
+..\..\Automation\Execution Evidence\API-SEARCH-002.png
+Defect ID: BUG-API-002
+Notes: Fresh Postman collection run passed 3/3 assertions on 2026-08-09. Independent Playwright verification also passed. Historical August 1 evidence remains retained separately.",High,api-test,API-SEARCH-002,API — Negative,Automation Exercise QA environment is selected and the API is available.,Parameter intentionally omitted,"1. Open the request.
+2. Confirm search_product is absent.
+3. Click Send.
+4. Verify the missing-parameter response.","200 - HTTP 200; JSON responseCode 400; message: Bad request, search_product parameter is missing in POST request.",200 - 200 transport | responseCode 400 | missing search_product message returned,Pass,Manual,QA | automationexercise.com
+AEQA,Test Case,API-AUTH-001 - Verify login API with valid credentials,"Module: Authentication
+Requirement ID: REQ-API-007
+Method: POST
+Endpoint: {{base_url}}/verifyLogin
+Authentication: None
+Headers: Content-Type: application/x-www-form-urlencoded
+Parameters / body: email={{valid_email}}; password={{valid_password}}
+Expected HTTP status: 200
+Expected response: HTTP 200; JSON responseCode 200; message: User exists!
+Actual HTTP status: 200
+Actual response: 200 transport | responseCode 200 | User exists!
+Response time (ms): 150
+Executed by: KM
+Execution date: 46243
+Evidence / screenshot: ..\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09-Run-Summary.md
+..\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09.reconstructed.postman_run.json
+..\Execution Results\Screenshots\API-AUTH-001.png
+..\..\Automation\Execution Evidence\API-AUTH-001.png
+Defect ID: NA
+Notes: Fresh Postman collection run passed 3/3 assertions on 2026-08-09. Independent Playwright verification also passed. Historical August 1 evidence remains retained separately.",Highest,api-test,API-AUTH-001,API — Positive,A valid dedicated QA account exists and environment credentials are configured.,email={{valid_email}}; password={{valid_password}},"1. Open the request.
+2. Confirm valid email and password variables.
+3. Click Send.
+4. Verify status and User exists message.",200 - HTTP 200; JSON responseCode 200; message: User exists!,200 - 200 transport | responseCode 200 | User exists!,Pass,Manual,QA | automationexercise.com
+AEQA,Test Case,API-AUTH-002 - Verify login validation when email is omitted,"Module: Authentication
+Requirement ID: REQ-API-008
+Method: POST
+Endpoint: {{base_url}}/verifyLogin
+Authentication: None
+Headers: Content-Type: application/x-www-form-urlencoded
+Parameters / body: password={{valid_password}}; email omitted
+Expected HTTP status: 200
+Expected response: HTTP 200; JSON responseCode 400; message: Bad request, email or password parameter is missing in POST request.
+Actual HTTP status: 200
+Actual response: 200 transport | responseCode 400 | missing credential message returned
+Response time (ms): 140
+Executed by: KM
+Execution date: 46243
+Evidence / screenshot: ..\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09-Run-Summary.md
+..\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09.reconstructed.postman_run.json
+..\Execution Results\Screenshots\API-AUTH-002.png
+..\..\Automation\Execution Evidence\API-AUTH-002.png
+Defect ID: NA
+Notes: Fresh Postman collection run passed 3/3 assertions on 2026-08-09. Independent Playwright verification also passed. Historical August 1 evidence remains retained separately.",High,api-test,API-AUTH-002,API — Negative,Environment is selected and a safe password variable is configured.,password={{valid_password}}; email omitted,"1. Open the request.
+2. Confirm email is absent.
+3. Click Send.
+4. Verify the missing-parameter response.","200 - HTTP 200; JSON responseCode 400; message: Bad request, email or password parameter is missing in POST request.",200 - 200 transport | responseCode 400 | missing credential message returned,Pass,Manual,QA | automationexercise.com
+AEQA,Test Case,API-AUTH-003 - Verify DELETE is rejected for the login-verification endpoint,"Module: Authentication
+Requirement ID: REQ-API-009
+Method: DELETE
+Endpoint: {{base_url}}/verifyLogin
+Authentication: None
+Headers: None
+Parameters / body: None
+Expected HTTP status: 200
+Expected response: HTTP 200; JSON responseCode 405; message: This request method is not supported.
+Actual HTTP status: 200
+Actual response: 200 transport | responseCode 405 | method not supported
+Response time (ms): 136
+Executed by: KM
+Execution date: 46243
+Evidence / screenshot: ..\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09-Run-Summary.md
+..\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09.reconstructed.postman_run.json
+..\Execution Results\Screenshots\API-AUTH-003.png
+..\..\Automation\Execution Evidence\API-AUTH-003.png
+Defect ID: NA
+Notes: Fresh Postman collection run passed 3/3 assertions on 2026-08-09. Independent Playwright verification also passed. Historical August 1 evidence remains retained separately.",Medium,api-test,API-AUTH-003,API — Negative,Automation Exercise QA environment is selected and the API is available.,None,"1. Open the request.
+2. Confirm DELETE.
+3. Click Send.
+4. Verify the method-not-supported response.",200 - HTTP 200; JSON responseCode 405; message: This request method is not supported.,200 - 200 transport | responseCode 405 | method not supported,Pass,Manual,QA | automationexercise.com
+AEQA,Test Case,API-AUTH-004 - Verify login API rejects invalid credentials,"Module: Authentication
+Requirement ID: REQ-API-010
+Method: POST
+Endpoint: {{base_url}}/verifyLogin
+Authentication: None
+Headers: Content-Type: application/x-www-form-urlencoded
+Parameters / body: email={{invalid_email}}; password={{invalid_password}}
+Expected HTTP status: 200
+Expected response: HTTP 200; JSON responseCode 404; message: User not found!
+Actual HTTP status: 200
+Actual response: 200 transport | responseCode 404 | User not found!
+Response time (ms): 148
+Executed by: KM
+Execution date: 46243
+Evidence / screenshot: ..\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09-Run-Summary.md
+..\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09.reconstructed.postman_run.json
+..\Execution Results\Screenshots\API-AUTH-004.png
+..\..\Automation\Execution Evidence\API-AUTH-004.png
+Defect ID: NA
+Notes: Fresh Postman collection run passed 3/3 assertions on 2026-08-09. Independent Playwright verification also passed. Historical August 1 evidence remains retained separately.",High,api-test,API-AUTH-004,API — Negative,Invalid test credential variables are configured.,email={{invalid_email}}; password={{invalid_password}},"1. Open the request.
+2. Confirm invalid credential variables.
+3. Click Send.
+4. Verify status and User not found message.",200 - HTTP 200; JSON responseCode 404; message: User not found!,200 - 200 transport | responseCode 404 | User not found!,Pass,Manual,QA | automationexercise.com
+AEQA,Test Case,API-ACCOUNT-001 - Verify a user account can be created through the API,"Module: Account Management
+Requirement ID: REQ-API-011
+Method: POST
+Endpoint: {{base_url}}/createAccount
+Authentication: None
+Headers: Content-Type: application/x-www-form-urlencoded
+Parameters / body: Required account fields from environment and request body
+Expected HTTP status: 200
+Expected response: HTTP 200; JSON responseCode 201; message: User created!
+Actual HTTP status: 200
+Actual response: 200 transport | responseCode 201 | User created!
+Response time (ms): 160
+Executed by: KM
+Execution date: 46243
+Evidence / screenshot: ..\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09-Run-Summary.md
+..\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09.reconstructed.postman_run.json
+..\Execution Results\Screenshots\API-ACCOUNT-001.png
+..\..\Automation\Execution Evidence\API-ACCOUNT-001.png
+Defect ID: NA
+Notes: Fresh Postman collection run passed 3/3 assertions on 2026-08-09. Independent Playwright verification also passed. Historical August 1 evidence remains retained separately.",Highest,api-test,API-ACCOUNT-001,API — Positive,A unique disposable email is configured and no account currently uses it.,Required account fields from environment and request body,"1. Confirm all required account fields.
+2. Click Send.
+3. Verify status and User created message.
+4. Preserve sanitized evidence.",200 - HTTP 200; JSON responseCode 201; message: User created!,200 - 200 transport | responseCode 201 | User created!,Pass,Manual,QA | automationexercise.com
+AEQA,Test Case,API-ACCOUNT-002 - Verify a user account can be deleted through the API,"Module: Account Management
+Requirement ID: REQ-API-012
+Method: DELETE
+Endpoint: {{base_url}}/deleteAccount
+Authentication: None
+Headers: Content-Type: application/x-www-form-urlencoded
+Parameters / body: email={{account_email}}; password={{account_password}}
+Expected HTTP status: 200
+Expected response: HTTP 200; JSON responseCode 200; message: Account deleted!
+Actual HTTP status: 200
+Actual response: 200 transport | responseCode 200 | Account deleted!
+Response time (ms): 146
+Executed by: KM
+Execution date: 46243
+Evidence / screenshot: ..\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09-Run-Summary.md
+..\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09.reconstructed.postman_run.json
+..\Execution Results\Screenshots\API-ACCOUNT-002.png
+..\..\Automation\Execution Evidence\API-ACCOUNT-002.png
+Defect ID: NA
+Notes: Fresh Postman collection run passed 3/3 assertions on 2026-08-09. Independent Playwright verification also passed. Historical August 1 evidence remains retained separately.",Highest,api-test,API-ACCOUNT-002,API — Positive,A disposable QA account exists and its credentials are configured.,email={{account_email}}; password={{account_password}},"1. Confirm the disposable account values.
+2. Click Send.
+3. Verify status and Account deleted message.",200 - HTTP 200; JSON responseCode 200; message: Account deleted!,200 - 200 transport | responseCode 200 | Account deleted!,Pass,Manual,QA | automationexercise.com
+AEQA,Test Case,API-ACCOUNT-003 - Verify a user account can be updated through the API,"Module: Account Management
+Requirement ID: REQ-API-013
+Method: PUT
+Endpoint: {{base_url}}/updateAccount
+Authentication: None
+Headers: Content-Type: application/x-www-form-urlencoded
+Parameters / body: Required account fields with updated values
+Expected HTTP status: 200
+Expected response: HTTP 200; JSON responseCode 200; message: User updated!
+Actual HTTP status: 200
+Actual response: 200 transport | responseCode 200 | User updated!
+Response time (ms): 160
+Executed by: KM
+Execution date: 46243
+Evidence / screenshot: ..\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09-Run-Summary.md
+..\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09.reconstructed.postman_run.json
+..\Execution Results\Screenshots\API-ACCOUNT-003.png
+..\..\Automation\Execution Evidence\API-ACCOUNT-003.png
+Defect ID: NA
+Notes: Fresh Postman collection run passed 3/3 assertions on 2026-08-09. Independent Playwright verification also passed. Historical August 1 evidence remains retained separately.",High,api-test,API-ACCOUNT-003,API — Positive,A disposable QA account exists and its credentials are configured.,Required account fields with updated values,"1. Confirm account and updated field values.
+2. Click Send.
+3. Verify status and User updated message.",200 - HTTP 200; JSON responseCode 200; message: User updated!,200 - 200 transport | responseCode 200 | User updated!,Pass,Manual,QA | automationexercise.com
+AEQA,Test Case,API-ACCOUNT-004 - Verify user-account details can be retrieved by email,"Module: Account Management
+Requirement ID: REQ-API-014
+Method: GET
+Endpoint: {{base_url}}/getUserDetailByEmail
+Authentication: None
+Headers: None
+Parameters / body: email={{account_email}}
+Expected HTTP status: 200
+Expected response: HTTP 200; JSON responseCode 200; User Detail JSON for the requested email.
+Actual HTTP status: 200
+Actual response: 200 transport | responseCode 200 | user detail returned
+Response time (ms): 139
+Executed by: KM
+Execution date: 46243
+Evidence / screenshot: ..\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09-Run-Summary.md
+..\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09.reconstructed.postman_run.json
+..\Execution Results\Screenshots\API-ACCOUNT-004.png
+..\..\Automation\Execution Evidence\API-ACCOUNT-004.png
+Defect ID: NA
+Notes: Fresh Postman collection run passed 3/3 assertions on 2026-08-09. Independent Playwright verification also passed. Historical August 1 evidence remains retained separately.",High,api-test,API-ACCOUNT-004,API — Positive,A disposable QA account exists and its email is configured.,email={{account_email}},"1. Confirm the account email parameter.
+2. Click Send.
+3. Verify status and returned user details.",200 - HTTP 200; JSON responseCode 200; User Detail JSON for the requested email.,200 - 200 transport | responseCode 200 | user detail returned,Pass,Manual,QA | automationexercise.com

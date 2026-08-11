@@ -1,0 +1,113 @@
+"Space Key","Work Type","Summary","Description","Priority","Labels","Test Case ID","Test Type","Preconditions","Test Data","Test Steps","Expected Result","Actual Result","Execution Status","Automation Status","Environment"
+"AEQA","Test Case","AE-SIGNUP-006 - Verify the complete registration workflow including optional subscription selections","Module: Signup
+Requirement ID: REQ-AUTH-001
+Source: RTM coverage-gap remediation
+Environment: QA | automationexercise.com","Highest","rtm-test-case manual coverage-gap","AE-SIGNUP-006","Functional","Automation Exercise is available; user is logged out; a unique disposable email is available.","Unique QA name and email; safe account details; newsletter and special-offer selections enabled.","1. Open automationexercise.com and select Signup / Login.
+2. Start signup with a valid name and unique email.
+3. Complete all required account fields.
+4. Select Sign up for our newsletter and Receive special offers from our partners.
+5. Create the account and continue to the home page.
+6. Verify Logged in as is displayed.
+7. Delete the disposable account as cleanup.","The account is created successfully, the user is authenticated, optional selections do not block registration, and cleanup succeeds.","","Not Run","Manual","QA | automationexercise.com"
+"AEQA","Test Case","AE-ORDER-001 - Verify an order can be placed after registering during checkout","Module: Checkout
+Requirement ID: REQ-ORDER-001
+Source: RTM coverage-gap remediation
+Environment: QA | automationexercise.com","Highest","rtm-test-case manual coverage-gap","AE-ORDER-001","Functional","Automation Exercise is available; user is logged out; cart is empty; a unique email is available.","One in-stock product; unique QA account data; safe test payment data supplied by the site scenario.","1. Add a product to the cart.
+2. Open Cart and select Proceed To Checkout.
+3. Choose Register / Login.
+4. Create and confirm a new account.
+5. Return to Cart and proceed to checkout.
+6. Verify address and order details.
+7. Enter an order comment and place the order.
+8. Enter test payment details and confirm.
+9. Verify the success message and delete the disposable account.","The newly registered user completes checkout and sees the order success confirmation.","","Not Run","Manual","QA | automationexercise.com"
+"AEQA","Test Case","AE-ORDER-002 - Verify an order can be placed after registering before checkout","Module: Checkout
+Requirement ID: REQ-ORDER-002
+Source: RTM coverage-gap remediation
+Environment: QA | automationexercise.com","Highest","rtm-test-case manual coverage-gap","AE-ORDER-002","Functional","Automation Exercise is available; user is logged out; a unique email is available.","Unique QA account; one in-stock product; safe test payment data.","1. Register a new account from Signup / Login.
+2. Confirm Logged in as is displayed.
+3. Add a product to the cart.
+4. Proceed to checkout.
+5. Verify address and order details.
+6. Place the order and provide test payment details.
+7. Confirm the order and verify success.
+8. Delete the disposable account.","A user registered before shopping can place the order successfully and receives confirmation.","","Not Run","Manual","QA | automationexercise.com"
+"AEQA","Test Case","AE-ORDER-003 - Verify an existing user can log in before checkout and place an order","Module: Checkout
+Requirement ID: REQ-ORDER-003
+Source: RTM coverage-gap remediation
+Environment: QA | automationexercise.com","Highest","rtm-test-case manual coverage-gap","AE-ORDER-003","Functional","A dedicated Automation Exercise QA account exists and is logged out.","Valid QA credentials; one in-stock product; safe test payment data.","1. Open Signup / Login and authenticate with the QA account.
+2. Verify Logged in as is displayed.
+3. Add a product to the cart and proceed to checkout.
+4. Verify address and order details.
+5. Place the order and provide test payment details.
+6. Confirm the order.","The authenticated user completes checkout and sees the order success confirmation.","","Not Run","Manual","QA | automationexercise.com"
+"AEQA","Test Case","AE-CATALOG-001 - Verify category and subcategory navigation displays matching products","Module: Products
+Requirement ID: REQ-CATALOG-001
+Source: RTM coverage-gap remediation
+Environment: QA | automationexercise.com","High","rtm-test-case manual coverage-gap","AE-CATALOG-001","UI","Automation Exercise home page is available.","Women > Dress and Men > Tshirts category examples.","1. Verify the Category panel is visible.
+2. Expand Women and select Dress.
+3. Verify the Women - Dress Products heading and relevant products.
+4. Expand Men and select Tshirts.
+5. Verify the Men - Tshirts Products heading and relevant products.","Each selected subcategory opens the correct category page and displays products belonging to that selection.","","Not Run","Manual","QA | automationexercise.com"
+"AEQA","Test Case","AE-CATALOG-002 - Verify brand navigation and switching displays products for the selected brand","Module: Products
+Requirement ID: REQ-CATALOG-002
+Source: RTM coverage-gap remediation
+Environment: QA | automationexercise.com","High","rtm-test-case manual coverage-gap","AE-CATALOG-002","UI","Automation Exercise Products page is available.","Two brands shown in the Brands panel, such as Polo and H&M.","1. Open Products and verify the Brands panel.
+2. Select the first brand and verify the brand-products heading and results.
+3. Select a different brand.
+4. Verify the heading and results update to the second brand.","The selected brand name is shown and only its brand-product results are displayed after each switch.","","Not Run","Manual","QA | automationexercise.com"
+"AEQA","Test Case","AE-CART-004 - Verify searched products remain in the cart after login","Module: Cart
+Requirement ID: REQ-CART-004
+Source: RTM coverage-gap remediation
+Environment: QA | automationexercise.com","Highest","rtm-test-case manual coverage-gap","AE-CART-004","Regression","A dedicated QA account exists and is logged out; cart is empty.","Search term matching multiple products; valid QA credentials.","1. Open Products and search for a product term.
+2. Verify Searched Products and add visible results to the cart.
+3. Open Cart and record the products.
+4. Select Signup / Login and authenticate.
+5. Return to Cart.
+6. Compare product names, prices, quantities, and totals with the pre-login cart.","All products added before login remain in the cart with unchanged details after authentication.","","Not Run","Manual","QA | automationexercise.com"
+"AEQA","Test Case","AE-REVIEW-001 - Verify a visitor can submit a review from a product-details page","Module: Products
+Requirement ID: REQ-REVIEW-001
+Source: RTM coverage-gap remediation
+Environment: QA | automationexercise.com","Medium","rtm-test-case manual coverage-gap","AE-REVIEW-001","Functional","Automation Exercise Products page is available.","QA reviewer name; disposable QA email; non-sensitive review text.","1. Open Products and view a product detail.
+2. Scroll to Write Your Review.
+3. Enter name, email, and review text.
+4. Submit the review.
+5. Observe the confirmation message.","The review is accepted and the Thank you for your review confirmation is displayed.","","Not Run","Manual","QA | automationexercise.com"
+"AEQA","Test Case","AE-CART-005 - Verify a product can be added to the cart from Recommended Items","Module: Cart
+Requirement ID: REQ-CART-005
+Source: RTM coverage-gap remediation
+Environment: QA | automationexercise.com","High","rtm-test-case manual coverage-gap","AE-CART-005","Functional","Automation Exercise home page is available; cart is empty.","Any product displayed in Recommended Items.","1. Scroll to Recommended Items.
+2. Verify recommended products are displayed.
+3. Select Add to cart for one recommended product.
+4. Open Cart.
+5. Verify the chosen product and its price, quantity, and total.","The selected recommended product is present in the cart with correct line details.","","Not Run","Manual","QA | automationexercise.com"
+"AEQA","Test Case","AE-ORDER-004 - Verify checkout delivery and billing addresses match the registered account","Module: Checkout
+Requirement ID: REQ-ORDER-004
+Source: RTM coverage-gap remediation
+Environment: QA | automationexercise.com","Highest","rtm-test-case manual coverage-gap","AE-ORDER-004","Functional","A registered QA user is logged in and has at least one product in the cart.","Known QA registration address and one in-stock product.","1. Proceed from Cart to Checkout.
+2. Compare Delivery Address with the registered account data.
+3. Compare Billing Address with the registered account data.
+4. Verify name, company if supplied, street, city/state/ZIP, country, and phone fields.","Delivery and billing sections display the correct registered account address details without omissions or unexpected changes.","","Not Run","Manual","QA | automationexercise.com"
+"AEQA","Test Case","AE-ORDER-005 - Verify an invoice can be downloaded after a successful purchase","Module: Checkout
+Requirement ID: REQ-ORDER-005
+Source: RTM coverage-gap remediation
+Environment: QA | automationexercise.com","High","rtm-test-case manual coverage-gap","AE-ORDER-005","Functional","A registered QA user is logged in and can complete checkout.","One in-stock product and safe test payment data.","1. Add a product and complete checkout.
+2. Verify the order success message.
+3. Select Download Invoice.
+4. Confirm a file downloads.
+5. Open the invoice and compare order/product details with the completed purchase.
+6. Select Continue.","A readable invoice downloads after purchase and contains details consistent with the completed order.","","Not Run","Manual","QA | automationexercise.com"
+"AEQA","Test Case","AE-NAV-002 - Verify scrolling down and returning to the top with the arrow button","Module: Navigation
+Requirement ID: REQ-NAV-002
+Source: RTM coverage-gap remediation
+Environment: QA | automationexercise.com","Medium","rtm-test-case manual coverage-gap","AE-NAV-002","UI","Automation Exercise home page is loaded with enough content to scroll.","None.","1. Scroll to the bottom of the home page.
+2. Verify Subscription is visible.
+3. Select the bottom-right scroll-up arrow.
+4. Verify the page returns to the top and the Full-Fledged practice website heading is visible.","The user can reach the footer and the arrow control returns the page to the top content.","","Not Run","Manual","QA | automationexercise.com"
+"AEQA","Test Case","AE-NAV-003 - Verify manual scrolling down and back to the top without the arrow button","Module: Navigation
+Requirement ID: REQ-NAV-003
+Source: RTM coverage-gap remediation
+Environment: QA | automationexercise.com","Medium","rtm-test-case manual coverage-gap","AE-NAV-003","UI","Automation Exercise home page is loaded with enough content to scroll.","None.","1. Manually scroll to the bottom of the home page without using the arrow control.
+2. Verify Subscription is visible.
+3. Manually scroll back to the top.
+4. Verify the Full-Fledged practice website heading is visible.","Manual scrolling reaches the footer and returns to the top without using the arrow button.","","Not Run","Manual","QA | automationexercise.com"

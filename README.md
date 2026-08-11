@@ -11,6 +11,7 @@ I am transitioning into software quality assurance and data analysis. This portf
 | Area | Completed Work | Current Result |
 |---|---|---|
 | Manual UI testing | 21 documented and executed test cases | 19 passed, 2 failed |
+| Jira test management | 44 requirements, 48 test cases, and 6 defects staged and tracked in AEQA | 13 RTM coverage-gap cases added as Manual / Not Run and linked to requirements |
 | Defect reporting | 6 investigated defects | 3 open, 3 rejected after reconciliation or retest |
 | Requirements traceability | 44 UI, API, and tester-derived requirements | 31 fully covered, 1 partially covered, 12 not covered |
 | API testing | 14 canonical API cases with separate Postman and Playwright results | Postman: 14/14 passed; Playwright: 14/14 passed |
@@ -85,6 +86,25 @@ The RTM cross-references:
 The remaining gaps are primarily checkout, additional catalog behavior, product reviews, recommended items, and scroll-navigation scenarios.
 
 - [Open the requirements-traceability landing page](Automation%20Exercise%20Project/Test%20Plan/README.md)
+
+### Jira QA Management and Data Migration
+
+The **Automation Exercise QA (AEQA)** Jira Cloud project turns the repository's formal Excel RTM into a live QA-management workflow. Jira is used for day-to-day planning and status visibility; the version-controlled RTM remains the authoritative traceability record.
+
+The migration work demonstrates more than a CSV upload:
+
+- Audited and reconciled requirements, manual cases, API cases, defects, evidence paths, priorities, and execution results before import.
+- Separated product execution results from Jira workflow status so `Passed`, `Failed`, and `Not Run` remain test outcomes rather than misleading board states.
+- Normalized source values to valid Jira field options while preserving original IDs for cross-reference.
+- Built staged import files for 44 Requirements, 35 previously existing Test Cases, 6 Bugs, and 36 Test Case-to-Requirement relationships.
+- Designed and imported 13 additional manual cases for the RTM's partial and uncovered areas; these remain correctly marked `Manual / Not Run` until executed.
+- Linked each new Test Case to its Requirement using the custom `tests` relationship, producing the working chain `Requirement -> Test Case -> Bug`.
+- Captured board and work-item evidence so employers can review the implementation without receiving edit access to the live Jira site.
+
+The resulting Jira project reflects real QA judgment: passed work is complete, failed work remains visible for retest, rejected observations retain their audit history, and newly designed tests are not presented as executed.
+
+- [View the Jira implementation and evidence](Automation%20Exercise%20Project/README.md#jira-qa-management)
+- [Review the sanitized Jira import package](Automation%20Exercise%20Project/Jira%20Import%20Ready/README.md)
 
 ### API Testing With Postman
 
@@ -197,7 +217,7 @@ npm.cmd run test:headed
 
 | Category | Tools |
 |---|---|
-| Test management | Microsoft Excel, requirements traceability matrix, defect log |
+| Test management | Jira Cloud, Microsoft Excel, requirements traceability matrix, defect log |
 | Manual testing | Browser developer workflow, screenshot evidence, exploratory testing |
 | API testing | Postman, collection runner, JSON validation, environment variables |
 | Automation | Playwright, JavaScript, TypeScript, Node.js, Chromium |
@@ -226,7 +246,8 @@ npm.cmd run test:headed
 
 ## Current Development Focus
 
-- Create manual cases for the remaining RTM coverage gaps
+- Keep the clean Postman regression run and its sanitized evidence synchronized with future API changes
+- Execute the 13 newly designed Jira coverage-gap cases and reconcile the outcomes back to the formal RTM
 - Retest open defects when fixes become available
 - Refine Power BI presentation styling and expand the dataset over time
 - Keep README landing pages and traceability links synchronized as each workstream matures

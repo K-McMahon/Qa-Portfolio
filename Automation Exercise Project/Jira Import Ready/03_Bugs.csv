@@ -1,0 +1,170 @@
+Space Key,Work Type,Summary,Description,Priority,Labels,Defect ID
+AEQA,Bug,AE-BUG-001 - Authenticated user information remains visible after logout when navigating back,"Related test case: AE-LOGOUT-001
+Module: Logout
+Defect type: Session / Navigation
+Source severity: Medium
+Source priority: High
+Environment: Web application
+Brave v193.129/Win11
+URL: https://automationexercise.com
+Preconditions: 1. Active registered test account exists.
+2. User begins logged out.
+Steps to reproduce: 1. Open Automation Exercise.
+2. Click Signup / Login.
+3. Enter valid registered credentials.
+4. Click Login.
+5. Confirm “Logged in as [username]” is displayed.
+6. Click Logout.
+7. Click the browser Back button.
+8. Observe the page.
+9. Refresh the page and attempt to open an authenticated feature to verify whether access persists.
+Expected result: After logout, browser navigation should not display authenticated user information or provide access to authenticated functionality.
+Actual result: After logout, clicking the browser Back button displayed the previous page with “Logged in as Kevin Tester” and the Logout option. Further verification is required to determine whether the page was cached or the authenticated session remained active.
+Source defect status: Open
+Reported by: KM
+Date reported: 46232
+Evidence / screenshot: ..\Screenshots\AE-LOGOUT-001.png
+Retest status: Not Retested
+QA notes: Potential cached page behavior. Confirm session state by refreshing and accessing a protected feature before final severity assessment.",High,defect-log severity-medium,AE-BUG-001
+AEQA,Bug,AE-BUG-002 - Repeated logout request causes an unhandled KeyError and exposes internal debugging information,"Related test case: AE-LOGOUT-001
+Module: Logout
+Defect type: Error Handling / Information Disclosure
+Source severity: High
+Source priority: High
+Environment: Web application
+Brave v193.129/Win11
+Django 3.2.8 shown in response
+Python 3.7.17 shown in response
+URL: https://automationexercise.com/logout
+Preconditions: 1. Active registered test account exists.
+2. User begins logged out.
+Steps to reproduce: 1. Open Automation Exercise.
+2. Click Signup / Login.
+3. Enter valid registered credentials.
+4. Click Login.
+5. Click Logout.
+6. Click the browser Back button.
+7. Click Logout again.
+Expected result: The application should safely handle the repeated logout request and redirect the unauthenticated user to Signup / Login without displaying an error or internal information.
+Actual result: The application displayed “KeyError at /logout” because the user_id session key was missing. A Django debug page exposed framework and Python versions, server paths, traceback details, cookies, and session-related information.
+Source defect status: Open
+Reported by: KM
+Date reported: 46232
+Evidence / screenshot: ..\Screenshots\AE-LOGOUT-001.png
+Retest status: Not Retested
+QA notes: Meta data, session tokens and cookies blurred in screenshot",High,defect-log severity-high,AE-BUG-002
+AEQA,Bug,AE-BUG-003 - Cart does not display the overall total after multiple products are added,"Related test case: AE-CART-001
+Module: Cart
+Defect type: Functional / Calculation Display
+Source severity: Medium
+Source priority: High
+Environment: Web application
+Brave v193.129/Win11
+Preconditions: 1. Website is available
+2. User is logged out
+3. At least two products are available
+Steps to reproduce: 1. Open https://automationexercise.com while logged out.
+2. Click the Products button.
+3. Add the first product to the cart.
+4. Click Continue Shopping.
+5. Add the second product to the cart.
+6. Click View Cart.
+7. Verify that both products appear in the cart.
+8. Review the prices, quantities, line totals, and overall cart total.
+Expected result: Both products should appear with the correct unit prices, quantities, and line totals. The cart should also display an accurate overall total equal to the sum of all product line totals.
+Actual result: Both products appear with the correct unit prices, quantities, and line totals, but the overall cart total is not displayed.
+Source defect status: Open
+Reported by: KM
+Date reported: 46233
+Evidence / screenshot: ..\Screenshots\AE-CART-001.png
+Retest status: Not Retested",High,defect-log severity-medium,AE-BUG-003
+AEQA,Bug,"AE-BUG-004 - The quantity field on the product-detail page does not respond when the user attempts to edit it. As a result, the user cannot select the desired quantity before adding the product to the cart.","Related test case: AE-CART-002
+Module: Cart
+Defect type: Functional / User Interface
+Source severity: High
+Source priority: High
+Environment: Web application
+Brave v193.129/Win11
+Preconditions: 1. Website is available
+2. User is logged out
+3. At least two products are available
+Steps to reproduce: 1. Open https://automationexercise.com while logged out.
+2. Click View Product for any available product.
+3. Add product to Cart
+4. View Cart
+5. Click inside the quantity field.
+6. Attempt to change the quantity from 1 to 4.
+Expected result: The quantity field should accept a valid quantity of 4. After the product is added, the cart should display the selected product with a quantity of 4 and a line total equal to the unit price multiplied by 4
+Actual result: The populated cart page is displayed, but the quantity field cannot be edited. Clicking the field produces no response, preventing the user from selecting a quantity of 4.
+Source defect status: Rejected
+Reported by: KM
+Date reported: 46234
+Evidence / screenshot: ..\Automation\Execution Evidence\AE-CART-002.png
+Assigned to: N/A
+Resolution / developer notes: Initial execution attempted to edit the quantity in the cart. The documented scenario requires setting the quantity on the product-detail page before adding the product to the cart. Manual retest and corrected Playwright automation confirmed quantity 4 and the correct line total.
+Retest status: Pass
+Retest date: 46240
+QA notes: Rejected as not an application defect. The original failure resulted from using the wrong interaction point.",High,defect-log severity-high,AE-BUG-004
+AEQA,Bug,BUG-API-001 - Products List API returns HTTP 200 instead of 405 for unsupported POST request,"Related test case: API-PRODUCT-002
+Module: Products API
+Defect type: API / HTTP Status Handling
+Source severity: Medium
+Source priority: Medium
+Environment: Postman Desktop
+Environment: Automation Exercise QA
+Endpoint: https://automationexercise.com/api/productsList
+Preconditions: 1. Automation Exercise QA environment is selected.
+2. base_url is configured.
+3. API service is available.
+Steps to reproduce: 1. Open API-PRODUCT-002 in Postman.
+2. Confirm the request method is POST.
+3. Confirm the URL is {{base_url}}/productsList.
+4. Leave parameters and body empty.
+5. Click Send.
+6. Compare the transport-level HTTP status and JSON responseCode with the expected result.
+Expected result: The API should return HTTP 405 Method Not Allowed. The JSON body should contain responseCode 405 and the message “This request method is not supported.”
+Actual result: The server returned HTTP 200 OK. The JSON body contained responseCode 405 and the expected message “This request method is not supported.” The business response is correct, but the transport-level HTTP status is incorrect.
+Source defect status: Rejected
+Reported by: KM
+Date reported: 46235.666666666664
+Evidence / screenshot: ..\API Testing\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09-Run-Summary.md
+..\API Testing\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09.reconstructed.postman_run.json
+..\API Testing\Execution Results\Screenshots\API-PRODUCT-002.png
+..\Automation\Execution Evidence\API-PRODUCT-002.png
+Assigned to: Rejected
+Resolution / developer notes: Rejected after contract and test-configuration reconciliation. The clean corrected Postman run on 2026-08-09 independently confirmed the documented behavior for API-PRODUCT-002.
+Retest status: Pass
+Retest date: 46243
+QA notes: Fresh native Postman Collection Runner execution passed API-PRODUCT-002 with 3/3 assertions on 2026-08-09; the full collection passed 42/42 with zero errors. BUG-API-001 remains Rejected so the original observation and evidence-based disposition stay auditable.",Medium,defect-log severity-medium,BUG-API-001
+AEQA,Bug,BUG-API-002 - Search Product API returns all products when required search_product parameter is omitted,"Related test case: API-SEARCH-002
+Module: Search API
+Defect type: API / Input Validation
+Source severity: High
+Source priority: High
+Environment: Postman Desktop
+Environment: Automation Exercise QA
+Endpoint: https://automationexercise.com/api/searchProduct
+Preconditions: 1. Automation Exercise QA environment is selected.
+2. base_url is configured.
+3. API service is available.
+4. search_product is intentionally omitted.
+Steps to reproduce: 1. Open API-SEARCH-002 in Postman.
+2. Confirm the request method is POST.
+3. Confirm the URL is {{base_url}}/searchProduct.
+4. Confirm search_product is absent from the request body.
+5. Click Send.
+6. Compare the HTTP status and JSON response with the documented validation response.
+Expected result: The API should reject the request with responseCode 400 and the message “Bad request, search_product parameter is missing in POST request.” No products should be returned.
+Actual result: The server returned HTTP 200 OK. The JSON body contained responseCode 200 and a populated products array containing the full products list, despite the required search_product parameter being absent.
+Source defect status: Rejected
+Reported by: KM
+Date reported: 46235.666666666664
+Evidence / screenshot: ..\API Testing\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09-Run-Summary.md
+..\API Testing\Execution Results\Postman Reports\AE-API_Full-Collection_QA_2026-08-09.reconstructed.postman_run.json
+..\API Testing\Execution Results\Screenshots\API-SEARCH-002.png
+..\Automation\Execution Evidence\API-SEARCH-002.png
+Assigned to: Rejected
+Resolution / developer notes: Rejected after contract and test-configuration reconciliation. The clean corrected Postman run on 2026-08-09 independently confirmed the documented behavior for API-SEARCH-002.
+Retest status: Pass
+Retest date: 46243
+QA notes: Fresh native Postman Collection Runner execution passed API-SEARCH-002 with 3/3 assertions on 2026-08-09; the full collection passed 42/42 with zero errors. BUG-API-002 remains Rejected so the original observation and evidence-based disposition stay auditable.",High,defect-log severity-high,BUG-API-002

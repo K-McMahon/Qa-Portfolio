@@ -28,6 +28,33 @@ This project demonstrates a complete quality-assurance workflow for the Automati
 - [API testing documentation and assets](API%20Testing/README.md)
 - [Playwright automation project](Automation/README.md)
 
+## Jira QA Management
+
+The live Jira Cloud project, **Automation Exercise QA (AEQA)**, is the operational QA layer for this portfolio. The Excel RTM remains the formal traceability source, while Jira tracks the working relationship:
+
+`Requirement → is tested by → Test Case → relates to → Bug`
+
+The Jira implementation includes custom Requirement and Test Case work types, structured manual-test fields, execution and automation statuses, evidence attachments, RTM-based links, defect traceability, and an indexed GitHub integration for `K-McMahon/Qa-Portfolio`.
+
+Before import, the Excel RTM, test repositories, defect log, and evidence references were treated as a migration dataset. Original IDs were preserved; Jira field values and priorities were normalized; execution outcomes were kept separate from workflow status; rejected observations and historical failures were retained for auditability; and Test Case-to-Requirement relationships were staged separately for post-import reconciliation. This prevented invalid options, misleading completion states, and broken traceability from entering Jira.
+
+Current Jira execution state:
+
+- 35 previously executed Test Cases are assigned to the QA owner.
+- 33 passing Test Cases are Done; 2 failed Test Cases remain open for retest.
+- 13 additional `automationexercise.com` manual Test Cases were designed for documented RTM coverage gaps and remain Not Run.
+- Every new coverage-gap Test Case links to its Requirement using the custom `tests` relationship.
+
+The staged package contains 44 Requirements, 35 existing Test Cases, 6 Bugs, and a 36-row relationship manifest. After the gap analysis, 13 additional automationexercise.com manual cases were imported, bringing the represented Test Case total to 48. The new designs address the RTM's one partial and twelve uncovered areas, but remain Not Run until genuine execution occurs.
+
+- [Review the Jira import preparation and reconciliation record](Jira%20Import%20Ready/README.md)
+
+### Jira Evidence
+
+![AEQA Jira Kanban board](Portfolio%20Evidence/Jira/AEQA-Jira-Kanban-Board-2026-08-10.png)
+
+![AEQA Test Case and Requirement traceability](Portfolio%20Evidence/Jira/AEQA-Jira-TestCase-Traceability-2026-08-10.png)
+
 ## Test Coverage
 
 Manual scenarios cover registration, authentication, logout, account management, product discovery, shopping-cart behavior, contact submission, subscription, and navigation. API coverage includes products, brands, search, authentication, and account-management endpoints. The RTM separates requirement coverage from Manual, Postman, and Playwright execution results, then links each row to evidence, defects, and reconciliation notes.
@@ -51,7 +78,7 @@ Manual scenarios cover registration, authentication, logout, account management,
 
 ## Tools and Skills
 
-`Excel` | `Postman` | `Playwright` | `TypeScript` | `Chromium` | Manual Testing | API Testing | RTM Design | Defect Reporting | Negative Testing | Test Evidence
+`Jira Cloud` | `GitHub` | `Excel` | `Postman` | `Playwright` | `TypeScript` | `Chromium` | Manual Testing | API Testing | RTM Design | Defect Reporting | Negative Testing | Test Evidence
 
 ## Application Under Test
 

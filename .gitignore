@@ -24,3 +24,17 @@ Thumbs.db
 *.tmp
 *.temp
 ~$*
+
+# One-off Jira migration and inspection helpers
+/build_evidence_manifest.mjs
+/build_gap_testcases.mjs
+/build_jira_import.mjs
+/extract_import_values.mjs
+/inspect_defects.mjs
+/inspect_qa_artifacts.mjs
+/inspect_rtm.mjs
+
+# Local Jira reconciliation data containing workstation paths
+/Automation Exercise Project/Jira Import Ready/evidence-attachment-manifest.json
+/Automation Exercise Project/Jira Import Ready/manual-coverage-gap-links.json
+/Automation Exercise Project/Jira Import Ready/README_IMPORT.txt
