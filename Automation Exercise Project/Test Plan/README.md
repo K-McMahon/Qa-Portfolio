@@ -4,7 +4,7 @@
 
 # Requirements Traceability and Test Planning
 
-This workstream connects Automation Exercise requirements to test cases, execution results, evidence, defects, and remaining gaps. Its primary artifact is the portfolio RTM.
+This workstream connects Automation Exercise requirements to Jira-managed test cases, execution results, evidence, defects, and reconciliation history. Jira is the operational traceability layer; the version-controlled RTM remains the formal synchronized artifact.
 
 ## Primary Artifact
 
@@ -25,9 +25,14 @@ Evidence references and defect IDs have separate columns. A disagreement between
 | Measure | Result |
 |---|---:|
 | Requirements | 44 |
-| Fully covered | 31 |
-| Partially covered | 1 |
-| Not covered | 12 |
+| Fully covered by test design | 44 |
+| Partially covered | 0 |
+| Not covered | 0 |
+| Reconciled execution: Pass | 29 |
+| Reconciled execution: Fail | 2 |
+| Reconciled execution: Not Run | 13 |
 | API requirements | 14 fully covered |
+
+The RTM now includes a **Jira Sync** sheet containing the 118-work-item AEQA snapshot, including Jira keys, work types, workflow states, custom IDs, execution and automation states, Testing links, parents, and update timestamps. The 13 former design gaps now have linked manual Test Cases and are fully covered by design, but remain Not Run until execution evidence is available.
 
 The corrected Postman collection completed a clean run on August 9: 14 requests, 42 of 42 assertions passed, and zero errors. Playwright independently passed all 14 API scenarios. The August 1 Postman baseline remains historical and is retained separately for auditability.

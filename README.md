@@ -10,10 +10,10 @@ I am transitioning into software quality assurance and data analysis. This portf
 
 | Area | Completed Work | Current Result |
 |---|---|---|
-| Manual UI testing | 21 documented and executed test cases | 19 passed, 2 failed |
+| Manual UI testing | 34 documented test cases; 21 executed | 19 passed, 2 failed, 13 not run |
 | Jira test management | 44 requirements, 48 test cases, and 6 defects staged and tracked in AEQA | 13 RTM coverage-gap cases added as Manual / Not Run and linked to requirements |
 | Defect reporting | 6 investigated defects | 3 open, 3 rejected after reconciliation or retest |
-| Requirements traceability | 44 UI, API, and tester-derived requirements | 31 fully covered, 1 partially covered, 12 not covered |
+| Requirements traceability | 44 UI, API, and tester-derived requirements | 44 fully covered by test design; execution remains 29 passed, 2 failed, 13 not run |
 | API testing | 14 canonical API cases with separate Postman and Playwright results | Postman: 14/14 passed; Playwright: 14/14 passed |
 | API collection run | Corrected 14-request regression collection | Fresh run: 42/42 assertions passed, 0 errors; historical August 1 baseline retained |
 | Browser automation | Playwright API and browser suites | 14 API and 14 portfolio UI scenarios implemented with linked evidence |
@@ -34,7 +34,7 @@ I am transitioning into software quality assurance and data analysis. This portf
 
 ### Manual Test Repository
 
-The manual repository contains 21 fully executed cases covering:
+The manual repository contains 34 cases: 21 executed cases plus 13 Jira-synchronized cases awaiting execution. Coverage includes:
 
 - Signup and account creation
 - Login, invalid authentication, and logout
@@ -44,13 +44,17 @@ The manual repository contains 21 fully executed cases covering:
 - Contact form submission
 - Navigation
 - Home-page and cart-page subscriptions
+- Checkout and order placement
+- Category and brand navigation
+- Product reviews and recommended items
+- Address, invoice, cart-persistence, and scroll-navigation checks
 
 The workbook records preconditions, controlled test data, numbered steps, expected and actual results, execution status, evidence, defects, and requirement IDs.
 
 - [Open the manual test-case repository](Automation%20Exercise%20Project/Test%20Cases/Automation%20Exercise%20-%20Test%20Case%20Repository.xlsx)
 - [Browse UI execution evidence](Automation%20Exercise%20Project/Screenshots)
 
-**Execution summary:** 21 executed; 19 passed; 2 failed; 0 not run.
+**Execution summary:** 34 documented; 21 executed; 19 passed; 2 failed; 13 not run.
 
 ### Defect Management
 
@@ -73,17 +77,17 @@ The RTM cross-references:
 - 26 official UI scenarios
 - 14 official API scenarios
 - 4 tester-derived requirements
-- 21 manual UI test cases
+- 34 manual UI test cases, including 13 Jira-synchronized cases awaiting execution
 - API test cases and linked defects
 
 | Coverage Status | Requirements |
 |---|---:|
-| Fully Covered | 31 |
-| Partially Covered | 1 |
-| Not Covered | 12 |
+| Fully Covered | 44 |
+| Partially Covered | 0 |
+| Not Covered | 0 |
 | **Total** | **44** |
 
-The remaining gaps are primarily checkout, additional catalog behavior, product reviews, recommended items, and scroll-navigation scenarios.
+Jira now contains linked manual Test Cases for the former checkout, catalog, review, recommended-item, and scroll-navigation gaps. These designs close the traceability gaps, while their 13 mapped requirements remain honestly marked Not Run until execution evidence is captured.
 
 - [Open the requirements-traceability landing page](Automation%20Exercise%20Project/Test%20Plan/README.md)
 

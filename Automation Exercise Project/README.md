@@ -12,9 +12,9 @@ This project demonstrates a complete quality-assurance workflow for the Automati
 
 | Workstream | Result |
 |---|---|
-| Manual UI testing | 21 executed, 19 passed, 2 failed |
+| Manual UI testing | 34 documented; 21 executed, 19 passed, 2 failed, and 13 not run |
 | Defect management | 6 investigated defects: 3 open and 3 rejected after reconciliation or retest |
-| Requirements traceability | 44 requirements, 31 fully covered, 1 partially covered, 12 not covered |
+| Requirements traceability | 44 requirements fully covered by test design; 29 passed, 2 failed, and 13 not run |
 | API testing | 14 canonical cases; Postman 14 passed and Playwright 14 passed |
 | Postman collection run | Fresh result: 42/42 assertions passed, 0 errors; historical August 1 baseline retained separately |
 | Browser automation | 14 API and 14 portfolio UI scenarios implemented in Playwright with linked evidence |
