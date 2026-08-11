@@ -52,4 +52,4 @@ Importing inconsistent spreadsheet data directly into a test-management system c
 
 ![Test Case-to-Requirement traceability](../Portfolio%20Evidence/Jira/AEQA-Jira-TestCase-Traceability-2026-08-10.png)
 
-The live Jira site is intentionally not exposed through shared credentials. This sanitized package and the screenshots provide reviewable evidence without granting an external viewer the ability to alter project data.
+
