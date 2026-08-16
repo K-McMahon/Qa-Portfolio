@@ -17,12 +17,12 @@ The workbook records requirement IDs, preconditions, controlled test data, numbe
 | Execution measure | Result |
 |---|---:|
 | Documented | 34 |
-| Executed | 21 |
-| Passed | 19 |
+| Executed | 22 |
+| Passed | 20 |
 | Failed | 2 |
-| Not run | 13 |
+| Not run | 12 |
 
-The 13 Not Run cases were synchronized from Jira after the RTM gap analysis and cover checkout, catalog navigation, reviews, recommended items, cart persistence, address and invoice checks, and scroll navigation. The two current failures remain traceable to open product defects. Rejected observations are retained in the defect log for auditability instead of being deleted.
+Thirteen cases were synchronized from Jira after the RTM gap analysis and cover checkout, catalog navigation, reviews, recommended items, cart persistence, address and invoice checks, and scroll navigation. `AE-ORDER-001` is now Passed with Jira execution details and `AE-ORDER-001.png` evidence; 12 cases remain Not Run. The two current failures remain traceable to open product defects.
 
 ## Related Evidence
 

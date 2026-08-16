@@ -10,10 +10,10 @@ I am transitioning into software quality assurance and data analysis. This portf
 
 | Area | Completed Work | Current Result |
 |---|---|---|
-| Manual UI testing | 34 documented test cases; 21 executed | 19 passed, 2 failed, 13 not run |
-| Jira test management | 44 requirements, 48 test cases, and 6 defects staged and tracked in AEQA | 13 RTM coverage-gap cases added as Manual / Not Run and linked to requirements |
+| Manual UI testing | 34 documented test cases; 22 executed | 20 passed, 2 failed, 12 not run |
+| Jira test management | 44 requirements, 48 test cases, and 6 defects staged and tracked in AEQA | 1 coverage-gap case passed with evidence; 12 remain Manual / Not Run |
 | Defect reporting | 6 investigated defects | 3 open, 3 rejected after reconciliation or retest |
-| Requirements traceability | 44 UI, API, and tester-derived requirements | 44 fully covered by test design; execution remains 29 passed, 2 failed, 13 not run |
+| Requirements traceability | 44 UI, API, and tester-derived requirements | 44 fully covered by test design; execution is 30 passed, 2 failed, 12 not run |
 | API testing | 14 canonical API cases with separate Postman and Playwright results | Postman: 14/14 passed; Playwright: 14/14 passed |
 | API collection run | Corrected 14-request regression collection | Fresh run: 42/42 assertions passed, 0 errors; historical August 1 baseline retained |
 | Browser automation | Playwright API and browser suites | 14 API and 14 portfolio UI scenarios implemented with linked evidence |
@@ -34,7 +34,7 @@ I am transitioning into software quality assurance and data analysis. This portf
 
 ### Manual Test Repository
 
-The manual repository contains 34 cases: 21 executed cases plus 13 Jira-synchronized cases awaiting execution. Coverage includes:
+The manual repository contains 34 cases: 22 executed cases plus 12 Jira-synchronized cases awaiting execution. Coverage includes:
 
 - Signup and account creation
 - Login, invalid authentication, and logout
@@ -54,7 +54,7 @@ The workbook records preconditions, controlled test data, numbered steps, expect
 - [Open the manual test-case repository](Automation%20Exercise%20Project/Test%20Cases/Automation%20Exercise%20-%20Test%20Case%20Repository.xlsx)
 - [Browse UI execution evidence](Automation%20Exercise%20Project/Screenshots)
 
-**Execution summary:** 34 documented; 21 executed; 19 passed; 2 failed; 13 not run.
+**Execution summary:** 34 documented; 22 executed; 20 passed; 2 failed; 12 not run.
 
 ### Defect Management
 
@@ -77,7 +77,7 @@ The RTM cross-references:
 - 26 official UI scenarios
 - 14 official API scenarios
 - 4 tester-derived requirements
-- 34 manual UI test cases, including 13 Jira-synchronized cases awaiting execution
+- 34 manual UI test cases, including 1 Jira-synchronized coverage-gap case passed with evidence and 12 awaiting execution
 - API test cases and linked defects
 
 | Coverage Status | Requirements |
@@ -87,7 +87,7 @@ The RTM cross-references:
 | Not Covered | 0 |
 | **Total** | **44** |
 
-Jira now contains linked manual Test Cases for the former checkout, catalog, review, recommended-item, and scroll-navigation gaps. These designs close the traceability gaps, while their 13 mapped requirements remain honestly marked Not Run until execution evidence is captured.
+Jira now contains linked manual Test Cases for the former checkout, catalog, review, recommended-item, and scroll-navigation gaps. `AEQA-107 / AE-ORDER-001` has been executed and reconciled as Passed with screenshot evidence; the other 12 mapped requirements remain honestly marked Not Run.
 
 - [Open the requirements-traceability landing page](Automation%20Exercise%20Project/Test%20Plan/README.md)
 
@@ -101,7 +101,7 @@ The migration work demonstrates more than a CSV upload:
 - Separated product execution results from Jira workflow status so `Passed`, `Failed`, and `Not Run` remain test outcomes rather than misleading board states.
 - Normalized source values to valid Jira field options while preserving original IDs for cross-reference.
 - Built staged import files for 44 Requirements, 35 previously existing Test Cases, 6 Bugs, and 36 Test Case-to-Requirement relationships.
-- Designed and imported 13 additional manual cases for the RTM's partial and uncovered areas; these remain correctly marked `Manual / Not Run` until executed.
+- Designed and imported 13 additional manual cases for the RTM's partial and uncovered areas; one is now Passed with evidence and 12 remain correctly marked `Manual / Not Run`.
 - Linked each new Test Case to its Requirement using the custom `tests` relationship, producing the working chain `Requirement -> Test Case -> Bug`.
 - Captured board and work-item evidence so employers can review the implementation without receiving edit access to the live Jira site.
 
