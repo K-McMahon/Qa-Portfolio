@@ -12,9 +12,9 @@ This project demonstrates a complete quality-assurance workflow for the Automati
 
 | Workstream | Result |
 |---|---|
-| Manual UI testing | 34 documented; 22 executed, 20 passed, 2 failed, and 12 not run |
+| Manual UI testing | 34 documented; 24 executed, 22 passed, 2 failed, and 10 not run |
 | Defect management | 6 investigated defects: 3 open and 3 rejected after reconciliation or retest |
-| Requirements traceability | 44 requirements fully covered by test design; 30 passed, 2 failed, and 12 not run |
+| Requirements traceability | 44 requirements fully covered by test design; 32 passed, 2 failed, and 10 not run |
 | API testing | 14 canonical cases; Postman 14 passed and Playwright 14 passed |
 | Postman collection run | Fresh result: 42/42 assertions passed, 0 errors; historical August 1 baseline retained separately |
 | Browser automation | 14 API and 14 portfolio UI scenarios implemented in Playwright with linked evidence |
@@ -42,14 +42,16 @@ Current Jira execution state:
 
 - 36 executed Test Cases are assigned to the QA owner.
 - 34 passing Test Cases are Done; 2 failed Test Cases remain open for retest.
-- Of the 13 additional `automationexercise.com` manual Test Cases designed for documented RTM gaps, `AEQA-107 / AE-ORDER-001` is Passed with evidence and 12 remain Not Run.
+- Of the 13 additional `automationexercise.com` manual Test Cases designed for documented RTM gaps, `AEQA-107 / AE-ORDER-001`, `AEQA-110 / AE-CATALOG-001`, and `AEQA-115 / AE-ORDER-004` are Passed; 10 remain Not Run.
 - Every new coverage-gap Test Case links to its Requirement using the custom `tests` relationship.
 
-The staged package contains 44 Requirements, 35 existing Test Cases, 6 Bugs, and a 36-row relationship manifest. After the gap analysis, 13 additional automationexercise.com manual cases were imported, bringing the represented Test Case total to 48. The new designs address the RTM's one partial and twelve uncovered areas; one has now been genuinely executed and passed, while 12 remain Not Run.
+The staged package contains 44 Requirements, 35 existing Test Cases, 6 Bugs, and a 36-row relationship manifest. After the gap analysis, 13 additional automationexercise.com manual cases were imported, bringing the represented Test Case total to 48. The new designs address the RTM's one partial and twelve uncovered areas; three have now been genuinely executed and passed, while 10 remain Not Run.
 
 - [Review the Jira import preparation and reconciliation record](Jira%20Import%20Ready/README.md)
 
 ### Jira Evidence
+
+- [AEQA reconciliation report — 2026-08-16](Portfolio%20Evidence/Jira/AEQA-Reconciliation-2026-08-16.md)
 
 ![AEQA Jira Kanban board](Portfolio%20Evidence/Jira/AEQA-Jira-Kanban-Board-2026-08-10.png)
 

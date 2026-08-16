@@ -401,7 +401,7 @@ export default class QaAnalyticsReporter implements Reporter {
   <header>
     <div class="header-inner brand">
       <div>${logo ? `<img src="${logo}" alt="the mcmahon standard">` : ''}</div>
-      <div style="flex:1"><div class="eyebrow">quality assurance execution intelligence</div><h1>automation exercise analytics</h1><p>branded playwright run evidence for analyst review and release decisions</p></div>
+      <div style="flex:1"><div class="eyebrow">quality assurance execution intelligence</div><h1>automation exercise analytics</h1></div>
       <div class="run-state"><span>review state</span><strong>${e(reviewState)}</strong><small>${e(summary.runId)}</small></div>
     </div>
   </header>

@@ -14,6 +14,7 @@ This workstream adds browser and API automation to the Automation Exercise QA po
 | Products and search | `AE-PRODUCT-001`, `AE-PRODUCT-002` | `SRC-TC-08`, `SRC-TC-09` |
 | Subscription | `AE-SUB-001`, `AE-SUB-002` | `SRC-TC-10`, `SRC-TC-11` |
 | Cart | `AE-CART-001` through `AE-CART-003` | `SRC-TC-12`, `SRC-TC-13`, `SRC-TC-17` |
+| Checkout address | `AE-ORDER-004` / Jira `AEQA-115` | `REQ-ORDER-004` / Jira `AEQA-23` |
 | Security | `AE-LOGIN-002` | Tester-derived SQL injection coverage |
 | API | `API-PRODUCT`, `API-BRAND`, `API-SEARCH`, `API-AUTH`, `API-ACCOUNT` suites | Automation Exercise API requirements |
 
@@ -54,3 +55,5 @@ Credentials are loaded from a private `.env` file that is excluded from Git.
 ## Evidence behavior
 
 Every mapped UI test captures the final browser viewport during teardown, including failed tests. The custom reporter copies the latest image to `Execution Evidence/<test-id>.png`, links the test to the RTM and Test Case Repository, and links its evidence image directly from the branded report.
+
+`AE-ORDER-004` creates a disposable synthetic account, verifies that checkout delivery and billing addresses match its registration data, and deletes the account afterward. Its Jira-ready evidence bundle is written to `Execution Evidence/AE-ORDER-004.png`, `Execution Evidence/AE-ORDER-004-evidence.html`, and `Execution Evidence/AE-ORDER-004-evidence.pdf`. The branded HTML and PDF include `AEQA-23`, `REQ-ORDER-004`, `AEQA-115`, `AE-ORDER-004`, execution details, expected versus actual address data, assertion results, and the readable McMahon Standard logo. The same files are attached to the Playwright HTML report.

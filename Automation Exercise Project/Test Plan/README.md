@@ -28,11 +28,11 @@ Evidence references and defect IDs have separate columns. A disagreement between
 | Fully covered by test design | 44 |
 | Partially covered | 0 |
 | Not covered | 0 |
-| Reconciled execution: Pass | 30 |
+| Reconciled execution: Pass | 32 |
 | Reconciled execution: Fail | 2 |
-| Reconciled execution: Not Run | 12 |
+| Reconciled execution: Not Run | 10 |
 | API requirements | 14 fully covered |
 
-The RTM includes a **Jira Sync** sheet containing the 118-work-item AEQA snapshot, including Jira keys, work types, workflow states, custom IDs, execution and automation states, Testing links, parents, and update timestamps. All 13 former design gaps have linked manual Test Cases; `REQ-ORDER-001` is now reconciled as Passed through `AEQA-107 / AE-ORDER-001` with screenshot evidence, while 12 remain Not Run.
+The RTM includes a **Jira Sync** sheet containing the 121-work-item AEQA snapshot through August 16, 2026, including Jira keys, work types, workflow states, custom IDs, execution and automation states, Testing links, parents, and update timestamps. All 13 former design gaps have linked manual Test Cases. `AEQA-107 / AE-ORDER-001`, `AEQA-110 / AE-CATALOG-001`, and `AEQA-115 / AE-ORDER-004` are reconciled as Passed; 10 cases remain Not Run. `AEQA-121` tracks Playwright registration automation and remains In Progress / Not Run until execution evidence exists.
 
 The corrected Postman collection completed a clean run on August 9: 14 requests, 42 of 42 assertions passed, and zero errors. Playwright independently passed all 14 API scenarios. The August 1 Postman baseline remains historical and is retained separately for auditability.

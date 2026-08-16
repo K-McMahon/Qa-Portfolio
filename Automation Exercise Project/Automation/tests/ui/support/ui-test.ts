@@ -1,4 +1,4 @@
-import { mkdir } from 'node:fs/promises';
+import { access, mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { expect, test as base, type Page } from '@playwright/test';
 
@@ -46,10 +46,20 @@ test.afterEach(async ({ page }, testInfo) => {
   const evidenceFolder = resolve(process.cwd(), 'Execution Evidence');
   const evidencePath = resolve(evidenceFolder, `${testId}.png`);
 
-  // save the final browser state as test evidence
+  const preserveExistingEvidence = testInfo.annotations.some(
+    (annotation) => annotation.type === 'preserve-evidence'
+  );
+
+  // save the final browser state as test evidence, unless the test deliberately
+  // captured an earlier business state before cleanup.
   if (!page.isClosed()) {
     await mkdir(evidenceFolder, { recursive: true });
-    await page.screenshot({ path: evidencePath, fullPage: false });
+    const evidenceAlreadyExists = await access(evidencePath)
+      .then(() => true)
+      .catch(() => false);
+    if (!preserveExistingEvidence || !evidenceAlreadyExists) {
+      await page.screenshot({ path: evidencePath, fullPage: false });
+    }
     await testInfo.attach('browser evidence', {
       path: evidencePath,
       contentType: 'image/png',
@@ -159,4 +169,67 @@ export async function addListingProduct(page: Page, productId: number) {
   await addButton.scrollIntoViewIfNeeded();
   await addButton.click();
   await expect(page.getByRole('button', { name: 'Continue Shopping' })).toBeVisible();
+}
+
+export type DisposableAccountData = {
+  title: 'Mr' | 'Mrs';
+  name: string;
+  email?: string;
+  password: string;
+  birthDay: string;
+  birthMonth: string;
+  birthYear: string;
+  firstName: string;
+  lastName: string;
+  company: string;
+  address1: string;
+  address2: string;
+  country: string;
+  state: string;
+  city: string;
+  zipcode: string;
+  mobileNumber: string;
+};
+
+export async function registerDisposableAccount(
+  page: Page,
+  account: DisposableAccountData & { email: string }
+) {
+  await openHome(page);
+  await openSitePage(page, 'Signup / Login', /\/login$/);
+  await page.locator('[data-qa="signup-name"]').fill(account.name);
+  await page.locator('[data-qa="signup-email"]').fill(account.email);
+  await page.locator('[data-qa="signup-button"]').click();
+  await expect(page.getByText('Enter Account Information', { exact: false })).toBeVisible();
+
+  await page.locator(account.title === 'Mr' ? '#id_gender1' : '#id_gender2').check();
+  await page.locator('[data-qa="password"]').fill(account.password);
+  await page.locator('[data-qa="days"]').selectOption(account.birthDay);
+  await page.locator('[data-qa="months"]').selectOption(account.birthMonth);
+  await page.locator('[data-qa="years"]').selectOption(account.birthYear);
+  await page.locator('[data-qa="first_name"]').fill(account.firstName);
+  await page.locator('[data-qa="last_name"]').fill(account.lastName);
+  await page.locator('[data-qa="company"]').fill(account.company);
+  await page.locator('[data-qa="address"]').fill(account.address1);
+  await page.locator('[data-qa="address2"]').fill(account.address2);
+  await page.locator('[data-qa="country"]').selectOption({ label: account.country });
+  await page.locator('[data-qa="state"]').fill(account.state);
+  await page.locator('[data-qa="city"]').fill(account.city);
+  await page.locator('[data-qa="zipcode"]').fill(account.zipcode);
+  await page.locator('[data-qa="mobile_number"]').fill(account.mobileNumber);
+  await page.locator('[data-qa="create-account"]').click();
+  await expect(page.locator('[data-qa="account-created"]')).toBeVisible();
+  await page.locator('[data-qa="continue-button"]').click();
+  await dismissAdOverlay(page);
+  await expect(page.getByText(`Logged in as ${account.name}`, { exact: true })).toBeVisible();
+}
+
+export async function deleteDisposableAccount(page: Page) {
+  if (page.isClosed()) return;
+  await dismissAdOverlay(page);
+  const deleteLink = page.locator('a[href="/delete_account"]').first();
+  if (!(await deleteLink.isVisible({ timeout: 1_000 }).catch(() => false))) return;
+  await deleteLink.click();
+  await dismissAdOverlay(page);
+  await expect(page.locator('[data-qa="account-deleted"]')).toBeVisible();
 }
