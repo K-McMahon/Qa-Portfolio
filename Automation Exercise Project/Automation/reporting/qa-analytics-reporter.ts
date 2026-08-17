@@ -9,6 +9,7 @@ import type {
 import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { spawn } from 'node:child_process';
 import { dirname, relative, resolve } from 'node:path';
+import { collectEvidenceAttachments } from './evidence-attachments';
 
 type ResultStatus = 'passed' | 'failed' | 'flaky' | 'skipped' | 'timed out' | 'interrupted';
 
@@ -146,14 +147,17 @@ export default class QaAnalyticsReporter implements Reporter {
       }
     }
 
-    const evidence = existsSync(evidencePath)
-      ? {
-          name: evidenceName,
-          path: evidencePath,
-          contentType: 'image/png',
-          href: this.fileUrl(evidencePath),
-        }
-      : undefined;
+    const evidenceAttachments = collectEvidenceAttachments(
+      record.attempts.flatMap((attempt) => attempt.attachments),
+      this.reportDir,
+      existsSync(evidencePath)
+        ? {
+            name: `${record.testId} final browser evidence`,
+            path: evidencePath,
+            contentType: 'image/png',
+          }
+        : undefined
+    );
     const traceabilityHref =
       record.testId === 'unmapped'
         ? undefined
@@ -190,7 +194,7 @@ export default class QaAnalyticsReporter implements Reporter {
       duration,
       retries: Math.max(0, record.attempts.length - 1),
       errors,
-      attachments: evidence ? [evidence] : attachments,
+      attachments: evidenceAttachments.length ? evidenceAttachments : attachments,
       traceabilityHref,
       repositoryHref,
       attempts: record.attempts.length,
