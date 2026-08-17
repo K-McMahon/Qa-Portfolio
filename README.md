@@ -14,7 +14,7 @@ I am transitioning into software quality assurance and data analysis. This portf
 | Jira test management | 44 requirements, 48 Test Cases, and 6 Bugs tracked in AEQA | 5 manual coverage-gap cases Passed; 8 remain Not Run |
 | Defect reporting | 6 investigated defects | 3 open, 3 rejected after reconciliation or retest |
 | Requirements traceability | 44 UI, API, and tester-derived requirements | 44 fully covered by test design; execution is 38 Passed, 2 Failed, 8 Not Run |
-| API testing | 14 canonical API cases with separate Postman and Playwright results | Postman: 14/14 passed; Playwright: 14/14 passed |
+| API testing | 14 canonical API cases with separate Postman and Playwright coverage | Postman: 14/14 passed; Playwright: 14 API scenarios implemented |
 | API collection run | Corrected 14-request regression collection | Fresh run: 42/42 assertions passed, 0 errors; historical August 1 baseline retained |
 | Browser automation | Playwright API and browser suites | 14 API and 19 UI scenarios implemented with linked evidence |
 | Hacker News validation | Playwright ordering audit across paginated results | Exactly 100 unique articles verified with a branded HTML evidence report |
@@ -124,7 +124,7 @@ Included assets:
 - Reconstructed collection-run report and JSON record
 - Traceability and disposition links for investigated API observations
 
-**Current reconciled API execution:** 14 executed; 14 passed; 0 failed. Current Playwright API evidence, the API workbook, and the RTM agree on the final status.
+**Current reconciled API execution:** 14 executed; 14 passed; 0 failed. The API workbook and RTM record that execution status; Playwright implements 14 API scenarios. The latest saved Playwright report separately covers one Chromium UI scenario.
 
 **Current clean Postman run:** The corrected 14-request collection ran on August 9 with one iteration. All 42 assertions passed with zero failures and zero errors. The reconstructed JSON and Markdown summary are sanitized because native run export was unavailable on the active Postman account.
 
