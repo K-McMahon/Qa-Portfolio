@@ -6,7 +6,7 @@ This workstream adds browser and API automation to the Automation Exercise QA po
 
 ## Current coverage
 
-The suite currently implements **14 API scenarios** and **19 UI scenarios**.
+The suite currently implements **14 API scenarios** and **20 UI scenarios**.
 
 | Area | Automated test IDs | Source coverage |
 |---|---|---|
@@ -14,6 +14,7 @@ The suite currently implements **14 API scenarios** and **19 UI scenarios**.
 | Registration | `AE-SIGNUP-005`, `AE-SIGNUP-006` | `SRC-TC-01`, `SRC-TC-05` |
 | Contact and navigation | `AE-CONTACT-001`, `AE-NAV-001` | `SRC-TC-06`, `SRC-TC-07` |
 | Products and search | `AE-PRODUCT-001`, `AE-PRODUCT-002` | `SRC-TC-08`, `SRC-TC-09` |
+| Catalog and brands | `AE-CATALOG-002` / Jira `AEQA-123` | `SRC-TC-19` / `REQ-CATALOG-002` |
 | Subscription | `AE-SUB-001`, `AE-SUB-002` | `SRC-TC-10`, `SRC-TC-11` |
 | Cart | `AE-CART-001` through `AE-CART-004` | `SRC-TC-12`, `SRC-TC-13`, `SRC-TC-17`, `SRC-TC-20 / AEQA-112` |
 | Checkout address | `AE-ORDER-004` / Jira `AEQA-115` | `REQ-ORDER-004` / Jira `AEQA-23` |
@@ -24,11 +25,13 @@ The suite currently implements **14 API scenarios** and **19 UI scenarios**.
 
 `AE-CART-004` expands the project's Page Object Model with reusable Products and Cart behavior plus reusable login actions. It enforces the manual test's empty-account-cart precondition, adds every visible result for `top`, compares product identity, name, price, quantity, and total after login, and publishes `AE-CART-004(1).png` and `AE-CART-004(2).png` in the shared run-level reports.
 
+`AE-CATALOG-002` uses reusable `ProductsPage` behavior to verify the Brands panel, select Polo, confirm matching Polo results, switch to H&M, and confirm the heading and results update. It publishes `AE-CATALOG-002(1).png` and `AE-CATALOG-002(2).png` in both shared run-level reports.
+
 ## Latest Saved Report Run — August 17, 2026
 
-The latest saved QA analytics run is **Passed** on Chromium: **1/1 passed, 0 failed, 0 skipped**. It is run `ae-20260817170106` and covers `AE-CART-004 | AEQA-112 | Search products remain in cart after login`.
+The latest saved QA analytics run is **Passed** on Chromium: **1/1 passed, 0 failed, 0 skipped**. It is run `ae-20260817203142` and covers `AE-CATALOG-002 | AEQA-111 | AEQA-123 | Brand selection and switching display matching products`.
 
-This is a successful automated run, not a sixth completed manual coverage-gap case: Jira's manual execution text for `AEQA-112` remains **Not Run** until that record is reconciled.
+This automated run is traceable to the completed manual case `AEQA-111` and the separate automation sub-task `AEQA-123`; their execution records and evidence remain independently auditable.
 
 ## Report Evidence
 

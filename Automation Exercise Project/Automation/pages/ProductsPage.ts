@@ -1,3 +1,5 @@
+import { mkdir } from 'node:fs/promises';
+import { dirname, resolve } from 'node:path';
 import { expect, type Page } from '@playwright/test';
 import { dismissAdOverlay } from '../tests/ui/support/ui-test';
 
@@ -14,6 +16,41 @@ export class ProductsPage {
     await this.page.locator('#search_product').fill(term);
     await this.page.locator('#submit_search').click();
     await expect(this.page.getByText('Searched Products', { exact: true })).toBeVisible();
+  }
+
+  async expectBrandsSidebar() {
+    const brandsPanel = this.page.locator('.brands_products');
+    await expect(brandsPanel.getByRole('heading', { name: 'Brands', exact: true })).toBeVisible();
+    await expect(brandsPanel.locator('a[href^="/brand_products/"]').first()).toBeVisible();
+  }
+
+  async selectBrand(brand: string) {
+    await dismissAdOverlay(this.page);
+    const brandLink = this.page.locator(
+      `.brands_products a[href="/brand_products/${brand}"]`
+    );
+    await expect(brandLink).toBeVisible();
+    await brandLink.click();
+    await dismissAdOverlay(this.page);
+  }
+
+  async expectBrandProducts(brand: string) {
+    const escapedBrand = brand.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    await expect(this.page).toHaveURL(new RegExp(`/brand_products/${escapedBrand}$`));
+    await expect(
+      this.page.getByText(`Brand - ${brand} Products`, { exact: true })
+    ).toBeVisible();
+
+    const products = this.page.locator('.features_items .product-image-wrapper');
+    await expect(products.first()).toBeVisible();
+    await expect(products).not.toHaveCount(0);
+  }
+
+  async captureEvidence(fileName: string) {
+    const screenshotPath = resolve(process.cwd(), 'Execution Evidence', fileName);
+    await mkdir(dirname(screenshotPath), { recursive: true });
+    await this.page.screenshot({ path: screenshotPath, fullPage: true });
+    return screenshotPath;
   }
 
   async addAllVisibleResultsToCart() {
