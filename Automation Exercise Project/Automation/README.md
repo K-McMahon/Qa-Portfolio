@@ -6,7 +6,7 @@ This workstream adds browser and API automation to the Automation Exercise QA po
 
 ## Current coverage
 
-The suite currently implements **14 API scenarios** and **20 UI scenarios**.
+The suite currently implements **14 API scenarios** and **21 UI scenarios**.
 
 | Area | Automated test IDs | Source coverage |
 |---|---|---|
@@ -15,6 +15,7 @@ The suite currently implements **14 API scenarios** and **20 UI scenarios**.
 | Contact and navigation | `AE-CONTACT-001`, `AE-NAV-001` | `SRC-TC-06`, `SRC-TC-07` |
 | Products and search | `AE-PRODUCT-001`, `AE-PRODUCT-002` | `SRC-TC-08`, `SRC-TC-09` |
 | Catalog and brands | `AE-CATALOG-002` / Jira `AEQA-123` | `SRC-TC-19` / `REQ-CATALOG-002` |
+| Product reviews | `AE-REVIEW-001` / Jira `AEQA-124` | `SRC-TC-21` / `REQ-REVIEW-001` |
 | Subscription | `AE-SUB-001`, `AE-SUB-002` | `SRC-TC-10`, `SRC-TC-11` |
 | Cart | `AE-CART-001` through `AE-CART-004` | `SRC-TC-12`, `SRC-TC-13`, `SRC-TC-17`, `SRC-TC-20 / AEQA-112` |
 | Checkout address | `AE-ORDER-004` / Jira `AEQA-115` | `REQ-ORDER-004` / Jira `AEQA-23` |
@@ -27,11 +28,13 @@ The suite currently implements **14 API scenarios** and **20 UI scenarios**.
 
 `AE-CATALOG-002` uses reusable `ProductsPage` behavior to verify the Brands panel, select Polo, confirm matching Polo results, switch to H&M, and confirm the heading and results update. It publishes `AE-CATALOG-002(1).png` and `AE-CATALOG-002(2).png` in both shared run-level reports.
 
-## Latest Saved Report Run — August 17, 2026
+`AE-REVIEW-001` expands the Page Object Model with reusable product-details and review-form behavior. Each run generates a synthetic name and email, enters the exact message `QA By The McMahon Standard`, submits the review, and verifies the success confirmation. It publishes `AE-REVIEW-001(1).png` and `AE-REVIEW-001(2).png` in both shared run-level reports.
 
-The latest saved QA analytics run is **Passed** on Chromium: **1/1 passed, 0 failed, 0 skipped**. It is run `ae-20260817203142` and covers `AE-CATALOG-002 | AEQA-111 | AEQA-123 | Brand selection and switching display matching products`.
+## Latest Saved Report Run: August 17, 2026
 
-This automated run is traceable to the completed manual case `AEQA-111` and the separate automation sub-task `AEQA-123`; their execution records and evidence remain independently auditable.
+The latest saved QA analytics run is **Passed** on Chromium: **1/1 passed, 0 failed, 0 skipped**. It is run `ae-20260817225729` and covers `AE-REVIEW-001 | AEQA-113 | AEQA-124 | Visitor submits a product review`.
+
+This automated run is traceable to the completed manual case `AEQA-113`, the automation test `AEQA-124`, and requirement `AEQA-21`. Their execution records and evidence remain independently auditable.
 
 ## Report Evidence
 

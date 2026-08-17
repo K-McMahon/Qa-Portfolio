@@ -18,6 +18,19 @@ export class ProductsPage {
     await expect(this.page.getByText('Searched Products', { exact: true })).toBeVisible();
   }
 
+  async openFirstProduct() {
+    await dismissAdOverlay(this.page);
+    const firstProductLink = this.page
+      .locator('a[href^="/product_details/"]')
+      .filter({ visible: true })
+      .first();
+    await expect(firstProductLink).toBeVisible();
+    await firstProductLink.scrollIntoViewIfNeeded();
+    await firstProductLink.click();
+    await dismissAdOverlay(this.page);
+    await expect(this.page).toHaveURL(/\/product_details\/\d+$/);
+  }
+
   async expectBrandsSidebar() {
     const brandsPanel = this.page.locator('.brands_products');
     await expect(brandsPanel.getByRole('heading', { name: 'Brands', exact: true })).toBeVisible();
