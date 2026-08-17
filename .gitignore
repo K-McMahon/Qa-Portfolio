@@ -3,6 +3,7 @@
 .codex-tmp/
 outputs/
 tools/
+.worktrees/
 
 # Node and Playwright generated dependencies/results
 node_modules/
