@@ -13,7 +13,7 @@
 - Traceability is `AEQA-122` → `AEQA-112 / AE-CART-004` → `AEQA-20 / REQ-CART-004`.
 - Search for the exact term `top` and add every visible result.
 - Record and compare product identity, name, price, quantity, and total.
-- Capture `AE-CART-004-pre-login.png` and `AE-CART-004-post-login.png`.
+- Capture `AE-CART-004(1).png` and `AE-CART-004(2).png`.
 - Both named screenshots must appear in Playwright's HTML report and the branded analytics report.
 - Continue producing one suite-level report for both focused and full-suite runs.
 - Load credentials only from `AE_EMAIL`, `AE_PASSWORD`, and `AE_USERNAME`.
@@ -87,7 +87,7 @@ test('AE-CART-004 | AEQA-112 | Search products remain in cart after login', asyn
     await cartPage.open();
     preLoginCart = await cartPage.snapshot();
     expect(preLoginCart.length).toBeGreaterThan(0);
-    const path = await cartPage.captureEvidence('AE-CART-004-pre-login.png');
+    const path = await cartPage.captureEvidence('AE-CART-004(1).png');
     await testInfo.attach('pre-login filled cart', { path, contentType: 'image/png' });
   });
 
@@ -103,7 +103,7 @@ test('AE-CART-004 | AEQA-112 | Search products remain in cart after login', asyn
     await homePage.expectLoggedInAs(username);
     const postLoginCart = await cartPage.snapshot();
     expect(postLoginCart).toEqual(preLoginCart);
-    const path = await cartPage.captureEvidence('AE-CART-004-post-login.png');
+    const path = await cartPage.captureEvidence('AE-CART-004(2).png');
     await testInfo.attach('post-login retained cart', { path, contentType: 'image/png' });
   });
 });
@@ -294,8 +294,8 @@ import { collectEvidenceAttachments } from '../../reporting/evidence-attachments
 
 test('keeps both named screenshots and removes duplicate screenshot paths', () => {
   const reportDir = resolve('test-results', 'qa-analytics');
-  const pre = resolve('Execution Evidence', 'AE-CART-004-pre-login.png');
-  const post = resolve('Execution Evidence', 'AE-CART-004-post-login.png');
+  const pre = resolve('Execution Evidence', 'AE-CART-004(1).png');
+  const post = resolve('Execution Evidence', 'AE-CART-004(2).png');
   const attachments = [
     { name: 'pre-login filled cart', path: pre, contentType: 'image/png' },
     { name: 'post-login retained cart', path: post, contentType: 'image/png' },
@@ -433,8 +433,8 @@ git commit -m "test: report multiple cart evidence screenshots"
 
 **Files:**
 - Modify: `Automation Exercise Project/Automation/README.md`
-- Verify: `Automation Exercise Project/Automation/Execution Evidence/AE-CART-004-pre-login.png`
-- Verify: `Automation Exercise Project/Automation/Execution Evidence/AE-CART-004-post-login.png`
+- Verify: `Automation Exercise Project/Automation/Execution Evidence/AE-CART-004(1).png`
+- Verify: `Automation Exercise Project/Automation/Execution Evidence/AE-CART-004(2).png`
 - Verify: `Automation Exercise Project/Automation/test-results/qa-analytics/index.html`
 - Verify: `Automation Exercise Project/Automation/test-results/html-report/index.html`
 

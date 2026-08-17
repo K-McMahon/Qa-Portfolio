@@ -13,12 +13,14 @@ This workstream adds browser and API automation to the Automation Exercise QA po
 | Contact and navigation | `AE-CONTACT-001`, `AE-NAV-001` | `SRC-TC-06`, `SRC-TC-07` |
 | Products and search | `AE-PRODUCT-001`, `AE-PRODUCT-002` | `SRC-TC-08`, `SRC-TC-09` |
 | Subscription | `AE-SUB-001`, `AE-SUB-002` | `SRC-TC-10`, `SRC-TC-11` |
-| Cart | `AE-CART-001` through `AE-CART-003` | `SRC-TC-12`, `SRC-TC-13`, `SRC-TC-17` |
+| Cart | `AE-CART-001` through `AE-CART-004` | `SRC-TC-12`, `SRC-TC-13`, `SRC-TC-17`, `SRC-TC-20 / AEQA-112` |
 | Checkout address | `AE-ORDER-004` / Jira `AEQA-115` | `REQ-ORDER-004` / Jira `AEQA-23` |
 | Security | `AE-LOGIN-002` | Tester-derived SQL injection coverage |
 | API | `API-PRODUCT`, `API-BRAND`, `API-SEARCH`, `API-AUTH`, `API-ACCOUNT` suites | Automation Exercise API requirements |
 
 `AE-CART-001` deliberately verifies the missing overall cart total so a recurrence of the documented defect appears as a failed automated regression test.
+
+`AE-CART-004` expands the project's Page Object Model with reusable Products and Cart behavior plus reusable login actions. It enforces the manual test's empty-account-cart precondition, adds every visible result for `top`, compares product identity, name, price, quantity, and total after login, and publishes `AE-CART-004(1).png` and `AE-CART-004(2).png` in the shared run-level reports.
 
 ## Commands
 

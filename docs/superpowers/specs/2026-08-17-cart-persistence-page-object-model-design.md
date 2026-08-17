@@ -69,7 +69,7 @@ The recommended design uses focused page objects rather than one large workflow 
 - Uses test title `AE-CART-004 | AEQA-112 | Search products remain in cart after login`.
 - Loads `AE_EMAIL`, `AE_PASSWORD`, and `AE_USERNAME` through the existing credential helper.
 - Orchestrates search, add-to-cart, pre-login recording, login, and post-login comparison.
-- Captures `AE-CART-004-pre-login.png` and `AE-CART-004-post-login.png` and attaches both to the test result.
+- Captures `AE-CART-004(1).png` and `AE-CART-004(2).png` and attaches both to the test result.
 - Uses `test.step` to make the report readable.
 - Uses web-first assertions and no hard-coded waits.
 
@@ -83,8 +83,8 @@ The test will also assert that the pre-login array is non-empty and that its siz
 
 The two required screenshots serve different purposes:
 
-- `AE-CART-004-pre-login.png` proves the searched products were present before authentication.
-- `AE-CART-004-post-login.png` proves the authenticated user retained the same cart contents.
+- `AE-CART-004(1).png` proves the searched products were present before authentication.
+- `AE-CART-004(2).png` proves the authenticated user retained the same cart contents.
 
 Both images will be attached explicitly with descriptive attachment names. The shared fixture may continue to create the canonical final `AE-CART-004.png` evidence image for compatibility with the existing portfolio structure.
 
