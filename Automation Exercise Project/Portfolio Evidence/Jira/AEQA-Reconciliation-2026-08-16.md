@@ -1,8 +1,10 @@
-# AEQA Jira Reconciliation — 2026-08-16
+# AEQA Jira Reconciliation — Historical Snapshot (2026-08-16)
 
-This report records the repository-side reconciliation of the live **Automation Exercise QA (AEQA)** Jira Cloud project. Jira is the operational QA-management layer; the Excel RTM remains the formal, version-controlled traceability artifact.
+> **Superseded historical evidence:** This report preserves the state observed on August 16, 2026. Its counts and workflow statuses are not the current August 17 state.
 
-## Reconciled progress
+This report records the repository-side reconciliation of the live **Automation Exercise QA (AEQA)** Jira Cloud project at that date. Jira is the operational QA-management layer; the Excel RTM remains the formal, version-controlled traceability artifact.
+
+## Progress recorded on August 16
 
 | Jira item | Traceability | Reconciled state | Evidence disposition |
 |---|---|---|---|
@@ -11,7 +13,7 @@ This report records the repository-side reconciliation of the live **Automation 
 | [AEQA-115](https://kgmcmahon973.atlassian.net/browse/AEQA-115) | AE-ORDER-004 → REQ-ORDER-004 | Passed / Done | Screenshot, HTML report, and PDF report retained locally; native Jira evidence retained |
 | [AEQA-121](https://kgmcmahon973.atlassian.net/browse/AEQA-121) | Playwright work → REQ-AUTH-001 | In Progress / Not Run | No pass claimed until the automation is executed and evidence is attached |
 
-## Current portfolio metrics
+## Portfolio metrics recorded on August 16
 
 - Requirements: 44 total; 44 fully covered by test design.
 - Requirement execution: 32 Pass, 2 Fail, 10 Not Run.
@@ -22,7 +24,7 @@ This report records the repository-side reconciliation of the live **Automation 
 ## Evidence and audit controls
 
 - Workflow status and execution outcome are kept separate. A Jira item marked Done is not automatically represented as Passed.
-- AEQA-106 remains execution **Not Run** even though its workflow is Done; AEQA-121 tracks the Playwright implementation.
+- At this snapshot, AEQA-106 remained execution **Not Run** even though its workflow was Done; AEQA-121 tracked the Playwright implementation.
 - Local screenshot/report paths are recorded only where those artifacts exist in the repository.
 - Jira-only evidence is identified as a native Jira attachment rather than being represented as a local file.
 - Historical evidence recovery remains tracked by [AEQA-120](https://kgmcmahon973.atlassian.net/browse/AEQA-120).

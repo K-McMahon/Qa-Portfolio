@@ -14,7 +14,7 @@ This project demonstrates a complete quality-assurance workflow for the Automati
 |---|---|
 | Test execution | 48 portfolio Test Cases; 40 executed, 38 Passed, 2 Failed, and 8 Not Run |
 | Defect management | 6 investigated defects: 3 open and 3 rejected after reconciliation or retest |
-| Requirements traceability | 44 requirements fully covered by test design; execution is 38 Passed, 2 Failed, and 8 Not Run |
+| Requirements traceability | 44 requirements fully covered by test design; Test Case execution is 38 Passed, 2 Failed, and 8 Not Run |
 | API testing | 14 canonical cases; Postman 14 passed and Playwright 14 API scenarios implemented |
 | Postman collection run | Fresh result: 42/42 assertions passed, 0 errors; historical August 1 baseline retained separately |
 | Browser automation | 14 API and 19 UI scenarios implemented in Playwright with linked evidence |
@@ -51,11 +51,13 @@ The staged package is retained as historical migration evidence: 44 Requirements
 
 ### Jira Evidence
 
-- [AEQA reconciliation report — 2026-08-16](Portfolio%20Evidence/Jira/AEQA-Reconciliation-2026-08-16.md)
-
 ![AEQA Jira Kanban board — August 17, 2026](Portfolio%20Evidence/Jira/AEQA-Jira-Kanban-Board-2026-08-17.png)
 
 ### Historical Jira Evidence
+
+The August 16 reconciliation report and August 10 images preserve earlier states that are superseded by the August 17 current state above.
+
+- [Superseded reconciliation snapshot — August 16, 2026](Portfolio%20Evidence/Jira/AEQA-Reconciliation-2026-08-16.md)
 
 ![AEQA Jira Kanban board — August 10, 2026](Portfolio%20Evidence/Jira/AEQA-Jira-Kanban-Board-2026-08-10.png)
 
