@@ -6,6 +6,8 @@ This workstream adds browser and API automation to the Automation Exercise QA po
 
 ## Current coverage
 
+The suite currently implements **14 API scenarios** and **19 UI scenarios**.
+
 | Area | Automated test IDs | Source coverage |
 |---|---|---|
 | Authentication | `AE-LOGIN-001` through `AE-LOGIN-004`, `AE-LOGOUT-001` | `SRC-TC-02`, `SRC-TC-03`, `SRC-TC-04` |
@@ -21,6 +23,22 @@ This workstream adds browser and API automation to the Automation Exercise QA po
 `AE-CART-001` deliberately verifies the missing overall cart total so a recurrence of the documented defect appears as a failed automated regression test.
 
 `AE-CART-004` expands the project's Page Object Model with reusable Products and Cart behavior plus reusable login actions. It enforces the manual test's empty-account-cart precondition, adds every visible result for `top`, compares product identity, name, price, quantity, and total after login, and publishes `AE-CART-004(1).png` and `AE-CART-004(2).png` in the shared run-level reports.
+
+## Latest Saved Report Run — August 17, 2026
+
+The latest saved QA analytics run is **Passed** on Chromium: **1/1 passed, 0 failed, 0 skipped**. It is run `ae-20260817170106` and covers `AE-CART-004 | AEQA-112 | Search products remain in cart after login`.
+
+This is a successful automated run, not a sixth completed manual coverage-gap case: Jira's manual execution text for `AEQA-112` remains **Not Run** until that record is reconciled.
+
+## Report Evidence
+
+The branded QA analytics report is stakeholder-facing: it presents the concise run outcome, coverage, traceability, and QA assessment.
+
+![Branded QA analytics report](../Portfolio%20Evidence/Automation/QA-Analytics-Report-2026-08-17.png)
+
+The Playwright technical HTML report supports engineering diagnostics, including traces, attachments, and failure investigation.
+
+![Playwright technical HTML report](../Portfolio%20Evidence/Automation/Playwright-HTML-Report-2026-08-17.png)
 
 ## Commands
 
