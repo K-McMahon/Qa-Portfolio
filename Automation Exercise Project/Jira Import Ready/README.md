@@ -57,6 +57,12 @@ The following cleanup decisions, package counts, and sequence document the origi
 - Of the 13 manual coverage-gap cases, 5 are Passed and 8 remain Not Run.
 - The latest saved automation report is a separate Chromium run of `AE-CART-004 / AEQA-112`: Passed, 1/1 passed, 0 failed, 0 skipped (`ae-20260817170106`, 2026-08-17). Jira's manual execution text for AEQA-112 remains Not Run, so that automation result does not make it a sixth manual completion.
 
+The Reports dashboard provides the current 122-item project view across workflow status, work-item type, assignee, creation, completion, lead-time, and cycle-time trends.
+
+![AEQA Jira Reports dashboard — August 17, 2026](../Portfolio%20Evidence/Jira/AEQA-Jira-Reports-2026-08-17.png)
+
+The Kanban board provides the corresponding workflow view.
+
 ![AEQA Kanban board — August 17, 2026](../Portfolio%20Evidence/Jira/AEQA-Jira-Kanban-Board-2026-08-17.png)
 
 ## Historical Import Evidence

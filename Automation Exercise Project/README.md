@@ -51,6 +51,12 @@ The staged package is retained as historical migration evidence: 44 Requirements
 
 ### Jira Evidence
 
+The Reports dashboard summarizes the current 122 Jira work items by status, type, assignee, and delivery trend.
+
+![AEQA Jira Reports dashboard — August 17, 2026](Portfolio%20Evidence/Jira/AEQA-Jira-Reports-2026-08-17.png)
+
+The Kanban board shows how those work items are distributed across the active workflow columns.
+
 ![AEQA Jira Kanban board — August 17, 2026](Portfolio%20Evidence/Jira/AEQA-Jira-Kanban-Board-2026-08-17.png)
 
 ### Historical Jira Evidence
