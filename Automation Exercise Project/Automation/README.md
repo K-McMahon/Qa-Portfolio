@@ -9,7 +9,7 @@ This workstream adds browser and API automation to the Automation Exercise QA po
 | Area | Automated test IDs | Source coverage |
 |---|---|---|
 | Authentication | `AE-LOGIN-001` through `AE-LOGIN-004`, `AE-LOGOUT-001` | `SRC-TC-02`, `SRC-TC-03`, `SRC-TC-04` |
-| Registration validation | `AE-SIGNUP-005` | `SRC-TC-05` |
+| Registration | `AE-SIGNUP-005`, `AE-SIGNUP-006` | `SRC-TC-01`, `SRC-TC-05` |
 | Contact and navigation | `AE-CONTACT-001`, `AE-NAV-001` | `SRC-TC-06`, `SRC-TC-07` |
 | Products and search | `AE-PRODUCT-001`, `AE-PRODUCT-002` | `SRC-TC-08`, `SRC-TC-09` |
 | Subscription | `AE-SUB-001`, `AE-SUB-002` | `SRC-TC-10`, `SRC-TC-11` |
@@ -35,6 +35,8 @@ Every normal local test run automatically opens the branded analytics page when 
 
 - `tests/ui/` - Chromium UI tests mapped to the Test Case Repository.
 - `tests/api/` - Playwright API tests mapped to the API documentation.
+- `pages/` - reusable page objects introduced with the complete registration workflow.
+- `data/` - reusable synthetic QA test-data factories.
 - `tests/fixtures/` - harmless files used by controlled test scenarios.
 - `Execution Evidence/` - one final browser screenshot per UI test and API evidence images.
 - `Test Results/` - concise execution summaries suitable for GitHub.
@@ -55,5 +57,7 @@ Credentials are loaded from a private `.env` file that is excluded from Git.
 ## Evidence behavior
 
 Every mapped UI test captures the final browser viewport during teardown, including failed tests. The custom reporter copies the latest image to `Execution Evidence/<test-id>.png`, links the test to the RTM and Test Case Repository, and links its evidence image directly from the branded report.
+
+`AE-SIGNUP-006` uses the project's Page Object Model pattern to complete end-to-end registration with unique synthetic data, select both optional subscription choices, verify the authenticated state, preserve sanitized evidence, and delete the disposable account during cleanup.
 
 `AE-ORDER-004` creates a disposable synthetic account, verifies that checkout delivery and billing addresses match its registration data, and deletes the account afterward. Its Jira-ready evidence bundle is written to `Execution Evidence/AE-ORDER-004.png`, `Execution Evidence/AE-ORDER-004-evidence.html`, and `Execution Evidence/AE-ORDER-004-evidence.pdf`. The branded HTML and PDF include `AEQA-23`, `REQ-ORDER-004`, `AEQA-115`, `AE-ORDER-004`, execution details, expected versus actual address data, assertion results, and the readable McMahon Standard logo. The same files are attached to the Playwright HTML report.
