@@ -1,4 +1,5 @@
 # Codex-generated previews and local helper tooling
+AGENTS.md
 .codex-previews/
 .codex-tmp/
 outputs/
