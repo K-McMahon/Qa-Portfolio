@@ -25,6 +25,18 @@ export class ProductsPage {
       await dismissAdOverlay(this.page);
       const addButton = cards.nth(index).locator('a.add-to-cart').filter({ visible: true }).first();
       await addButton.scrollIntoViewIfNeeded();
+      await expect
+        .poll(
+          () =>
+            addButton.evaluate((button) => {
+              const jquery = (window as typeof window & {
+                jQuery?: { _data?: (element: Element, key: string) => { click?: unknown[] } };
+              }).jQuery;
+              return Boolean(jquery?._data?.(button, 'events')?.click?.length);
+            }),
+          { message: `cart click handler is ready for search result ${index + 1}` }
+        )
+        .toBeTruthy();
       await addButton.click();
 
       const modal = this.page.locator('#cartModal');

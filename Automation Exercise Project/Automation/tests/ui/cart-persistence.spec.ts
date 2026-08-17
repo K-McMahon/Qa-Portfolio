@@ -14,6 +14,18 @@ test('AE-CART-004 | AEQA-112 | Search products remain in cart after login', asyn
   const signupLoginPage = new SignupLoginPage(page);
   let preLoginCart: CartItem[] = [];
 
+  await test.step('enforce the empty-account-cart precondition', async () => {
+    await homePage.open();
+    await homePage.openSignupLogin();
+    await signupLoginPage.expectLoginReady();
+    await signupLoginPage.login(email, password);
+    await homePage.expectLoggedInAs(username);
+    await cartPage.open();
+    await cartPage.clearAllItems();
+    await homePage.logout();
+    await signupLoginPage.expectLoginReady();
+  });
+
   await test.step('search for top and add every visible result', async () => {
     await productsPage.open();
     await productsPage.search('top');
@@ -25,8 +37,8 @@ test('AE-CART-004 | AEQA-112 | Search products remain in cart after login', asyn
     await cartPage.open();
     preLoginCart = await cartPage.snapshot();
     expect(preLoginCart.length).toBeGreaterThan(0);
-    const screenshotPath = await cartPage.captureEvidence('AE-CART-004-pre-login.png');
-    await testInfo.attach('pre-login filled cart', {
+    const screenshotPath = await cartPage.captureEvidence('AE-CART-004(1).png');
+    await testInfo.attach('AE-CART-004(1) pre-login filled cart', {
       path: screenshotPath,
       contentType: 'image/png',
     });
@@ -44,8 +56,8 @@ test('AE-CART-004 | AEQA-112 | Search products remain in cart after login', asyn
     await homePage.expectLoggedInAs(username);
     const postLoginCart = await cartPage.snapshot();
     expect(postLoginCart).toEqual(preLoginCart);
-    const screenshotPath = await cartPage.captureEvidence('AE-CART-004-post-login.png');
-    await testInfo.attach('post-login retained cart', {
+    const screenshotPath = await cartPage.captureEvidence('AE-CART-004(2).png');
+    await testInfo.attach('AE-CART-004(2) post-login retained cart', {
       path: screenshotPath,
       contentType: 'image/png',
     });

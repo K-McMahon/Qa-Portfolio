@@ -18,11 +18,24 @@ export class CartPage {
     await this.page.goto('/view_cart', { waitUntil: 'domcontentloaded' });
     await dismissAdOverlay(this.page);
     await expect(this.page).toHaveURL(/\/view_cart$/);
-    await expect(this.page.locator('#cart_info_table')).toBeVisible();
+    await expect(this.page.locator('body')).toBeVisible();
+  }
+
+  async clearAllItems() {
+    const rows = this.page.locator('#cart_info_table tbody tr[id^="product-"]');
+
+    while ((await rows.count()) > 0) {
+      const previousCount = await rows.count();
+      await rows.first().locator('.cart_quantity_delete').click();
+      await expect(rows).toHaveCount(previousCount - 1);
+    }
+
+    await expect(this.page.getByText('Cart is empty!')).toBeVisible();
   }
 
   async snapshot(): Promise<CartItem[]> {
     const rows = this.page.locator('#cart_info_table tbody tr[id^="product-"]');
+    await expect(this.page.locator('#cart_info_table')).toBeVisible();
     const items = await rows.evaluateAll((cartRows) =>
       cartRows.map((row) => ({
         id: row.id.replace(/^product-/, '').trim(),
