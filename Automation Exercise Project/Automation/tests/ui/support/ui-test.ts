@@ -42,7 +42,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test.afterEach(async ({ page }, testInfo) => {
-  const testId = testInfo.title.match(/\bAE-[A-Z]+-\d{3}\b/)?.[0] ?? 'ui-test';
+  const testId = testInfo.title.match(/\bAE(?:-[A-Z]+)+-\d{3}\b/)?.[0] ?? 'ui-test';
   const evidenceFolder = resolve(process.cwd(), 'Execution Evidence');
   const evidencePath = resolve(evidenceFolder, `${testId}.png`);
 
@@ -79,6 +79,32 @@ export function getLoginCredentials() {
   }
 
   return { email, password, username };
+}
+
+export type PaymentData = {
+  nameOnCard: string;
+  cardNumber: string;
+  cvc: string;
+  expiryMonth: string;
+  expiryYear: string;
+};
+
+export function getPaymentData(): PaymentData {
+  const payment = {
+    nameOnCard: process.env.AE_CARD_NAME,
+    cardNumber: process.env.AE_CARD_NUMBER,
+    cvc: process.env.AE_CARD_CVC,
+    expiryMonth: process.env.AE_CARD_EXPIRY_MONTH,
+    expiryYear: process.env.AE_CARD_EXPIRY_YEAR,
+  };
+
+  if (Object.values(payment).some((value) => !value)) {
+    throw new Error(
+      'Missing payment test data. Add AE_CARD_NAME, AE_CARD_NUMBER, AE_CARD_CVC, AE_CARD_EXPIRY_MONTH, and AE_CARD_EXPIRY_YEAR to the local .env file.'
+    );
+  }
+
+  return payment as PaymentData;
 }
 
 export async function openHome(page: Page) {

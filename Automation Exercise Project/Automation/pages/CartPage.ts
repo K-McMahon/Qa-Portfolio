@@ -60,6 +60,46 @@ export class CartPage {
     );
   }
 
+  async expectProductNamed(productName: string) {
+    await expect(this.page.locator('#cart_info_table')).toBeVisible();
+    await expect(
+      this.page
+        .locator('#cart_info_table .cart_description')
+        .getByRole('link', { name: productName, exact: true })
+    ).toBeVisible();
+  }
+
+  async proceedToCheckout() {
+    await dismissAdOverlay(this.page);
+    const checkoutButton = this.page.locator('a.check_out');
+    await expect(checkoutButton).toBeVisible();
+    await expect
+      .poll(
+        () =>
+          checkoutButton.evaluate((button) => {
+            const jquery = (window as typeof window & {
+              jQuery?: { _data?: (element: Element, key: string) => { click?: unknown[] } };
+            }).jQuery;
+            return Boolean(jquery?._data?.(button, 'events')?.click?.length);
+          }),
+        { message: 'checkout click handler is ready' }
+      )
+      .toBeTruthy();
+    await checkoutButton.click();
+    await dismissAdOverlay(this.page);
+  }
+
+  async openRegistrationFromCheckoutPrompt() {
+    const registerLink = this.page.getByRole('link', {
+      name: 'Register / Login',
+      exact: true,
+    });
+    await expect(registerLink).toBeVisible();
+    await registerLink.click();
+    await dismissAdOverlay(this.page);
+    await expect(this.page).toHaveURL(/\/login$/);
+  }
+
   async captureEvidence(fileName: string) {
     const screenshotPath = resolve(process.cwd(), 'Execution Evidence', fileName);
     await mkdir(dirname(screenshotPath), { recursive: true });
