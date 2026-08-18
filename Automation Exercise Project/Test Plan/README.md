@@ -28,18 +28,19 @@ Evidence references and defect IDs have separate columns. A disagreement between
 | Fully covered by test design | 44 |
 | Partially covered | 0 |
 | Not covered | 0 |
-| Portfolio Test Cases | 48 |
+| Jira Test Cases | 53 |
 | Bugs | 6 |
-| Test Cases executed | 40 |
-| Test Case execution: Passed | 38 |
+| Test Cases executed | 44 |
+| Test Case execution: Passed | 42 |
 | Test Case execution: Failed | 2 |
-| Test Case execution: Not Run | 8 |
-| Playwright scenarios implemented | 14 API; 19 UI |
+| Test Case execution: Not Run | 9 |
+| Requirement execution: Passed / Failed / Not Run | 37 / 2 / 5 |
+| Playwright scenarios implemented | 14 API; 21 UI |
 
-As of August 17, 2026, Jira contains 122 work items when the administrative requirement, tasks, and subtasks are included; the portfolio RTM requirement scope remains 44. All 13 former design gaps have linked manual Test Cases. Five are Passed and eight remain Not Run. `AEQA-121`, the Playwright registration-automation work item, is Done.
+As of August 17, 2026, Jira contains 122 work items when the administrative requirement, tasks, and subtasks are included; the portfolio RTM requirement scope remains 44. All 13 former design gaps have linked manual Test Cases. Eight are Passed and five remain Not Run. Planned automation Test Cases `AEQA-125` through `AEQA-128` are fully documented and correctly remain Not Run in the Backlog.
 
-The RTM's **Jira Sync** sheet preserves a historical 121-work-item AEQA snapshot through August 16, 2026, including Jira keys, work types, workflow states, custom IDs, execution and automation states, Testing links, parents, and update timestamps.
+The RTM's **Jira Sync** sheet is reconciled through August 17, 2026 for the latest registration, checkout, cart-persistence, product-review, and planned automation records. It includes Jira keys, work types, workflow states, custom IDs, execution and automation states, Testing links, parents, and update timestamps.
 
-The latest saved automated report is a separate Chromium run of `AE-CART-004 / AEQA-112`: Passed, 1/1 passed, 0 failed, and 0 skipped (`ae-20260817170106`, August 17, 2026). The Jira manual execution text for `AEQA-112` remains Not Run, so this automated result does not change the manual totals.
+The latest saved automated report is a focused Chromium run of `AE-REVIEW-001 / AEQA-124`: Passed, 1/1 passed, 0 failed, and 0 skipped (`ae-20260817225729`, August 17, 2026). The linked manual case `AEQA-113` is independently recorded as Passed with its own evidence.
 
 The corrected Postman collection completed a clean run on August 9: 14 requests, 42 of 42 assertions passed, and zero errors. Playwright implements all 14 API scenarios. The August 1 Postman baseline remains historical and is retained separately for auditability.

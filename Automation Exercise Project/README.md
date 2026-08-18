@@ -12,12 +12,12 @@ This project demonstrates a complete quality-assurance workflow for the Automati
 
 | Workstream | Result |
 |---|---|
-| Test execution | 48 portfolio Test Cases; 40 executed, 38 Passed, 2 Failed, and 8 Not Run |
+| Test execution | 53 Jira Test Cases; 44 executed, 42 Passed, 2 Failed, and 9 Not Run |
 | Defect management | 6 investigated defects: 3 open and 3 rejected after reconciliation or retest |
-| Requirements traceability | 44 requirements fully covered by test design; Test Case execution is 38 Passed, 2 Failed, and 8 Not Run |
+| Requirements traceability | 44 requirements fully covered by test design; requirement execution is 37 Passed, 2 Failed, and 5 Not Run |
 | API testing | 14 canonical cases; Postman 14 passed and Playwright 14 API scenarios implemented |
 | Postman collection run | Fresh result: 42/42 assertions passed, 0 errors; historical August 1 baseline retained separately |
-| Browser automation | 14 API and 19 UI scenarios implemented in Playwright with linked evidence |
+| Browser automation | 14 API and 21 UI scenarios implemented in Playwright with linked evidence |
 
 ## Project Artifacts
 
@@ -38,14 +38,14 @@ The Jira implementation includes custom Requirement and Test Case work types, st
 
 Before import, the Excel RTM, test repositories, defect log, and evidence references were treated as a migration dataset. Original IDs were preserved; Jira field values and priorities were normalized; execution outcomes were kept separate from workflow status; rejected observations and historical failures were retained for auditability; and Test Case-to-Requirement relationships were staged separately for post-import reconciliation. This prevented invalid options, misleading completion states, and broken traceability from entering Jira.
 
-### Current Jira Execution State — August 17, 2026
+### Current Jira Execution State - August 17, 2026
 
-- 48 portfolio Test Cases are represented: 40 executed, including 38 Passed and 2 Failed; 8 are Not Run.
-- Of the 13 additional `automationexercise.com` manual Test Cases designed for documented RTM gaps, five are Passed and eight remain Not Run.
-- The latest saved automated report is a separate Chromium run of `AE-CART-004 / AEQA-112`: Passed, 1/1 passed, 0 failed, 0 skipped (`ae-20260817170106`, 2026-08-17). Its Jira manual execution text remains Not Run, so it is not counted as a sixth manual completion.
+- 53 Jira Test Cases are represented: 44 executed, including 42 Passed and 2 Failed; 9 are Not Run.
+- Of the 13 additional `automationexercise.com` manual Test Cases designed for documented RTM gaps, eight are Passed and five remain Not Run.
+- The latest saved automated report is a focused Chromium run of `AE-REVIEW-001 / AEQA-124`: Passed, 1/1 passed, 0 failed, 0 skipped (`ae-20260817225729`, 2026-08-17). The separate manual case `AEQA-113` is also Passed with its own evidence.
 - Every new coverage-gap Test Case links to its Requirement using the custom `tests` relationship.
 
-The staged package is retained as historical migration evidence: 44 Requirements, 35 existing Test Cases, 6 Bugs, and a 36-row relationship manifest. After the gap analysis, 13 additional automationexercise.com manual cases were imported, bringing the represented Test Case total to 48.
+The staged package is retained as historical migration evidence: 44 Requirements, 35 existing Test Cases, 6 Bugs, and a 36-row relationship manifest. After the gap analysis, 13 additional manual cases and 5 separate automation Test Cases were added, bringing the current Jira Test Case total to 53.
 
 - [Review the Jira import preparation and reconciliation record](Jira%20Import%20Ready/README.md)
 
@@ -53,21 +53,21 @@ The staged package is retained as historical migration evidence: 44 Requirements
 
 The Reports dashboard summarizes the current 122 Jira work items by status, type, assignee, and delivery trend.
 
-![AEQA Jira Reports dashboard — August 17, 2026](Portfolio%20Evidence/Jira/AEQA-Jira-Reports-2026-08-17.png)
+![AEQA Jira Reports dashboard, August 17, 2026](Portfolio%20Evidence/Jira/AEQA-Jira-Reports-2026-08-17.png)
 
 The Kanban board shows how those work items are distributed across the active workflow columns.
 
-![AEQA Jira Kanban board — August 17, 2026](Portfolio%20Evidence/Jira/AEQA-Jira-Kanban-Board-2026-08-17.png)
+![AEQA Jira Kanban board, August 17, 2026](Portfolio%20Evidence/Jira/AEQA-Jira-Kanban-Board-2026-08-17.png)
 
 ### Historical Jira Evidence
 
 The August 16 reconciliation report and August 10 images preserve earlier states that are superseded by the August 17 current state above.
 
-- [Superseded reconciliation snapshot — August 16, 2026](Portfolio%20Evidence/Jira/AEQA-Reconciliation-2026-08-16.md)
+- [Superseded reconciliation snapshot, August 16, 2026](Portfolio%20Evidence/Jira/AEQA-Reconciliation-2026-08-16.md)
 
-![AEQA Jira Kanban board — August 10, 2026](Portfolio%20Evidence/Jira/AEQA-Jira-Kanban-Board-2026-08-10.png)
+![AEQA Jira Kanban board, August 10, 2026](Portfolio%20Evidence/Jira/AEQA-Jira-Kanban-Board-2026-08-10.png)
 
-![AEQA Test Case and Requirement traceability — August 10, 2026](Portfolio%20Evidence/Jira/AEQA-Jira-TestCase-Traceability-2026-08-10.png)
+![AEQA Test Case and Requirement traceability, August 10, 2026](Portfolio%20Evidence/Jira/AEQA-Jira-TestCase-Traceability-2026-08-10.png)
 
 ## Test Coverage
 

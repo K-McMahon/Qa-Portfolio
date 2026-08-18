@@ -50,25 +50,26 @@ The following cleanup decisions, package counts, and sequence document the origi
 - Previously passing Test Cases remain complete, while failed cases remain open for retest.
 - At import time, new cases remained Not Run, avoiding any claim of execution that had not occurred.
 
-## Current Reconciled State — August 17, 2026
+## Current Reconciled State - August 17, 2026
 
-- Portfolio scope: 44 Requirements, 48 Test Cases, and 6 Bugs.
-- Execution outcomes: 40 executed — 38 Passed, 2 Failed, and 8 Not Run.
-- Of the 13 manual coverage-gap cases, 5 are Passed and 8 remain Not Run.
-- The latest saved automation report is a separate Chromium run of `AE-CART-004 / AEQA-112`: Passed, 1/1 passed, 0 failed, 0 skipped (`ae-20260817170106`, 2026-08-17). Jira's manual execution text for AEQA-112 remains Not Run, so that automation result does not make it a sixth manual completion.
+- Portfolio scope: 44 Requirements, 53 Test Cases, and 6 Bugs.
+- Execution outcomes: 44 executed, with 42 Passed, 2 Failed, and 9 Not Run.
+- Of the 13 manual coverage-gap cases, 8 are Passed and 5 remain Not Run.
+- The latest saved automation report is a focused Chromium run of `AE-REVIEW-001 / AEQA-124`: Passed, 1/1 passed, 0 failed, 0 skipped (`ae-20260817225729`, 2026-08-17). The linked manual case `AEQA-113` is also Passed with separate evidence.
+- Planned automation Test Cases `AEQA-125` through `AEQA-128` have complete fields, links, labels, and acceptance criteria. They remain Backlog and Not Run until implementation.
 
 The Reports dashboard provides the current 122-item project view across workflow status, work-item type, assignee, creation, completion, lead-time, and cycle-time trends.
 
-![AEQA Jira Reports dashboard — August 17, 2026](../Portfolio%20Evidence/Jira/AEQA-Jira-Reports-2026-08-17.png)
+![AEQA Jira Reports dashboard, August 17, 2026](../Portfolio%20Evidence/Jira/AEQA-Jira-Reports-2026-08-17.png)
 
 The Kanban board provides the corresponding workflow view.
 
-![AEQA Kanban board — August 17, 2026](../Portfolio%20Evidence/Jira/AEQA-Jira-Kanban-Board-2026-08-17.png)
+![AEQA Kanban board, August 17, 2026](../Portfolio%20Evidence/Jira/AEQA-Jira-Kanban-Board-2026-08-17.png)
 
 ## Historical Import Evidence
 
-![AEQA Kanban board — August 10, 2026](../Portfolio%20Evidence/Jira/AEQA-Jira-Kanban-Board-2026-08-10.png)
+![AEQA Kanban board, August 10, 2026](../Portfolio%20Evidence/Jira/AEQA-Jira-Kanban-Board-2026-08-10.png)
 
-![Test Case-to-Requirement traceability — August 10, 2026](../Portfolio%20Evidence/Jira/AEQA-Jira-TestCase-Traceability-2026-08-10.png)
+![Test Case-to-Requirement traceability, August 10, 2026](../Portfolio%20Evidence/Jira/AEQA-Jira-TestCase-Traceability-2026-08-10.png)
 
 

@@ -12,17 +12,17 @@ This folder contains the structured manual test repository for the Automation Ex
 
 ## Repository Contents
 
-The workbook records 34 manual UI cases with requirement IDs, preconditions, controlled test data, numbered steps, expected and actual results, execution status, evidence, linked defects, and the Jira keys used to reconcile newly designed coverage. The current portfolio execution record also includes 14 canonical API Test Cases, producing 48 Jira Test Cases in total.
+The workbook records 34 manual UI cases and 5 separate UI automation cases with requirement IDs, preconditions, controlled test data, numbered steps, expected and actual results, execution status, evidence, linked defects, and Jira traceability. Jira also contains 14 canonical API Test Cases, producing 53 Test Cases in total.
 
 | Execution measure | Portfolio Test Cases | Manual workbook subset |
 |---|---:|---:|
-| Documented | 48 | 34 |
-| Executed | 40 | 26 |
-| Passed | 38 | 24 |
+| Documented | 53 | 39 |
+| Executed | 44 | 30 |
+| Passed | 42 | 28 |
 | Failed | 2 | 2 |
-| Not Run | 8 | 8 |
+| Not Run | 9 | 9 |
 
-Thirteen manual cases were synchronized from Jira after the RTM gap analysis and cover checkout, catalog navigation, reviews, recommended items, cart persistence, address and invoice checks, and scroll navigation. Five are now Passed and eight remain Not Run. The latest saved automated report separately records `AE-CART-004 / AEQA-112` as Passed in Chromium (1/1 passed); its Jira manual execution text remains Not Run, so it is not counted as a sixth manual completion. The two current failures remain traceable to open product defects.
+Thirteen manual cases were synchronized from Jira after the RTM gap analysis and cover checkout, catalog navigation, reviews, recommended items, cart persistence, address and invoice checks, and scroll navigation. Eight are now Passed and five remain Not Run. Five separate automation Test Cases extend that design, with `AE-AUTO-REVIEW-001 / AEQA-124` Passed and four planned cases correctly remaining Not Run. The two current failures remain traceable to open product defects.
 
 ## Related Evidence
 
