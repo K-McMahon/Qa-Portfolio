@@ -10,13 +10,13 @@ I am transitioning into software quality assurance and data analysis. This portf
 
 | Area | Completed Work | Current Result |
 |---|---|---|
-| Test execution | 53 Jira Test Cases; 44 executed | 42 Passed, 2 Failed, 9 Not Run |
-| Jira test management | 44 requirements, 53 Test Cases, and 6 Bugs tracked in AEQA | 8 manual coverage-gap cases Passed; 5 remain Not Run |
+| Test execution | 53 Jira Test Cases; 51 executed | 49 Passed, 2 Failed, 2 Not Run |
+| Jira test management | 44 portfolio requirements, 53 Test Cases, and 6 Bugs tracked in AEQA | 12 manual coverage-gap cases Passed; 1 remains Not Run |
 | Defect reporting | 6 investigated defects | 3 open, 3 rejected after reconciliation or retest |
-| Requirements traceability | 44 UI, API, and tester-derived requirements | 44 fully covered by test design; requirement execution is 37 Passed, 2 Failed, 5 Not Run |
+| Requirements traceability | 44 UI, API, and tester-derived requirements | 44 fully covered by test design; requirement execution is 41 Passed, 2 Failed, 1 Not Run |
 | API testing | 14 canonical API cases with separate Postman and Playwright coverage | Postman: 14/14 passed; Playwright: 14 API scenarios implemented |
 | API collection run | Corrected 14-request regression collection | Fresh run: 42/42 assertions passed, 0 errors; historical August 1 baseline retained |
-| Browser automation | Playwright API and browser suites | 14 API and 21 UI scenarios implemented with linked evidence |
+| Browser automation | Playwright API and browser suites | 14 API and 24 UI scenarios implemented with linked evidence |
 | Hacker News validation | Playwright ordering audit across paginated results | Exactly 100 unique articles verified with a branded HTML evidence report |
 | SQL analysis | Six-table relational sales database and 15 analytical queries | Schema, sanitized data, queries, joins, subquery, and results report complete |
 
@@ -34,7 +34,7 @@ I am transitioning into software quality assurance and data analysis. This portf
 
 ### Manual Test Repository
 
-The UI workbook contains 34 manual cases and 5 separate automation cases. Jira also contains 14 canonical API cases, producing 53 Test Cases in total. The current Jira record has 44 executed cases, with 42 Passed, 2 Failed, and 9 Not Run. Coverage includes:
+The UI workbook contains 34 manual cases and 5 separate automation cases. Jira also contains 14 canonical API cases, producing 53 Test Cases in total. The current Jira record has 51 executed cases, with 49 Passed, 2 Failed, and 2 Not Run. Coverage includes:
 
 - Signup and account creation
 - Login, invalid authentication, and logout
@@ -54,7 +54,7 @@ The workbook records preconditions, controlled test data, numbered steps, expect
 - [Open the manual test-case repository](Automation%20Exercise%20Project/Test%20Cases/Automation%20Exercise%20-%20Test%20Case%20Repository.xlsx)
 - [Browse UI execution evidence](Automation%20Exercise%20Project/Screenshots)
 
-**Current execution summary:** 53 Jira Test Cases; 44 executed; 42 Passed; 2 Failed; 9 Not Run. The local 39-case UI workbook records 28 Passed, 2 Failed, and 9 Not Run. Detailed Jira evidence is available in the [project overview](Automation%20Exercise%20Project/README.md#jira-evidence).
+**Current execution summary:** 53 Jira Test Cases; 51 executed; 49 Passed; 2 Failed; 2 Not Run. The local 39-case UI workbook records 35 Passed, 2 Failed, and 2 Not Run. Detailed Jira evidence is available in the [project overview](Automation%20Exercise%20Project/README.md#jira-evidence).
 
 ### Defect Management
 
@@ -87,7 +87,7 @@ The RTM cross-references:
 | Not Covered | 0 |
 | **Total** | **44** |
 
-Jira now contains linked manual Test Cases for the former checkout, catalog, review, recommended-item, and scroll-navigation gaps. Eight manual coverage-gap cases are reconciled as Passed, while five remain Not Run. The latest focused Playwright run passed `AE-REVIEW-001 / AEQA-124`, and the manual result remains independently recorded under `AEQA-113`.
+Jira now contains linked manual Test Cases for the former checkout, catalog, review, recommended-item, and scroll-navigation gaps. Twelve manual coverage-gap cases are reconciled as Passed, while `AE-CATALOG-002 / AEQA-111` remains Not Run. The latest focused Playwright run passed `AE-AUTO-NAV-002 / AEQA-127`, with screenshot and short video evidence.
 
 - [Open the requirements-traceability landing page](Automation%20Exercise%20Project/Test%20Plan/README.md)
 
@@ -101,7 +101,7 @@ The migration work demonstrates more than a CSV upload:
 - Separated product execution results from Jira workflow status so `Passed`, `Failed`, and `Not Run` remain test outcomes rather than misleading board states.
 - Normalized source values to valid Jira field options while preserving original IDs for cross-reference.
 - Built staged import files for 44 Requirements, 35 previously existing Test Cases, 6 Bugs, and 36 Test Case-to-Requirement relationships.
-- Designed and imported 13 additional manual cases for the RTM's partial and uncovered areas; eight are now Passed with evidence and five remain correctly marked `Not Run`.
+- Designed and imported 13 additional manual cases for the RTM's partial and uncovered areas; 12 are now Passed with evidence and `AEQA-111` remains correctly marked `Not Run`.
 - Linked each new Test Case to its Requirement using the custom `tests` relationship, producing the working chain `Requirement -> Test Case -> Bug`.
 - Captured board and work-item evidence so employers can review the implementation without receiving edit access to the live Jira site.
 
@@ -140,7 +140,7 @@ Included assets:
 
 ### Playwright Automation
 
-The Playwright project contains 14 API scenarios and 19 mapped UI scenarios. It captures evidence, protects credentials through a private environment file, and produces both a stakeholder-oriented QA analytics report and Playwright's technical report. API automation currently covers all 14 canonical requirements; UI results remain independently traceable from the manual execution record.
+The Playwright project contains 14 API scenarios and 24 mapped UI scenarios. It captures evidence, protects credentials through a private environment file, and produces both a stakeholder-oriented QA analytics report and Playwright's technical report. API automation currently covers all 14 canonical requirements; UI results remain independently traceable from the manual execution record.
 
 - [Automation project, coverage, and commands](Automation%20Exercise%20Project/Automation/README.md)
 - [Automation execution evidence](Automation%20Exercise%20Project/Automation/Execution%20Evidence)
@@ -251,7 +251,7 @@ npm.cmd run test:headed
 ## Current Development Focus
 
 - Keep the clean Postman regression run and its sanitized evidence synchronized with future API changes
-- Execute the 5 remaining Jira manual coverage-gap cases and reconcile the outcomes back to the formal RTM
+- Execute the remaining Jira manual case `AE-CATALOG-002 / AEQA-111` and the planned automation case `AE-AUTO-NAV-003 / AEQA-128`
 - Retest open defects when fixes become available
 - Refine Power BI presentation styling and expand the dataset over time
 - Keep README landing pages and traceability links synchronized as each workstream matures

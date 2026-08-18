@@ -12,12 +12,12 @@ This project demonstrates a complete quality-assurance workflow for the Automati
 
 | Workstream | Result |
 |---|---|
-| Test execution | 53 Jira Test Cases; 44 executed, 42 Passed, 2 Failed, and 9 Not Run |
+| Test execution | 53 Jira Test Cases; 51 executed, 49 Passed, 2 Failed, and 2 Not Run |
 | Defect management | 6 investigated defects: 3 open and 3 rejected after reconciliation or retest |
-| Requirements traceability | 44 requirements fully covered by test design; requirement execution is 37 Passed, 2 Failed, and 5 Not Run |
+| Requirements traceability | 44 requirements fully covered by test design; requirement execution is 41 Passed, 2 Failed, and 1 Not Run |
 | API testing | 14 canonical cases; Postman 14 passed and Playwright 14 API scenarios implemented |
 | Postman collection run | Fresh result: 42/42 assertions passed, 0 errors; historical August 1 baseline retained separately |
-| Browser automation | 14 API and 21 UI scenarios implemented in Playwright with linked evidence |
+| Browser automation | 14 API and 24 UI scenarios implemented in Playwright with linked evidence |
 
 ## Project Artifacts
 
@@ -40,9 +40,9 @@ Before import, the Excel RTM, test repositories, defect log, and evidence refere
 
 ### Current Jira Execution State - August 17, 2026
 
-- 53 Jira Test Cases are represented: 44 executed, including 42 Passed and 2 Failed; 9 are Not Run.
-- Of the 13 additional `automationexercise.com` manual Test Cases designed for documented RTM gaps, eight are Passed and five remain Not Run.
-- The latest saved automated report is a focused Chromium run of `AE-REVIEW-001 / AEQA-124`: Passed, 1/1 passed, 0 failed, 0 skipped (`ae-20260817225729`, 2026-08-17). The separate manual case `AEQA-113` is also Passed with its own evidence.
+- 53 Jira Test Cases are represented: 51 executed, including 49 Passed and 2 Failed; 2 are Not Run.
+- Of the 13 additional `automationexercise.com` manual Test Cases designed for documented RTM gaps, 12 are Passed and `AE-CATALOG-002 / AEQA-111` remains Not Run.
+- The latest saved automated report is a focused Chromium run of `AE-AUTO-NAV-002 / AEQA-127`: Passed, 1/1 passed, 0 failed, 0 skipped (`ae-20260818014448`, run locally on August 17, 2026). Screenshot and short video evidence are retained.
 - Every new coverage-gap Test Case links to its Requirement using the custom `tests` relationship.
 
 The staged package is retained as historical migration evidence: 44 Requirements, 35 existing Test Cases, 6 Bugs, and a 36-row relationship manifest. After the gap analysis, 13 additional manual cases and 5 separate automation Test Cases were added, bringing the current Jira Test Case total to 53.

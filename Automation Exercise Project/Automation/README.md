@@ -6,7 +6,7 @@ This workstream adds browser and API automation to the Automation Exercise QA po
 
 ## Current coverage
 
-The suite currently implements **14 API scenarios** and **21 UI scenarios**.
+The suite currently implements **14 API scenarios** and **24 UI scenarios**.
 
 | Area | Automated test IDs | Source coverage |
 |---|---|---|
@@ -17,8 +17,10 @@ The suite currently implements **14 API scenarios** and **21 UI scenarios**.
 | Catalog and brands | `AE-CATALOG-002` / Jira `AEQA-123` | `SRC-TC-19` / `REQ-CATALOG-002` |
 | Product reviews | `AE-REVIEW-001` / Jira `AEQA-124` | `SRC-TC-21` / `REQ-REVIEW-001` |
 | Subscription | `AE-SUB-001`, `AE-SUB-002` | `SRC-TC-10`, `SRC-TC-11` |
-| Cart | `AE-CART-001` through `AE-CART-004` | `SRC-TC-12`, `SRC-TC-13`, `SRC-TC-17`, `SRC-TC-20 / AEQA-112` |
+| Cart | `AE-CART-001` through `AE-CART-004`; `AE-AUTO-CART-005 / AEQA-125` | `SRC-TC-12`, `SRC-TC-13`, `SRC-TC-17`, `SRC-TC-20`, `SRC-TC-22` |
 | Checkout address | `AE-ORDER-004` / Jira `AEQA-115` | `REQ-ORDER-004` / Jira `AEQA-23` |
+| Checkout invoice | `AE-AUTO-ORDER-005` / Jira `AEQA-126` | `SRC-TC-24` / `REQ-ORDER-005` |
+| Scroll navigation | `AE-AUTO-NAV-002` / Jira `AEQA-127` | `SRC-TC-25` / `REQ-NAV-002` |
 | Security | `AE-LOGIN-002` | Tester-derived SQL injection coverage |
 | API | `API-PRODUCT`, `API-BRAND`, `API-SEARCH`, `API-AUTH`, `API-ACCOUNT` suites | Automation Exercise API requirements |
 
@@ -32,9 +34,9 @@ The suite currently implements **14 API scenarios** and **21 UI scenarios**.
 
 ## Latest Saved Report Run: August 17, 2026
 
-The latest saved QA analytics run is **Passed** on Chromium: **1/1 passed, 0 failed, 0 skipped**. It is run `ae-20260817225729` and covers `AE-REVIEW-001 | AEQA-113 | AEQA-124 | Visitor submits a product review`.
+The latest saved QA analytics run is **Passed** on Chromium: **1/1 passed, 0 failed, 0 skipped**. It is run `ae-20260818014448` and covers `AE-AUTO-NAV-002 | AEQA-127 | Scroll down and return with the arrow`.
 
-This automated run is traceable to the completed manual case `AEQA-113`, the automation test `AEQA-124`, and requirement `AEQA-21`. Their execution records and evidence remain independently auditable.
+This automated run is traceable to the completed manual case `AEQA-117`, automation test `AEQA-127`, and requirement `AEQA-25`. The screenshot and short video remain independently auditable.
 
 ## Report Evidence
 
