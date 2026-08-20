@@ -1,6 +1,8 @@
 import { test, expect, getLoginCredentials, login, openLogin } from './support/ui-test';
+import { hasLoginCredentials } from './support/credential-availability';
 
 test('AE-LOGIN-001 | SRC-TC-02 | Login with valid credentials', async ({ page }) => {
+  test.skip(!hasLoginCredentials(), 'Requires existing-account credentials.');
   const { email, password, username } = getLoginCredentials();
   const emailInput = page.locator('[data-qa="login-email"]');
   const passwordInput = page.locator('[data-qa="login-password"]');
@@ -54,6 +56,7 @@ test('AE-LOGIN-002 | Security | Reject SQL injection input', async ({ page }) =>
 });
 
 test('AE-LOGIN-003 | SRC-TC-03 | Reject a wrong password', async ({ page }) => {
+  test.skip(!hasLoginCredentials(), 'Requires existing-account credentials.');
   const { email } = getLoginCredentials();
 
   await login(page, email, 'intentionally-wrong-password');
@@ -74,6 +77,7 @@ test('AE-LOGIN-004 | SRC-TC-03 | Reject an unregistered account', async ({ page 
 });
 
 test('AE-LOGOUT-001 | SRC-TC-04 | Logout an authenticated user', async ({ page }) => {
+  test.skip(!hasLoginCredentials(), 'Requires existing-account credentials.');
   const { email, password, username } = getLoginCredentials();
 
   await login(page, email, password);
@@ -86,6 +90,7 @@ test('AE-LOGOUT-001 | SRC-TC-04 | Logout an authenticated user', async ({ page }
 });
 
 test('AE-SIGNUP-005 | SRC-TC-05 | Reject an existing email', async ({ page }) => {
+  test.skip(!hasLoginCredentials(), 'Requires existing-account credentials.');
   const { email, username } = getLoginCredentials();
 
   await openLogin(page);

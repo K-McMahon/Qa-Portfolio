@@ -6,11 +6,13 @@ on:
     - cron: '17 2 * * *'
       timezone: 'America/New_York'
   push:
+    branches: [main]
     paths:
       - '.github/workflows/playwright-qa-regression.yml'
       - 'Automation Exercise Project/Automation/**'
       - '!Automation Exercise Project/Portfolio Evidence/GitHub Actions/Monthly/**'
   pull_request:
+    branches: [main]
     paths:
       - '.github/workflows/playwright-qa-regression.yml'
       - 'Automation Exercise Project/Automation/**'
@@ -167,6 +169,7 @@ jobs:
 
       - name: Download regression analytics
         uses: actions/download-artifact@v4
+        continue-on-error: true
         with:
           name: qa-regression-evidence
           path: downloaded-evidence
@@ -209,9 +212,16 @@ jobs:
           const analytics = readQaSummary(
             'downloaded-evidence/test-results/qa-analytics/run-summary.json',
           ) ?? {};
+          const counts = {
+            total: analytics.total,
+            passed: analytics.passed,
+            failed: analytics.failed,
+            flaky: analytics.flaky,
+            skipped: analytics.skipped,
+          };
           const body = buildJiraComment({
-            ...analytics,
-            outcome: analytics.outcome ?? process.env.TEST_OUTCOME,
+            ...counts,
+            outcome: process.env.TEST_OUTCOME,
             eventName: process.env.EVENT_NAME,
             branch: process.env.BRANCH_NAME,
             sha: process.env.COMMIT_SHA,

@@ -1,6 +1,7 @@
 import { access, mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { expect, test as base, type Page } from '@playwright/test';
+import { hasLoginCredentials, hasPaymentData } from './credential-availability';
 
 export const test = base;
 export { expect };
@@ -72,13 +73,13 @@ export function getLoginCredentials() {
   const password = process.env.AE_PASSWORD;
   const username = process.env.AE_USERNAME;
 
-  if (!email || !password || !username) {
+  if (!hasLoginCredentials()) {
     throw new Error(
       'Missing login test data. Add AE_EMAIL, AE_PASSWORD, and AE_USERNAME to the local .env file.'
     );
   }
 
-  return { email, password, username };
+  return { email: email!, password: password!, username: username! };
 }
 
 export type PaymentData = {
@@ -98,7 +99,7 @@ export function getPaymentData(): PaymentData {
     expiryYear: process.env.AE_CARD_EXPIRY_YEAR,
   };
 
-  if (Object.values(payment).some((value) => !value)) {
+  if (!hasPaymentData()) {
     throw new Error(
       'Missing payment test data. Add AE_CARD_NAME, AE_CARD_NUMBER, AE_CARD_CVC, AE_CARD_EXPIRY_MONTH, and AE_CARD_EXPIRY_YEAR to the local .env file.'
     );

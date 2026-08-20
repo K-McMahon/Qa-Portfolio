@@ -3,10 +3,12 @@ import { HomePage } from '../../pages/HomePage';
 import { ProductsPage } from '../../pages/ProductsPage';
 import { SignupLoginPage } from '../../pages/SignupLoginPage';
 import { expect, getLoginCredentials, test } from './support/ui-test';
+import { hasLoginCredentials } from './support/credential-availability';
 
 test('AE-CART-004 | AEQA-112 | Search products remain in cart after login', async ({
   page,
 }, testInfo) => {
+  test.skip(!hasLoginCredentials(), 'Requires existing-account credentials.');
   const { email, password, username } = getLoginCredentials();
   const homePage = new HomePage(page);
   const productsPage = new ProductsPage(page);

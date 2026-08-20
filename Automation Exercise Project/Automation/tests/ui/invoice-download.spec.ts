@@ -8,10 +8,12 @@ import { OrderConfirmationPage } from '../../pages/OrderConfirmationPage';
 import { PaymentPage } from '../../pages/PaymentPage';
 import { SignupLoginPage } from '../../pages/SignupLoginPage';
 import { getPaymentData, test } from './support/ui-test';
+import { hasPaymentData } from './support/credential-availability';
 
 test('AE-AUTO-ORDER-005 | AEQA-126 | Download invoice after purchase', async ({
   page,
 }, testInfo) => {
+  test.skip(!hasPaymentData(), 'Requires payment test data.');
   testInfo.annotations.push({
     type: 'preserve-evidence',
     description: 'The order confirmation and invoice download evidence is preserved before cleanup.',
