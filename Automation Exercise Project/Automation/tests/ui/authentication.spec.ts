@@ -1,3 +1,4 @@
+import { createSyntheticIdentity } from '../../data/synthetic-identity';
 import { test, expect, getLoginCredentials, login, openLogin } from './support/ui-test';
 import { hasLoginCredentials } from './support/credential-availability';
 
@@ -67,7 +68,7 @@ test('AE-LOGIN-003 | SRC-TC-03 | Reject a wrong password', async ({ page }) => {
 });
 
 test('AE-LOGIN-004 | SRC-TC-03 | Reject an unregistered account', async ({ page }) => {
-  const email = 'qa-unregistered@example.com';
+  const email = createSyntheticIdentity('unregistered-login').email;
 
   await login(page, email, 'not-a-real-password');
 

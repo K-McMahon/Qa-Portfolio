@@ -11,7 +11,7 @@ This folder holds portfolio evidence produced by the QA regression workflows. It
 
 The monthly-summary directory is excluded from regression path triggers. Publishing a monthly portfolio file therefore does not start another regression run.
 
-GitHub can disable a scheduled workflow in a public repository after 60 days without activity. If that happens, a maintainer should run the workflow manually and confirm the next scheduled run.
+GitHub can disable a scheduled workflow in a public repository after 60 days without activity. If that happens, a maintainer must first re-enable the workflow through the GitHub Actions UI, the `gh workflow enable` CLI command, or the GitHub Actions API. The maintainer should then use **Run workflow** to verify manual execution and confirm the next scheduled run.
 
 ## Evidence and retention
 
@@ -25,15 +25,22 @@ For trusted scheduled, manual, and `main` push runs, the workflow posts one sani
 
 The automation creates no Jira Bug issues. Review the artifact first, then decide whether a failure needs normal defect triage. Pull-request runs do not post to Jira and do not receive repository secrets.
 
-## Required secret names
+## Required runtime secrets and public link variables
 
-Add these as repository secrets before the first trusted run. Values are not stored in this repository.
+Add the following twelve values as encrypted repository secrets before the first trusted run. Values are not stored in this repository.
 
 | Category | Names |
 | --- | --- |
 | Saved account | `AE_EMAIL`, `AE_PASSWORD`, `AE_USERNAME` |
 | Fictional payment data | `AE_CARD_NAME`, `AE_CARD_NUMBER`, `AE_CARD_CVC`, `AE_CARD_EXPIRY_MONTH`, `AE_CARD_EXPIRY_YEAR` |
 | Jira ledger | `JIRA_BASE_URL`, `JIRA_EMAIL`, `JIRA_API_TOKEN`, `JIRA_CI_ISSUE_KEY` |
+
+The monthly summary separately reads two non-sensitive repository variables. `JIRA_BASE_URL` and `JIRA_CI_ISSUE_KEY` are public link metadata in that workflow, not credentials. The trusted regression Jira job continues to use encrypted secrets with the same names, together with `JIRA_EMAIL` and `JIRA_API_TOKEN`. The monthly workflow never reads those encrypted values.
+
+| Public variable | Purpose |
+| --- | --- |
+| `JIRA_BASE_URL` | Root HTTPS Jira Cloud URL for monthly Markdown links. |
+| `JIRA_CI_ISSUE_KEY` | Existing Jira issue key for monthly Markdown links. |
 
 Payment values must be fictional. Disposable account tests use generated `example.com` email addresses and remove the accounts they create. Tests using the saved account never delete it.
 

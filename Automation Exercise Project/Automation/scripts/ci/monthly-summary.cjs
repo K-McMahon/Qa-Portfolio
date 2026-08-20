@@ -3,7 +3,6 @@ const { join } = require('node:path');
 
 const EASTERN_TIME_ZONE = 'America/New_York';
 const COUNT_FIELDS = ['total', 'passed', 'failed', 'flaky', 'skipped'];
-const JIRA_BASE_URL = 'https://kgmcmahon973.atlassian.net';
 
 function validateMonth(month) {
   if (!/^\d{4}-(0[1-9]|1[0-2])$/.test(month ?? '')) {
@@ -127,6 +126,15 @@ function easternTimestamp(value) {
   }).format(new Date(value));
 }
 
+function outcomeBucket(conclusion) {
+  return ['success', 'failure', 'cancelled'].includes(conclusion) ? conclusion : 'other';
+}
+
+function outcomeLabel(conclusion) {
+  const labels = { failure: 'Failed', cancelled: 'Cancelled', other: 'Other' };
+  return labels[outcomeBucket(conclusion)];
+}
+
 function buildMonthlySummary(runs, month, links = {}) {
   validateMonth(month);
   const repository = cleanRepository(links.repository);
@@ -135,9 +143,9 @@ function buildMonthlySummary(runs, month, links = {}) {
     .filter((run) => run?.event === 'schedule' && easternMonth(run.created_at) === month)
     .sort((left, right) => new Date(left.created_at) - new Date(right.created_at));
 
-  const conclusions = { success: 0, failure: 0, cancelled: 0 };
+  const conclusions = { success: 0, failure: 0, cancelled: 0, other: 0 };
   for (const run of includedRuns) {
-    if (Object.hasOwn(conclusions, run.conclusion)) conclusions[run.conclusion] += 1;
+    conclusions[outcomeBucket(run.conclusion)] += 1;
   }
 
   const summaries = includedRuns.map((run) => normalizeCounts(run.qa_summary));
@@ -166,6 +174,7 @@ function buildMonthlySummary(runs, month, links = {}) {
     `| Successful | ${conclusions.success} |`,
     `| Failed | ${conclusions.failure} |`,
     `| Cancelled | ${conclusions.cancelled} |`,
+    `| Other | ${conclusions.other} |`,
   ];
 
   if (aggregated) {
@@ -196,6 +205,19 @@ function buildMonthlySummary(runs, month, links = {}) {
     ? `- Jira tracking: [${links.jiraIssueKey}](${jiraUrl})`
     : '- Jira tracking: Link unavailable');
 
+  const reviewRuns = includedRuns.filter((run) => outcomeBucket(run.conclusion) !== 'success');
+  if (reviewRuns.length > 0) {
+    lines.push('', '## Runs requiring review', '');
+    for (const run of reviewRuns) {
+      const label = outcomeLabel(run.conclusion);
+      const timestamp = easternTimestamp(run.created_at);
+      const runUrl = cleanRunUrl(run.html_url, repository);
+      lines.push(runUrl
+        ? `- ${label} run: [${timestamp}](${runUrl})`
+        : `- ${label} run at ${timestamp}: Link unavailable`);
+    }
+  }
+
   if (includedRuns.length === 0) {
     lines.push('', 'No nightly executions were recorded.');
   }
@@ -221,11 +243,16 @@ function runCli() {
 
   const month = process.env.REPORT_MONTH;
   validateMonth(month);
+  const jiraBaseUrl = process.env.JIRA_BASE_URL;
+  const jiraIssueKey = process.env.JIRA_CI_ISSUE_KEY;
+  if (!cleanJiraUrl(jiraBaseUrl, jiraIssueKey)) {
+    throw new Error('JIRA_BASE_URL and JIRA_CI_ISSUE_KEY must identify a valid Jira Cloud issue.');
+  }
   const response = JSON.parse(readFileSync(inputPath, 'utf8'));
   const markdown = buildMonthlySummary(workflowRuns(response), month, {
     repository: process.env.GITHUB_REPOSITORY,
-    jiraIssueKey: process.env.JIRA_CI_ISSUE_KEY,
-    jiraBaseUrl: JIRA_BASE_URL,
+    jiraIssueKey,
+    jiraBaseUrl,
   });
   mkdirSync(outputDirectory, { recursive: true });
   writeFileSync(join(outputDirectory, `${month}.md`), markdown, 'utf8');

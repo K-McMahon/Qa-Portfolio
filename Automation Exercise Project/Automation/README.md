@@ -88,7 +88,7 @@ The repository runs the full Playwright regression suite in GitHub Actions. This
 
 ### Repository secrets
 
-Add these values as GitHub repository secrets. Use the same names in a private local `.env` file when a local run needs them. Never commit a `.env` file or a secret value.
+Add these twelve runtime values as encrypted GitHub repository secrets. Use the same names in a private local `.env` file when a local run needs them. Never commit a `.env` file or a secret value.
 
 | Group | Secret | Purpose |
 | --- | --- | --- |
@@ -105,6 +105,15 @@ Add these values as GitHub repository secrets. Use the same names in a private l
 | Jira ledger | `JIRA_API_TOKEN` | Jira API token for that account. |
 | Jira ledger | `JIRA_CI_ISSUE_KEY` | Existing Jira issue that holds the regression history. |
 
+### Public repository variables
+
+The monthly summary uses two non-sensitive repository variables only to build public review links. Configure `JIRA_BASE_URL` with the root HTTPS Jira Cloud URL and `JIRA_CI_ISSUE_KEY` with the existing ledger issue key. These public variables are separate from the twelve encrypted runtime secrets. The trusted regression Jira job still reads its four `JIRA_*` values from encrypted secrets, while the monthly workflow never reads secret-derived Jira configuration.
+
+| Variable | Purpose |
+| --- | --- |
+| `JIRA_BASE_URL` | Public Jira Cloud base URL used in the monthly Markdown link. |
+| `JIRA_CI_ISSUE_KEY` | Public Jira issue key used in the monthly Markdown link. |
+
 The five payment values are fictional test data only. Tests that create disposable accounts use unique generated `example.com` addresses and clean up those created accounts. Tests using the saved `AE_*` account never delete that persistent account.
 
 ### When the workflows run
@@ -115,7 +124,7 @@ The five payment values are fictional test data only. Tests that create disposab
 - A maintainer can run the regression manually with **Run workflow**. Manual runs are trusted runs and require the configured secrets.
 - Pull requests run without repository secrets. Existing-account and payment-dependent tests skip when their required values are unavailable, protecting secrets from untrusted pull-request code.
 
-GitHub may disable scheduled workflows in a public repository after 60 days with no repository activity. A maintainer can use **Run workflow** to check the automation and restore scheduled activity when needed.
+GitHub may disable scheduled workflows in a public repository after 60 days with no repository activity. If this occurs, a maintainer must first re-enable the workflow through the GitHub Actions UI, the `gh workflow enable` CLI command, or the GitHub Actions API. After re-enabling it, use **Run workflow** to verify manual execution and then confirm the next scheduled run.
 
 ### Evidence and Jira follow-up
 
@@ -123,7 +132,7 @@ Every regression run uploads the Playwright HTML report, QA analytics report, tr
 
 Trusted scheduled, manual, and `main` push runs add one allowlisted summary comment to the single Jira issue identified by `JIRA_CI_ISSUE_KEY`. The comment is a one-ticket ledger for result counts, event, branch, short commit identifier, and a GitHub Actions link. It does not include credentials, raw logs, or full analytics data. The automation never creates Jira Bug issues. Review the GitHub artifact first, then decide whether defect triage or a Bug is warranted.
 
-The monthly workflow runs at 2:47 AM Eastern on the first day of the month. It creates one Markdown summary for the previous Eastern calendar month at `Portfolio Evidence/GitHub Actions/Monthly/YYYY-MM.md`. The summary counts scheduled regression outcomes, includes a latest-success link, and shows aggregate test counts only when every included run has complete structured counts.
+The monthly workflow runs at 2:47 AM Eastern on the first day of the month. It creates one Markdown summary for the previous Eastern calendar month at `Portfolio Evidence/GitHub Actions/Monthly/YYYY-MM.md`. The summary reconciles every scheduled run as successful, failed, cancelled, or other, includes sanitized links for runs that need review, and shows aggregate test counts only when every included run has complete structured counts.
 
 The monthly workflow uploads its Markdown file as a 90-day fallback artifact before it attempts to commit the same file. If branch protection blocks the bot's push, the workflow fails visibly and the fallback artifact remains available for review. Only the monthly commit job receives write permission; regression jobs remain read-only.
 

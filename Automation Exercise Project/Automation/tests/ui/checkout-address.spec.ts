@@ -2,6 +2,7 @@ import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { createSyntheticIdentity } from '../../data/synthetic-identity';
 import { writeCheckoutAddressEvidence } from '../../reporting/checkout-address-evidence';
+import { cleanupWithWarning } from '../support/cleanup';
 import {
   addListingProduct,
   deleteDisposableAccount,
@@ -142,6 +143,6 @@ test('AE-ORDER-004 checkout delivery and billing addresses match the registered 
     }
     throw error;
   } finally {
-    await deleteDisposableAccount(page).catch(() => undefined);
+    await cleanupWithWarning(() => deleteDisposableAccount(page));
   }
 });

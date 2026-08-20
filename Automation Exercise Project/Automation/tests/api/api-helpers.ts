@@ -8,6 +8,7 @@ import {
 import { mkdir } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { createSyntheticIdentity } from '../../data/synthetic-identity';
+import { cleanupWithWarning } from '../support/cleanup';
 
 export const apiBaseUrl = 'https://automationexercise.com/api';
 
@@ -195,8 +196,14 @@ export async function deleteAccount(
 
 export async function cleanupAccount(
   request: APIRequestContext,
-  account: Pick<AccountData, 'email' | 'password'>
+  account: Pick<AccountData, 'email' | 'password'>,
+  warn: (message: string) => void = console.warn
 ) {
-  // keep cleanup from hiding the main test result
-  await deleteAccount(request, account).catch(() => undefined);
+  await cleanupWithWarning(async () => {
+    const response = await deleteAccount(request, account);
+    const body = await readBody(response);
+    if (response.status() !== 200 || body.responseCode !== 200) {
+      throw new Error('The API did not confirm disposable account deletion.');
+    }
+  }, warn);
 }

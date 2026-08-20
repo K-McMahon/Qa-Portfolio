@@ -28,6 +28,13 @@ function linkBullet(label, runUrl) {
   };
 }
 
+function jiraResultLabel(outcome) {
+  const normalized = typeof outcome === 'string' ? outcome.trim().toLowerCase() : '';
+  if (normalized === 'success' || normalized === 'pass' || normalized === 'passed') return 'Pass';
+  if (normalized === 'cancelled' || normalized === 'canceled') return 'Cancelled';
+  return 'Fail';
+}
+
 function buildJiraComment(input = {}) {
   const runUrl = cleanRunUrl(input.runUrl);
 
@@ -39,7 +46,7 @@ function buildJiraComment(input = {}) {
       {
         type: 'bulletList',
         content: [
-          bullet(`Result: ${cleanText(input.outcome)}`),
+          bullet(`Result: ${jiraResultLabel(input.outcome)}`),
           bullet(`Counts: ${formatCounts(input)}`),
           bullet(`Event: ${cleanText(input.eventName)}`),
           bullet(`Branch: ${cleanText(input.branch)}`),
@@ -52,4 +59,4 @@ function buildJiraComment(input = {}) {
   };
 }
 
-module.exports = { buildJiraComment };
+module.exports = { buildJiraComment, jiraResultLabel };

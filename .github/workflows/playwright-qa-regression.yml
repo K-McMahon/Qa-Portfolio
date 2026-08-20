@@ -21,6 +21,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: ${{ github.event_name == 'pull_request' && format('playwright-qa-regression-pr-{0}', github.head_ref) || 'playwright-qa-regression-trusted' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   regression:
     name: Existing Playwright suite
@@ -34,6 +38,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           persist-credentials: false
+
+      - name: Record regression start time
+        shell: bash
+        run: echo "QA_RUN_STARTED_AT=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> "$GITHUB_ENV"
 
       - name: Set up Node.js 20
         uses: actions/setup-node@v4
@@ -100,40 +108,8 @@ jobs:
         continue-on-error: true
         run: npm test
 
-      - name: Publish run summary
-        if: always()
-        shell: bash
-        env:
-          TEST_OUTCOME: ${{ github.event_name == 'pull_request' && steps.pull_request_tests.outcome || steps.trusted_tests.outcome }}
-          EVENT_NAME: ${{ github.event_name }}
-          BRANCH_NAME: ${{ github.ref_name }}
-          COMMIT_SHA: ${{ github.sha }}
-          RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
-        run: |
-          node - <<'NODE'
-          const { appendFileSync } = require('node:fs');
-          const { buildGithubSummary, readQaSummary } = require('./scripts/ci/run-summary.cjs');
-
-          const analytics = readQaSummary('test-results/qa-analytics/run-summary.json') ?? {};
-          const counts = {
-            total: analytics.total,
-            passed: analytics.passed,
-            failed: analytics.failed,
-            flaky: analytics.flaky,
-            skipped: analytics.skipped,
-          };
-          const markdown = buildGithubSummary({
-            ...counts,
-            outcome: process.env.TEST_OUTCOME,
-            eventName: process.env.EVENT_NAME,
-            branch: process.env.BRANCH_NAME,
-            sha: process.env.COMMIT_SHA,
-            runUrl: process.env.RUN_URL,
-          });
-          appendFileSync(process.env.GITHUB_STEP_SUMMARY, `${markdown}\n`, 'utf8');
-          NODE
-
       - name: Upload regression evidence
+        id: upload_evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -147,16 +123,65 @@ jobs:
             Automation Exercise Project/Automation/Execution Evidence/
             Automation Exercise Project/Automation/Test Results/
 
+      - name: Publish run summary
+        if: always()
+        shell: bash
+        env:
+          JOB_STATUS: ${{ job.status }}
+          TEST_OUTCOME: ${{ github.event_name == 'pull_request' && steps.pull_request_tests.outcome || steps.trusted_tests.outcome }}
+          EVENT_NAME: ${{ github.event_name }}
+          RUN_STARTED_AT: ${{ env.QA_RUN_STARTED_AT }}
+          BRANCH_NAME: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }}
+          COMMIT_SHA: ${{ github.sha }}
+          RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          ARTIFACT_NAME: qa-regression-evidence
+          ARTIFACT_RETENTION_DAYS: '30'
+        run: |
+          node - <<'NODE'
+          const { appendFileSync } = require('node:fs');
+          const {
+            buildGithubSummary,
+            deriveEffectiveResult,
+            readQaSummary,
+          } = require('./scripts/ci/run-summary.cjs');
+
+          const analytics = readQaSummary('test-results/qa-analytics/run-summary.json') ?? {};
+          const counts = {
+            total: analytics.total,
+            passed: analytics.passed,
+            failed: analytics.failed,
+            flaky: analytics.flaky,
+            skipped: analytics.skipped,
+          };
+          const markdown = buildGithubSummary({
+            ...counts,
+            outcome: deriveEffectiveResult(process.env.JOB_STATUS, process.env.TEST_OUTCOME),
+            eventName: process.env.EVENT_NAME,
+            startedAt: process.env.RUN_STARTED_AT,
+            branch: process.env.BRANCH_NAME,
+            sha: process.env.COMMIT_SHA,
+            runUrl: process.env.RUN_URL,
+            artifactName: process.env.ARTIFACT_NAME,
+            artifactRetentionDays: process.env.ARTIFACT_RETENTION_DAYS,
+          });
+          appendFileSync(process.env.GITHUB_STEP_SUMMARY, `${markdown}\n`, 'utf8');
+          NODE
+
       - name: Preserve regression outcome
         if: always()
         shell: bash
         env:
+          JOB_STATUS: ${{ job.status }}
           TEST_OUTCOME: ${{ github.event_name == 'pull_request' && steps.pull_request_tests.outcome || steps.trusted_tests.outcome }}
         run: |
-          if [[ "$TEST_OUTCOME" != 'success' ]]; then
-            echo "The Playwright suite concluded with: $TEST_OUTCOME" >&2
-            exit 1
-          fi
+          node - <<'NODE'
+          const { deriveEffectiveResult } = require('./scripts/ci/run-summary.cjs');
+          const result = deriveEffectiveResult(process.env.JOB_STATUS, process.env.TEST_OUTCOME);
+          if (result === 'failure') {
+            console.error('The regression job did not complete successfully.');
+            process.exit(1);
+          }
+          NODE
 
   jira-report:
     name: Report trusted run to Jira
@@ -246,10 +271,5 @@ jobs:
           JIRA_CI_ISSUE_KEY: ${{ secrets.JIRA_CI_ISSUE_KEY }}
         run: |
           set -euo pipefail
-          curl --fail-with-body --silent --show-error \
-            --request POST \
-            --url "${JIRA_BASE_URL%/}/rest/api/3/issue/${JIRA_CI_ISSUE_KEY}/comment" \
-            --user "$JIRA_EMAIL:$JIRA_API_TOKEN" \
-            --header 'Accept: application/json' \
-            --header 'Content-Type: application/json' \
-            --data @jira-comment.json
+          node "Automation Exercise Project/Automation/scripts/ci/post-jira-comment.cjs" \
+            jira-comment.json

@@ -35,20 +35,26 @@ test('API-ACCOUNT-001 - Create User Account', async ({ request, page }, testInfo
 
 test('API-ACCOUNT-002 - Delete User Account', async ({ request, page }, testInfo) => {
   const account = makeAccount('delete');
+  let accountDeleted = false;
 
-  await createAccount(request, account);
+  try {
+    await createAccount(request, account);
 
-  const response = await deleteAccount(request, account);
-  const body = await readBody(response);
-  await captureApiEvidence(page, testInfo, {
-    method: 'DELETE',
-    response,
-    body,
-    requestData: { email: account.email, password: account.password },
-  });
+    const response = await deleteAccount(request, account);
+    const body = await readBody(response);
+    accountDeleted = response.status() === 200 && body.responseCode === 200;
+    await captureApiEvidence(page, testInfo, {
+      method: 'DELETE',
+      response,
+      body,
+      requestData: { email: account.email, password: account.password },
+    });
 
-  verifyCodes(response, body, 200);
-  verifyMessage(body, 'Account deleted!');
+    verifyCodes(response, body, 200);
+    verifyMessage(body, 'Account deleted!');
+  } finally {
+    if (!accountDeleted) await cleanupAccount(request, account);
+  }
 });
 
 test('API-ACCOUNT-003 - Update User Account', async ({ request, page }, testInfo) => {
@@ -60,9 +66,8 @@ test('API-ACCOUNT-003 - Update User Account', async ({ request, page }, testInfo
     city: 'Brooklyn',
   };
 
-  await createAccount(request, account);
-
   try {
+    await createAccount(request, account);
     const response = await request.put(`${apiBaseUrl}/updateAccount`, {
       form: updatedAccount,
     });
@@ -95,9 +100,8 @@ test('API-ACCOUNT-003 - Update User Account', async ({ request, page }, testInfo
 test('API-ACCOUNT-004 - Get User Details by Email', async ({ request, page }, testInfo) => {
   const account = makeAccount('details');
 
-  await createAccount(request, account);
-
   try {
+    await createAccount(request, account);
     const response = await request.get(`${apiBaseUrl}/getUserDetailByEmail`, {
       params: { email: account.email },
     });

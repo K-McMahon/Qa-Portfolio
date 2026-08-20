@@ -58,6 +58,13 @@ test('aggregates only scheduled runs in the requested Eastern calendar month', (
       qa_summary: { total: 10, passed: 8, failed: 0, flaky: 0, skipped: 2 },
       token: 'ghp_do-not-publish',
     }),
+    run({
+      id: 109,
+      conclusion: 'timed_out',
+      created_at: '2026-07-25T06:17:00Z',
+      html_url: 'https://github.com/example/qa-portfolio/actions/runs/109',
+      qa_summary: { total: 2, passed: 1, failed: 1, flaky: 0, skipped: 0 },
+    }),
     run({ id: 105, event: 'workflow_dispatch' }),
     run({ id: 106, event: 'push' }),
     run({ id: 107, created_at: '2026-07-01T03:59:59Z' }),
@@ -67,18 +74,22 @@ test('aggregates only scheduled runs in the requested Eastern calendar month', (
   const markdown = buildMonthlySummary(runs, '2026-07', links);
 
   assert.match(markdown, /^# Monthly QA regression summary: July 2026/m);
-  assert.match(markdown, /Scheduled executions \| 4/);
+  assert.match(markdown, /Scheduled executions \| 5/);
   assert.match(markdown, /Successful \| 2/);
   assert.match(markdown, /Failed \| 1/);
   assert.match(markdown, /Cancelled \| 1/);
-  assert.match(markdown, /Tests recorded \| 130/);
-  assert.match(markdown, /Passed \| 125/);
-  assert.match(markdown, /Failed tests \| 2/);
+  assert.match(markdown, /Other \| 1/);
+  assert.match(markdown, /Tests recorded \| 132/);
+  assert.match(markdown, /Passed \| 126/);
+  assert.match(markdown, /Failed tests \| 3/);
   assert.match(markdown, /Flaky \| 1/);
   assert.match(markdown, /Skipped \| 2/);
   assert.match(markdown, /Latest successful run: \[July 31, 2026 at 11:59 PM EDT\]\(https:\/\/github\.com\/example\/qa-portfolio\/actions\/runs\/102\)/);
+  assert.match(markdown, /Failed run: \[July 15, 2026 at 2:17 AM EDT\]\(https:\/\/github\.com\/example\/qa-portfolio\/actions\/runs\/103\)/);
+  assert.match(markdown, /Cancelled run: \[July 20, 2026 at 2:17 AM EDT\]\(https:\/\/github\.com\/example\/qa-portfolio\/actions\/runs\/104\)/);
+  assert.match(markdown, /Other run: \[July 25, 2026 at 2:17 AM EDT\]\(https:\/\/github\.com\/example\/qa-portfolio\/actions\/runs\/109\)/);
   assert.match(markdown, /\[AEQA-121\]\(https:\/\/kgmcmahon973\.atlassian\.net\/browse\/AEQA-121\)/);
-  assert.doesNotMatch(markdown, /actions\/runs\/(103|104|105|106|107|108)/);
+  assert.doesNotMatch(markdown, /actions\/runs\/(105|106|107|108)/);
   assert.doesNotMatch(markdown, /password|token|raw log|do-not-publish|ghp_/i);
 });
 
@@ -111,14 +122,17 @@ test('rejects unsafe report months and untrusted links', () => {
   );
 
   const markdown = buildMonthlySummary([
-    run({ html_url: 'https://attacker.example/actions/runs/1?token=secret-value' }),
+    run({
+      conclusion: 'failure',
+      html_url: 'https://attacker.example/actions/runs/1?token=secret-value',
+    }),
   ], '2026-07', {
     repository: 'example/qa-portfolio; echo injected',
     jiraIssueKey: 'AEQA-121](https://attacker.example)',
     jiraBaseUrl: 'https://attacker.example',
   });
 
-  assert.match(markdown, /Latest successful run: Link unavailable/);
+  assert.match(markdown, /Failed run at July 10, 2026 at 2:17 AM EDT: Link unavailable/);
   assert.match(markdown, /Jira tracking: Link unavailable/);
   assert.doesNotMatch(markdown, /attacker|secret|injected/);
 
@@ -147,6 +161,7 @@ test('CLI flattens paginated workflow responses and writes only the report month
         REPORT_MONTH: '2026-07',
         GITHUB_REPOSITORY: 'example/qa-portfolio',
         JIRA_CI_ISSUE_KEY: 'AEQA-121',
+        JIRA_BASE_URL: 'https://portfolio-links.atlassian.net',
       },
     });
 
@@ -154,6 +169,7 @@ test('CLI flattens paginated workflow responses and writes only the report month
     const markdown = readFileSync(join(outputDirectory, '2026-07.md'), 'utf8');
     assert.match(markdown, /Scheduled executions \| 2/);
     assert.match(markdown, /Failed \| 1/);
+    assert.match(markdown, /\[AEQA-121\]\(https:\/\/portfolio-links\.atlassian\.net\/browse\/AEQA-121\)/);
     assert.deepEqual(
       require('node:fs').readdirSync(outputDirectory),
       ['2026-07.md'],

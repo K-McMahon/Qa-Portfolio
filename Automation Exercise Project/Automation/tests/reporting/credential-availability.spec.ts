@@ -25,20 +25,20 @@ test('login credentials are available only when all existing-account values are 
 test('payment data is available only when all five payment values are present', () => {
   expect(
     hasPaymentData({
-      AE_CARD_NAME: 'QA User',
-      AE_CARD_NUMBER: '4111111111111111',
-      AE_CARD_CVC: '123',
-      AE_CARD_EXPIRY_MONTH: '12',
-      AE_CARD_EXPIRY_YEAR: '2030',
+      AE_CARD_NAME: 'configured-cardholder',
+      AE_CARD_NUMBER: 'configured-card-number',
+      AE_CARD_CVC: 'configured-cvc',
+      AE_CARD_EXPIRY_MONTH: 'configured-expiry-month',
+      AE_CARD_EXPIRY_YEAR: 'configured-expiry-year',
     })
   ).toBe(true);
 
   expect(
     hasPaymentData({
-      AE_CARD_NAME: 'QA User',
-      AE_CARD_NUMBER: '4111111111111111',
-      AE_CARD_CVC: '123',
-      AE_CARD_EXPIRY_MONTH: '12',
+      AE_CARD_NAME: 'configured-cardholder',
+      AE_CARD_NUMBER: 'configured-card-number',
+      AE_CARD_CVC: 'configured-cvc',
+      AE_CARD_EXPIRY_MONTH: 'configured-expiry-month',
     })
   ).toBe(false);
 });

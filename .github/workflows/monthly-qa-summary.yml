@@ -65,11 +65,20 @@ jobs:
         env:
           REPORT_MONTH: ${{ steps.month.outputs.report_month }}
           GITHUB_REPOSITORY: ${{ github.repository }}
-          JIRA_CI_ISSUE_KEY: ${{ secrets.JIRA_CI_ISSUE_KEY }}
+          JIRA_BASE_URL: ${{ vars.JIRA_BASE_URL }}
+          JIRA_CI_ISSUE_KEY: ${{ vars.JIRA_CI_ISSUE_KEY }}
           RUNS_FILE: ${{ runner.temp }}/playwright-regression-runs.json
           REPORT_DIRECTORY: Automation Exercise Project/Portfolio Evidence/GitHub Actions/Monthly
         run: |
           set -euo pipefail
+          if [[ ! "$JIRA_BASE_URL" =~ ^https://[A-Za-z0-9.-]+\.atlassian\.net/?$ ]]; then
+            echo 'JIRA_BASE_URL must be a root HTTPS Jira Cloud URL.' >&2
+            exit 1
+          fi
+          if [[ ! "$JIRA_CI_ISSUE_KEY" =~ ^[A-Z][A-Z0-9]+-[0-9]+$ ]]; then
+            echo 'JIRA_CI_ISSUE_KEY must be a valid Jira issue key.' >&2
+            exit 1
+          fi
           node "Automation Exercise Project/Automation/scripts/ci/monthly-summary.cjs" \
             "$RUNS_FILE" \
             "$REPORT_DIRECTORY"

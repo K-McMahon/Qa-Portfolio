@@ -78,6 +78,25 @@ function formatCounts(input) {
   return `${counts.passed} passed, ${counts.failed} failed, ${counts.flaky} flaky, ${counts.skipped} skipped (${counts.total} total)`;
 }
 
+function deriveEffectiveResult(jobStatus, testOutcome) {
+  const job = typeof jobStatus === 'string' ? jobStatus.trim().toLowerCase() : '';
+  const test = typeof testOutcome === 'string' ? testOutcome.trim().toLowerCase() : '';
+
+  if (job === 'cancelled' || test === 'cancelled') return 'cancelled';
+  return job === 'success' && test === 'success' ? 'success' : 'failure';
+}
+
+function formatTimestamp(value) {
+  if (typeof value !== 'string') return 'Unavailable';
+  const timestamp = new Date(value);
+  return Number.isNaN(timestamp.getTime()) ? 'Unavailable' : timestamp.toISOString();
+}
+
+function formatRetentionDays(value) {
+  const days = typeof value === 'string' && /^\d+$/.test(value) ? Number(value) : value;
+  return Number.isInteger(days) && days > 0 ? `${days} days` : 'Unavailable';
+}
+
 function buildGithubSummary(input = {}) {
   const runUrl = cleanRunUrl(input.runUrl);
   const run = runUrl ? `[Open GitHub Actions run](${runUrl})` : 'Run link unavailable';
@@ -87,9 +106,12 @@ function buildGithubSummary(input = {}) {
     '',
     `- Result: ${escapeMarkdown(input.outcome)}`,
     `- Counts: ${formatCounts(input)}`,
-    `- Event: ${escapeMarkdown(input.eventName)}`,
+    `- Trigger: ${escapeMarkdown(input.eventName)}`,
+    `- Started: ${formatTimestamp(input.startedAt)}`,
     `- Branch: ${escapeMarkdown(input.branch)}`,
     `- Commit: ${shortSha(input.sha)}`,
+    `- Artifact: ${escapeMarkdown(input.artifactName)}`,
+    `- Retention: ${formatRetentionDays(input.artifactRetentionDays)}`,
     `- Run: ${run}`,
     '- Review GitHub artifacts before defect triage.',
   ].join('\n');
@@ -99,6 +121,7 @@ module.exports = {
   buildGithubSummary,
   cleanRunUrl,
   cleanText,
+  deriveEffectiveResult,
   formatCounts,
   readQaSummary,
   shortSha,
