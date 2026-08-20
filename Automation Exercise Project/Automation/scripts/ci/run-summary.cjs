@@ -13,7 +13,22 @@ function cleanRunUrl(value) {
 
   try {
     const url = new URL(value);
-    return ['http:', 'https:'].includes(url.protocol) ? url.toString() : undefined;
+    const safeRunPath = /^\/[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+\/actions\/runs\/\d+\/?$/;
+    if (
+      url.protocol !== 'https:' ||
+      url.hostname !== 'github.com' ||
+      url.port ||
+      url.username ||
+      url.password ||
+      url.search ||
+      url.hash ||
+      value.includes('?') ||
+      !safeRunPath.test(url.pathname)
+    ) {
+      return undefined;
+    }
+
+    return `https://github.com${url.pathname}`;
   } catch {
     return undefined;
   }
@@ -52,8 +67,9 @@ function escapeMarkdown(value) {
 }
 
 function shortSha(value) {
-  const sha = cleanText(value, 'Unavailable').replace(/[^0-9a-f]/gi, '');
-  return sha ? sha.slice(0, 7) : 'Unavailable';
+  if (typeof value !== 'string') return 'Unavailable';
+  const sha = value.trim();
+  return /^[0-9a-f]{7,}$/i.test(sha) ? sha.slice(0, 7) : 'Unavailable';
 }
 
 function formatCounts(input) {
