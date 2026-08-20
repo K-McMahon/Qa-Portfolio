@@ -1,0 +1,115 @@
+name: Monthly QA portfolio summary
+
+on:
+  schedule:
+    - cron: '47 2 1 * *'
+      timezone: 'America/New_York'
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  monthly-commit:
+    name: Publish previous-month QA summary
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: write
+
+    steps:
+      - name: Check out the default branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Determine the previous Eastern calendar month
+        id: month
+        shell: bash
+        run: |
+          set -euo pipefail
+          node - <<'NODE'
+          const { appendFileSync } = require('node:fs');
+          const { previousEasternMonth } = require(
+            './Automation Exercise Project/Automation/scripts/ci/monthly-summary.cjs',
+          );
+          appendFileSync(
+            process.env.GITHUB_OUTPUT,
+            `report_month=${previousEasternMonth()}\n`,
+            'utf8',
+          );
+          NODE
+
+      - name: Query all regression workflow-run pages
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          RUNS_FILE: ${{ runner.temp }}/playwright-regression-runs.json
+        run: |
+          set -euo pipefail
+          gh api --paginate --slurp \
+            --header 'Accept: application/vnd.github+json' \
+            --header 'X-GitHub-Api-Version: 2022-11-28' \
+            "/repos/${GITHUB_REPOSITORY}/actions/workflows/playwright-qa-regression.yml/runs?event=schedule&per_page=100" \
+            > "$RUNS_FILE"
+
+      - name: Generate the monthly portfolio file
+        shell: bash
+        env:
+          REPORT_MONTH: ${{ steps.month.outputs.report_month }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          JIRA_CI_ISSUE_KEY: ${{ secrets.JIRA_CI_ISSUE_KEY }}
+          RUNS_FILE: ${{ runner.temp }}/playwright-regression-runs.json
+          REPORT_DIRECTORY: Automation Exercise Project/Portfolio Evidence/GitHub Actions/Monthly
+        run: |
+          set -euo pipefail
+          node "Automation Exercise Project/Automation/scripts/ci/monthly-summary.cjs" \
+            "$RUNS_FILE" \
+            "$REPORT_DIRECTORY"
+
+      - name: Upload monthly summary fallback
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: monthly-qa-summary-${{ steps.month.outputs.report_month }}
+          retention-days: 90
+          if-no-files-found: warn
+          path: Automation Exercise Project/Portfolio Evidence/GitHub Actions/Monthly/${{ steps.month.outputs.report_month }}.md
+
+      - name: Commit only the generated monthly summary
+        shell: bash
+        env:
+          REPORT_MONTH: ${{ steps.month.outputs.report_month }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          set -euo pipefail
+          if [[ ! "$REPORT_MONTH" =~ ^[0-9]{4}-(0[1-9]|1[0-2])$ ]]; then
+            echo 'The generated report month is invalid.' >&2
+            exit 1
+          fi
+
+          REPORT_PATH="Automation Exercise Project/Portfolio Evidence/GitHub Actions/Monthly/${REPORT_MONTH}.md"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+
+          if git ls-files --error-unmatch -- "$REPORT_PATH" >/dev/null 2>&1 && \
+             git diff --quiet -- "$REPORT_PATH"; then
+            echo "The ${REPORT_MONTH} summary has no changes."
+            exit 0
+          fi
+
+          git add -- "$REPORT_PATH"
+          if git diff --cached --quiet -- "$REPORT_PATH"; then
+            echo "The ${REPORT_MONTH} summary has no staged changes."
+            exit 0
+          fi
+
+          git commit --only -m "docs: publish ${REPORT_MONTH} QA summary" -- "$REPORT_PATH"
+          git push origin "HEAD:${DEFAULT_BRANCH}"
