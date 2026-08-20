@@ -64,7 +64,7 @@ test('AE-LOGIN-003 | SRC-TC-03 | Reject a wrong password', async ({ page }) => {
 });
 
 test('AE-LOGIN-004 | SRC-TC-03 | Reject an unregistered account', async ({ page }) => {
-  const email = `qa.unregistered.${Date.now()}@example.com`;
+  const email = 'qa-unregistered@example.com';
 
   await login(page, email, 'not-a-real-password');
 

@@ -1,5 +1,6 @@
 import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import { createSyntheticIdentity } from '../../data/synthetic-identity';
 import { writeOrderExecutionEvidence } from '../../reporting/order-execution-evidence';
 import {
   addListingProduct,
@@ -36,7 +37,7 @@ test('AE-ORDER-001 register during checkout and complete the order', async ({ pa
     type: 'preserve-evidence',
     description: 'The order-confirmation screenshot is preserved before account cleanup.',
   });
-  const uniqueEmail = `mcmahon.qa.order001.${Date.now()}@example.com`;
+  const uniqueEmail = createSyntheticIdentity('order-001').email;
   const evidenceDir = resolve(process.cwd(), 'Execution Evidence');
   const screenshotPath = resolve(evidenceDir, 'AE-ORDER-001.png');
   const logoPath = resolve(process.cwd(), 'reporting', 'assets', 'the-mcmahon-standard-logo.png');

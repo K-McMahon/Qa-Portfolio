@@ -1,3 +1,5 @@
+import { createSyntheticIdentity } from './synthetic-identity';
+
 export type RegistrationData = {
   title: 'Mr' | 'Mrs';
   name: string;
@@ -21,12 +23,12 @@ export type RegistrationData = {
 };
 
 export function createRegistrationData(): RegistrationData {
-  const unique = `${Date.now()}-${process.pid}-${Math.random().toString(36).slice(2, 8)}`;
+  const { email, uniqueId } = createSyntheticIdentity('registration');
 
   return {
     title: 'Mr',
-    name: `QA Registration ${unique}`,
-    email: `qa-registration-${unique}@example.com`,
+    name: `QA Registration ${uniqueId}`,
+    email,
     password: 'QaPortfolioRegistration!42',
     birthDay: '15',
     birthMonth: '8',

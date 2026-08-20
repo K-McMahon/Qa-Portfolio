@@ -1,4 +1,5 @@
 import { resolve } from 'node:path';
+import { createSyntheticIdentity } from '../../data/synthetic-identity';
 import { test, expect, openHome, openSitePage } from './support/ui-test';
 
 test('AE-CONTACT-001 | SRC-TC-06 | Submit the contact form', async ({ page }) => {
@@ -7,7 +8,7 @@ test('AE-CONTACT-001 | SRC-TC-06 | Submit the contact form', async ({ page }) =>
   await expect(page.getByRole('heading', { name: 'Get In Touch' })).toBeVisible();
 
   await page.locator('[data-qa="name"]').fill('Kevin Tester');
-  await page.locator('[data-qa="email"]').fill(`kevin.qa.${Date.now()}@gmail.com`);
+  await page.locator('[data-qa="email"]').fill(createSyntheticIdentity('contact').email);
   await page.locator('[data-qa="subject"]').fill('QA portfolio contact test');
   await page.locator('[data-qa="message"]').fill('This is controlled test data.');
   await page
@@ -51,7 +52,7 @@ test('AE-SUB-001 | SRC-TC-10 | Subscribe from the home page', async ({ page }) =
   await openHome(page);
   await page.locator('#footer').scrollIntoViewIfNeeded();
   await expect(page.getByText('Subscription', { exact: true })).toBeVisible();
-  await page.locator('#susbscribe_email').fill(`qa.home.${Date.now()}@example.com`);
+  await page.locator('#susbscribe_email').fill(createSyntheticIdentity('subscription-home').email);
   await page.locator('#subscribe').click();
 
   await expect(page.locator('#success-subscribe')).toContainText(
@@ -64,7 +65,7 @@ test('AE-SUB-002 | SRC-TC-11 | Subscribe from the cart page', async ({ page }) =
   await openSitePage(page, 'Cart', /\/view_cart$/);
   await page.locator('#footer').scrollIntoViewIfNeeded();
   await expect(page.getByText('Subscription', { exact: true })).toBeVisible();
-  await page.locator('#susbscribe_email').fill(`qa.cart.${Date.now()}@example.com`);
+  await page.locator('#susbscribe_email').fill(createSyntheticIdentity('subscription-cart').email);
   await page.locator('#subscribe').click();
 
   await expect(page.locator('#success-subscribe')).toContainText(

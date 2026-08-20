@@ -7,6 +7,7 @@ import {
 } from '@playwright/test';
 import { mkdir } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
+import { createSyntheticIdentity } from '../../data/synthetic-identity';
 
 export const apiBaseUrl = 'https://automationexercise.com/api';
 
@@ -143,11 +144,11 @@ export function verifyMessage(body: ApiBody, expectedMessage: string) {
 }
 
 export function makeAccount(label: string) {
-  const unique = `${Date.now()}-${process.pid}-${Math.random().toString(36).slice(2, 8)}`;
+  const { email } = createSyntheticIdentity(label);
 
   return {
     name: `qa ${label}`,
-    email: `qa-${label}-${unique}@example.com`,
+    email,
     password: 'QaPortfolio123!',
     title: 'Mr',
     birth_date: '1',
