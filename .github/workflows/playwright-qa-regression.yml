@@ -115,9 +115,16 @@ jobs:
           const { buildGithubSummary, readQaSummary } = require('./scripts/ci/run-summary.cjs');
 
           const analytics = readQaSummary('test-results/qa-analytics/run-summary.json') ?? {};
+          const counts = {
+            total: analytics.total,
+            passed: analytics.passed,
+            failed: analytics.failed,
+            flaky: analytics.flaky,
+            skipped: analytics.skipped,
+          };
           const markdown = buildGithubSummary({
-            ...analytics,
-            outcome: analytics.outcome ?? process.env.TEST_OUTCOME,
+            ...counts,
+            outcome: process.env.TEST_OUTCOME,
             eventName: process.env.EVENT_NAME,
             branch: process.env.BRANCH_NAME,
             sha: process.env.COMMIT_SHA,

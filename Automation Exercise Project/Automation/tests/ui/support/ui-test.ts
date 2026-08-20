@@ -43,6 +43,8 @@ test.beforeEach(async ({ page }) => {
 });
 
 test.afterEach(async ({ page }, testInfo) => {
+  if (testInfo.status === 'skipped') return;
+
   const testId = testInfo.title.match(/\bAE(?:-[A-Z]+)+-\d{3}\b/)?.[0] ?? 'ui-test';
   const evidenceFolder = resolve(process.cwd(), 'Execution Evidence');
   const evidencePath = resolve(evidenceFolder, `${testId}.png`);

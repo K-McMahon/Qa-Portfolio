@@ -15,7 +15,7 @@ export default defineConfig({
   use: {
     baseURL: 'https://automationexercise.com',
     trace: 'on-first-retry',
-    screenshot: 'on',
+    screenshot: 'only-on-failure',
     video: 'retain-on-failure',
   },
   outputDir: 'test-results/artifacts',
