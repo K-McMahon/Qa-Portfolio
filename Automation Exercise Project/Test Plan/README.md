@@ -30,16 +30,16 @@ Evidence references and defect IDs have separate columns. A disagreement between
 | Not covered | 0 |
 | Jira Test Cases | 53 |
 | Bugs | 6 |
-| Test Cases executed | 51 |
-| Test Case execution: Passed | 49 |
+| Test Cases executed | 53 |
+| Test Case execution: Passed | 51 |
 | Test Case execution: Failed | 2 |
-| Test Case execution: Not Run | 2 |
-| Requirement execution: Passed / Failed / Not Run | 41 / 2 / 1 |
-| Playwright scenarios implemented | 14 API; 24 UI |
+| Test Case execution: Not Run | 0 |
+| Requirement execution: Passed / Failed / Not Run | 42 / 2 / 0 |
+| Playwright scenarios implemented | 14 API; 25 UI |
 
-As of August 17, 2026, the portfolio RTM requirement scope remains 44. All 13 former design gaps have linked manual Test Cases. Twelve are Passed and `AEQA-111` remains Not Run. Automation Test Cases `AEQA-125` through `AEQA-127` passed with evidence; `AEQA-128` remains In Progress and Not Run.
+As of August 21, 2026, the portfolio RTM requirement scope remains 44. All 13 former design gaps have passing manual Test Cases. Automation Test Cases `AEQA-124` through `AEQA-128` also passed with evidence.
 
-The RTM's **Jira Sync** sheet is reconciled through August 17, 2026 for the latest registration, checkout, cart-persistence, product-review, and planned automation records. It includes Jira keys, work types, workflow states, custom IDs, execution and automation states, Testing links, parents, and update timestamps.
+The RTM's **Jira Sync** sheet is reconciled through August 21, 2026 and includes the final brand-navigation and scroll automation results plus the GitHub Actions run ledger.
 
 The latest saved automated report is a focused Chromium run of `AE-AUTO-NAV-002 / AEQA-127`: Passed, 1/1 passed, 0 failed, and 0 skipped (`ae-20260818014448`, run locally on August 17, 2026). The linked manual case `AEQA-117` is independently recorded as Passed with its own evidence.
 
