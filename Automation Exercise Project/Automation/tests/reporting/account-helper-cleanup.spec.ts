@@ -5,6 +5,7 @@ import {
   type APIResponse,
 } from '@playwright/test';
 import { cleanupAccount } from '../api/api-helpers';
+import { deleteDisposableAccount } from '../ui/support/ui-test';
 
 type CleanupWithLogger = (
   request: APIRequestContext,
@@ -59,4 +60,24 @@ test('cleanup warns when the API does not confirm account deletion', async () =>
   expect(warnings).toHaveLength(1);
   expect(warnings[0]).toMatch(/cleanup could not be confirmed/i);
   expect(warnings[0]).not.toMatch(/private-account|example\.com|password|email/i);
+});
+
+test('UI cleanup rejects when the browser page is already closed', async ({ page }) => {
+  await page.close();
+
+  await expect(deleteDisposableAccount(page)).rejects.toThrow(
+    /cleanup could not be confirmed/i
+  );
+});
+
+test('UI cleanup rejects when the delete-account control is unavailable', async ({ page }) => {
+  await page.setContent('<main>Account session without a delete control</main>');
+
+  try {
+    await expect(deleteDisposableAccount(page)).rejects.toThrow(
+      /cleanup could not be confirmed/i
+    );
+  } finally {
+    await page.close();
+  }
 });

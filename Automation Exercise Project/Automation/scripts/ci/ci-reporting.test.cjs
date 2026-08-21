@@ -1,5 +1,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
+const { readFileSync } = require('node:fs');
+const { resolve } = require('node:path');
 const { mkdtempSync, writeFileSync, rmSync } = require('node:fs');
 const { tmpdir } = require('node:os');
 const { join } = require('node:path');
@@ -23,6 +25,17 @@ test('formats trusted run counts without credentials', () => {
 
 test('labels absent analytics data without inventing totals', () => {
   assert.match(buildGithubSummary({ outcome: 'cancelled', eventName: 'workflow_dispatch' }), /Counts unavailable/);
+});
+
+test('pull request concurrency is unique across forks with the same branch name', () => {
+  const workflow = readFileSync(
+    resolve(__dirname, '../../../../.github/workflows/playwright-qa-regression.yml'),
+    'utf8'
+  );
+  const concurrencyGroup = workflow.match(/group:\s*\$\{\{([^\n]+)\}\}/)?.[1] ?? '';
+
+  assert.match(concurrencyGroup, /github\.event\.pull_request\.number/);
+  assert.doesNotMatch(concurrencyGroup, /format\([^\n]*github\.head_ref\)/);
 });
 
 test('derives the effective result from both the job and selected test step', () => {

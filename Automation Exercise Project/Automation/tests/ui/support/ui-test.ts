@@ -1,6 +1,7 @@
 import { access, mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { expect, test as base, type Page } from '@playwright/test';
+import { CLEANUP_WARNING } from '../../support/cleanup';
 import { hasLoginCredentials, hasPaymentData } from './credential-availability';
 
 export const test = base;
@@ -254,10 +255,12 @@ export async function registerDisposableAccount(
 }
 
 export async function deleteDisposableAccount(page: Page) {
-  if (page.isClosed()) return;
+  if (page.isClosed()) throw new Error(CLEANUP_WARNING);
   await dismissAdOverlay(page);
   const deleteLink = page.locator('a[href="/delete_account"]').first();
-  if (!(await deleteLink.isVisible({ timeout: 1_000 }).catch(() => false))) return;
+  if (!(await deleteLink.isVisible({ timeout: 1_000 }).catch(() => false))) {
+    throw new Error(CLEANUP_WARNING);
+  }
   await deleteLink.click();
   await dismissAdOverlay(page);
   await expect(page.locator('[data-qa="account-deleted"]')).toBeVisible();
