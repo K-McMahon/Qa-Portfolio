@@ -140,24 +140,27 @@ export default class QaAnalyticsReporter implements Reporter {
         : `${record.testId}.png`;
     const evidencePath = resolve('Execution Evidence', evidenceName);
 
-    if (screenshot?.path) {
+    if (status !== 'skipped' && screenshot?.path) {
       mkdirSync(dirname(evidencePath), { recursive: true });
       if (resolve(screenshot.path) !== evidencePath) {
         copyFileSync(screenshot.path, evidencePath);
       }
     }
 
-    const evidenceAttachments = collectEvidenceAttachments(
-      record.attempts.flatMap((attempt) => attempt.attachments),
-      this.reportDir,
-      existsSync(evidencePath)
-        ? {
-            name: `${record.testId} final browser evidence`,
-            path: evidencePath,
-            contentType: 'image/png',
-          }
-        : undefined
-    );
+    const evidenceAttachments =
+      status === 'skipped'
+        ? []
+        : collectEvidenceAttachments(
+            record.attempts.flatMap((attempt) => attempt.attachments),
+            this.reportDir,
+            existsSync(evidencePath)
+              ? {
+                  name: `${record.testId} final browser evidence`,
+                  path: evidencePath,
+                  contentType: 'image/png',
+                }
+              : undefined
+          );
     const traceabilityHref =
       record.testId === 'unmapped'
         ? undefined
@@ -194,7 +197,12 @@ export default class QaAnalyticsReporter implements Reporter {
       duration,
       retries: Math.max(0, record.attempts.length - 1),
       errors,
-      attachments: evidenceAttachments.length ? evidenceAttachments : attachments,
+      attachments:
+        status === 'skipped'
+          ? []
+          : evidenceAttachments.length
+            ? evidenceAttachments
+            : attachments,
       traceabilityHref,
       repositoryHref,
       attempts: record.attempts.length,

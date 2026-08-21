@@ -1,16 +1,20 @@
 import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import { createSyntheticIdentity } from '../../data/synthetic-identity';
 import { writeOrderExecutionEvidence } from '../../reporting/order-execution-evidence';
+import { cleanupWithWarning } from '../support/cleanup';
 import {
   addListingProduct,
   deleteDisposableAccount,
   dismissAdOverlay,
   expect,
+  getPaymentData,
   openHome,
   openSitePage,
   test,
   type DisposableAccountData,
 } from './support/ui-test';
+import { hasPaymentData } from './support/credential-availability';
 
 const account: DisposableAccountData = {
   title: 'Mr',
@@ -32,11 +36,13 @@ const account: DisposableAccountData = {
 };
 
 test('AE-ORDER-001 register during checkout and complete the order', async ({ page }, testInfo) => {
+  test.skip(!hasPaymentData(), 'Requires payment test data.');
+  const paymentData = getPaymentData();
   testInfo.annotations.push({
     type: 'preserve-evidence',
     description: 'The order-confirmation screenshot is preserved before account cleanup.',
   });
-  const uniqueEmail = `mcmahon.qa.order001.${Date.now()}@example.com`;
+  const uniqueEmail = createSyntheticIdentity('order-001').email;
   const evidenceDir = resolve(process.cwd(), 'Execution Evidence');
   const screenshotPath = resolve(evidenceDir, 'AE-ORDER-001.png');
   const logoPath = resolve(process.cwd(), 'reporting', 'assets', 'the-mcmahon-standard-logo.png');
@@ -119,11 +125,11 @@ test('AE-ORDER-001 register during checkout and complete the order', async ({ pa
     });
 
     await test.step('Submit synthetic payment data and verify confirmation', async () => {
-      await page.locator('[data-qa="name-on-card"]').fill('Kevin Tester');
-      await page.locator('[data-qa="card-number"]').fill('4111111111111111');
-      await page.locator('[data-qa="cvc"]').fill('123');
-      await page.locator('[data-qa="expiry-month"]').fill('12');
-      await page.locator('[data-qa="expiry-year"]').fill('2030');
+      await page.locator('[data-qa="name-on-card"]').fill(paymentData.nameOnCard);
+      await page.locator('[data-qa="card-number"]').fill(paymentData.cardNumber);
+      await page.locator('[data-qa="cvc"]').fill(paymentData.cvc);
+      await page.locator('[data-qa="expiry-month"]').fill(paymentData.expiryMonth);
+      await page.locator('[data-qa="expiry-year"]').fill(paymentData.expiryYear);
       await page.locator('[data-qa="pay-button"]').click();
       const confirmation = page.getByText('Congratulations! Your order has been confirmed!', { exact: true });
       await expect(confirmation).toBeVisible();
@@ -165,6 +171,6 @@ test('AE-ORDER-001 register during checkout and complete the order', async ({ pa
     }
     throw error;
   } finally {
-    await deleteDisposableAccount(page).catch(() => undefined);
+    await cleanupWithWarning(() => deleteDisposableAccount(page));
   }
 });

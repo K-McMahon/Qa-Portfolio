@@ -1,0 +1,275 @@
+name: Playwright QA regression
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 2 * * *'
+      timezone: 'America/New_York'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/playwright-qa-regression.yml'
+      - 'Automation Exercise Project/Automation/**'
+      - '!Automation Exercise Project/Portfolio Evidence/GitHub Actions/Monthly/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/playwright-qa-regression.yml'
+      - 'Automation Exercise Project/Automation/**'
+      - '!Automation Exercise Project/Portfolio Evidence/GitHub Actions/Monthly/**'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.event_name == 'pull_request' && format('playwright-qa-regression-pr-{0}', github.event.pull_request.number) || 'playwright-qa-regression-trusted' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  regression:
+    name: Existing Playwright suite
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Automation Exercise Project/Automation
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Record regression start time
+        shell: bash
+        run: echo "QA_RUN_STARTED_AT=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> "$GITHUB_ENV"
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: Automation Exercise Project/Automation/package-lock.json
+
+      - name: Check trusted test secrets
+        if: github.event_name != 'pull_request'
+        shell: bash
+        env:
+          AE_EMAIL: ${{ secrets.AE_EMAIL }}
+          AE_PASSWORD: ${{ secrets.AE_PASSWORD }}
+          AE_USERNAME: ${{ secrets.AE_USERNAME }}
+          AE_CARD_NAME: ${{ secrets.AE_CARD_NAME }}
+          AE_CARD_NUMBER: ${{ secrets.AE_CARD_NUMBER }}
+          AE_CARD_CVC: ${{ secrets.AE_CARD_CVC }}
+          AE_CARD_EXPIRY_MONTH: ${{ secrets.AE_CARD_EXPIRY_MONTH }}
+          AE_CARD_EXPIRY_YEAR: ${{ secrets.AE_CARD_EXPIRY_YEAR }}
+        run: |
+          set -euo pipefail
+          required=(
+            AE_EMAIL
+            AE_PASSWORD
+            AE_USERNAME
+            AE_CARD_NAME
+            AE_CARD_NUMBER
+            AE_CARD_CVC
+            AE_CARD_EXPIRY_MONTH
+            AE_CARD_EXPIRY_YEAR
+          )
+          for name in "${required[@]}"; do
+            if [[ -z "${!name}" ]]; then
+              echo "Missing required repository secret: ${name}" >&2
+              exit 1
+            fi
+          done
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run trusted regression suite
+        id: trusted_tests
+        if: github.event_name != 'pull_request'
+        continue-on-error: true
+        env:
+          AE_EMAIL: ${{ secrets.AE_EMAIL }}
+          AE_PASSWORD: ${{ secrets.AE_PASSWORD }}
+          AE_USERNAME: ${{ secrets.AE_USERNAME }}
+          AE_CARD_NAME: ${{ secrets.AE_CARD_NAME }}
+          AE_CARD_NUMBER: ${{ secrets.AE_CARD_NUMBER }}
+          AE_CARD_CVC: ${{ secrets.AE_CARD_CVC }}
+          AE_CARD_EXPIRY_MONTH: ${{ secrets.AE_CARD_EXPIRY_MONTH }}
+          AE_CARD_EXPIRY_YEAR: ${{ secrets.AE_CARD_EXPIRY_YEAR }}
+        run: npm test
+
+      - name: Run pull request regression suite without secrets
+        id: pull_request_tests
+        if: github.event_name == 'pull_request'
+        continue-on-error: true
+        run: npm test
+
+      - name: Upload regression evidence
+        id: upload_evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-regression-evidence
+          retention-days: 30
+          if-no-files-found: ignore
+          path: |
+            Automation Exercise Project/Automation/test-results/html-report/
+            Automation Exercise Project/Automation/test-results/qa-analytics/
+            Automation Exercise Project/Automation/test-results/artifacts/
+            Automation Exercise Project/Automation/Execution Evidence/
+            Automation Exercise Project/Automation/Test Results/
+
+      - name: Publish run summary
+        if: always()
+        shell: bash
+        env:
+          JOB_STATUS: ${{ job.status }}
+          TEST_OUTCOME: ${{ github.event_name == 'pull_request' && steps.pull_request_tests.outcome || steps.trusted_tests.outcome }}
+          EVENT_NAME: ${{ github.event_name }}
+          RUN_STARTED_AT: ${{ env.QA_RUN_STARTED_AT }}
+          BRANCH_NAME: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }}
+          COMMIT_SHA: ${{ github.sha }}
+          RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          ARTIFACT_NAME: qa-regression-evidence
+          ARTIFACT_RETENTION_DAYS: '30'
+        run: |
+          node - <<'NODE'
+          const { appendFileSync } = require('node:fs');
+          const {
+            buildGithubSummary,
+            deriveEffectiveResult,
+            readQaSummary,
+          } = require('./scripts/ci/run-summary.cjs');
+
+          const analytics = readQaSummary('test-results/qa-analytics/run-summary.json') ?? {};
+          const counts = {
+            total: analytics.total,
+            passed: analytics.passed,
+            failed: analytics.failed,
+            flaky: analytics.flaky,
+            skipped: analytics.skipped,
+          };
+          const markdown = buildGithubSummary({
+            ...counts,
+            outcome: deriveEffectiveResult(process.env.JOB_STATUS, process.env.TEST_OUTCOME),
+            eventName: process.env.EVENT_NAME,
+            startedAt: process.env.RUN_STARTED_AT,
+            branch: process.env.BRANCH_NAME,
+            sha: process.env.COMMIT_SHA,
+            runUrl: process.env.RUN_URL,
+            artifactName: process.env.ARTIFACT_NAME,
+            artifactRetentionDays: process.env.ARTIFACT_RETENTION_DAYS,
+          });
+          appendFileSync(process.env.GITHUB_STEP_SUMMARY, `${markdown}\n`, 'utf8');
+          NODE
+
+      - name: Preserve regression outcome
+        if: always()
+        shell: bash
+        env:
+          JOB_STATUS: ${{ job.status }}
+          TEST_OUTCOME: ${{ github.event_name == 'pull_request' && steps.pull_request_tests.outcome || steps.trusted_tests.outcome }}
+        run: |
+          node - <<'NODE'
+          const { deriveEffectiveResult } = require('./scripts/ci/run-summary.cjs');
+          const result = deriveEffectiveResult(process.env.JOB_STATUS, process.env.TEST_OUTCOME);
+          if (result === 'failure') {
+            console.error('The regression job did not complete successfully.');
+            process.exit(1);
+          }
+          NODE
+
+  jira-report:
+    name: Report trusted run to Jira
+    needs: regression
+    if: >-
+      always() &&
+      (github.event_name == 'schedule' ||
+       github.event_name == 'workflow_dispatch' ||
+       (github.event_name == 'push' && github.ref == 'refs/heads/main'))
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out trusted reporting helpers
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Download regression analytics
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          name: qa-regression-evidence
+          path: downloaded-evidence
+
+      - name: Check Jira secrets
+        shell: bash
+        env:
+          JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+          JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+          JIRA_CI_ISSUE_KEY: ${{ secrets.JIRA_CI_ISSUE_KEY }}
+        run: |
+          set -euo pipefail
+          required=(JIRA_BASE_URL JIRA_EMAIL JIRA_API_TOKEN JIRA_CI_ISSUE_KEY)
+          for name in "${required[@]}"; do
+            if [[ -z "${!name}" ]]; then
+              echo "Missing required repository secret: ${name}" >&2
+              exit 1
+            fi
+          done
+          if [[ "$JIRA_BASE_URL" != https://* ]]; then
+            echo 'JIRA_BASE_URL must use HTTPS.' >&2
+            exit 1
+          fi
+
+      - name: Build allowlisted Jira comment
+        shell: bash
+        env:
+          TEST_OUTCOME: ${{ needs.regression.result }}
+          EVENT_NAME: ${{ github.event_name }}
+          BRANCH_NAME: ${{ github.ref_name }}
+          COMMIT_SHA: ${{ github.sha }}
+          RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          node - <<'NODE'
+          const { writeFileSync } = require('node:fs');
+          const { buildJiraComment } = require('./Automation Exercise Project/Automation/scripts/ci/jira-comment.cjs');
+          const { readQaSummary } = require('./Automation Exercise Project/Automation/scripts/ci/run-summary.cjs');
+
+          const analytics = readQaSummary(
+            'downloaded-evidence/test-results/qa-analytics/run-summary.json',
+          ) ?? {};
+          const counts = {
+            total: analytics.total,
+            passed: analytics.passed,
+            failed: analytics.failed,
+            flaky: analytics.flaky,
+            skipped: analytics.skipped,
+          };
+          const body = buildJiraComment({
+            ...counts,
+            outcome: process.env.TEST_OUTCOME,
+            eventName: process.env.EVENT_NAME,
+            branch: process.env.BRANCH_NAME,
+            sha: process.env.COMMIT_SHA,
+            runUrl: process.env.RUN_URL,
+          });
+          writeFileSync('jira-comment.json', JSON.stringify({ body }), 'utf8');
+          NODE
+
+      - name: Post Jira comment
+        shell: bash
+        env:
+          JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+          JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+          JIRA_CI_ISSUE_KEY: ${{ secrets.JIRA_CI_ISSUE_KEY }}
+        run: |
+          set -euo pipefail
+          node "Automation Exercise Project/Automation/scripts/ci/post-jira-comment.cjs" \
+            jira-comment.json

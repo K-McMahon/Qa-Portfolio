@@ -13,9 +13,8 @@ import {
 test('API-AUTH-001 - Verify Login with Valid Details', async ({ request, page }, testInfo) => {
   const account = makeAccount('auth-valid');
 
-  await createAccount(request, account);
-
   try {
+    await createAccount(request, account);
     const response = await request.post(`${apiBaseUrl}/verifyLogin`, {
       form: { email: account.email, password: account.password },
     });

@@ -5,6 +5,7 @@ import { AccountInformationPage } from '../../pages/AccountInformationPage';
 import { AccountStatusPage } from '../../pages/AccountStatusPage';
 import { HomePage } from '../../pages/HomePage';
 import { SignupLoginPage } from '../../pages/SignupLoginPage';
+import { cleanupWithWarning } from '../support/cleanup';
 import { test } from './support/ui-test';
 
 test('AE-SIGNUP-006 | SRC-TC-01 | Complete user registration with optional subscriptions', async ({ page }, testInfo) => {
@@ -47,11 +48,8 @@ test('AE-SIGNUP-006 | SRC-TC-01 | Complete user registration with optional subsc
         await accountStatusPage.expectDeleted();
       };
 
-      if (primaryError) {
-        await cleanup().catch(() => undefined);
-      } else {
-        await cleanup();
-      }
+      if (primaryError) await cleanupWithWarning(cleanup);
+      else await cleanup();
     }
   }
 });

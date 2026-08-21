@@ -7,6 +7,8 @@
     "test:api": "playwright test tests/api",
     "test:headed": "playwright test tests/ui --headed --workers=1",
     "test:ui": "playwright test tests/ui --ui",
+    "test:ci-helpers": "node --test scripts/ci/*.test.cjs",
+    "test:monthly-summary": "node --test scripts/ci/monthly-summary.test.cjs",
     "report": "node scripts/open-qa-report.cjs",
     "report:playwright": "playwright show-report test-results/html-report"
   },

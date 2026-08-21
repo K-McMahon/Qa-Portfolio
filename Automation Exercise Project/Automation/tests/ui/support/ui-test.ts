@@ -1,6 +1,8 @@
 import { access, mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { expect, test as base, type Page } from '@playwright/test';
+import { CLEANUP_WARNING } from '../../support/cleanup';
+import { hasLoginCredentials, hasPaymentData } from './credential-availability';
 
 export const test = base;
 export { expect };
@@ -42,6 +44,8 @@ test.beforeEach(async ({ page }) => {
 });
 
 test.afterEach(async ({ page }, testInfo) => {
+  if (testInfo.status === 'skipped') return;
+
   const testId = testInfo.title.match(/\bAE(?:-[A-Z]+)+-\d{3}\b/)?.[0] ?? 'ui-test';
   const evidenceFolder = resolve(process.cwd(), 'Execution Evidence');
   const evidencePath = resolve(evidenceFolder, `${testId}.png`);
@@ -72,13 +76,13 @@ export function getLoginCredentials() {
   const password = process.env.AE_PASSWORD;
   const username = process.env.AE_USERNAME;
 
-  if (!email || !password || !username) {
+  if (!hasLoginCredentials()) {
     throw new Error(
       'Missing login test data. Add AE_EMAIL, AE_PASSWORD, and AE_USERNAME to the local .env file.'
     );
   }
 
-  return { email, password, username };
+  return { email: email!, password: password!, username: username! };
 }
 
 export type PaymentData = {
@@ -98,7 +102,7 @@ export function getPaymentData(): PaymentData {
     expiryYear: process.env.AE_CARD_EXPIRY_YEAR,
   };
 
-  if (Object.values(payment).some((value) => !value)) {
+  if (!hasPaymentData()) {
     throw new Error(
       'Missing payment test data. Add AE_CARD_NAME, AE_CARD_NUMBER, AE_CARD_CVC, AE_CARD_EXPIRY_MONTH, and AE_CARD_EXPIRY_YEAR to the local .env file.'
     );
@@ -251,10 +255,12 @@ export async function registerDisposableAccount(
 }
 
 export async function deleteDisposableAccount(page: Page) {
-  if (page.isClosed()) return;
+  if (page.isClosed()) throw new Error(CLEANUP_WARNING);
   await dismissAdOverlay(page);
   const deleteLink = page.locator('a[href="/delete_account"]').first();
-  if (!(await deleteLink.isVisible({ timeout: 1_000 }).catch(() => false))) return;
+  if (!(await deleteLink.isVisible({ timeout: 1_000 }).catch(() => false))) {
+    throw new Error(CLEANUP_WARNING);
+  }
   await deleteLink.click();
   await dismissAdOverlay(page);
   await expect(page.locator('[data-qa="account-deleted"]')).toBeVisible();

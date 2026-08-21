@@ -1,6 +1,8 @@
 import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import { createSyntheticIdentity } from '../../data/synthetic-identity';
 import { writeCheckoutAddressEvidence } from '../../reporting/checkout-address-evidence';
+import { cleanupWithWarning } from '../support/cleanup';
 import {
   addListingProduct,
   deleteDisposableAccount,
@@ -35,7 +37,7 @@ test('AE-ORDER-004 checkout delivery and billing addresses match the registered 
   testInfo.annotations.push({ type: 'preserve-evidence', description: 'Checkout screenshot is captured before account cleanup.' });
   const uniqueAccount = {
     ...account,
-    email: `mcmahon.qa.order004.${Date.now()}@example.com`,
+    email: createSyntheticIdentity('order-004').email,
   };
   const evidenceDir = resolve(process.cwd(), 'Execution Evidence');
   const screenshotPath = resolve(evidenceDir, 'AE-ORDER-004.png');
@@ -141,6 +143,6 @@ test('AE-ORDER-004 checkout delivery and billing addresses match the registered 
     }
     throw error;
   } finally {
-    await deleteDisposableAccount(page).catch(() => undefined);
+    await cleanupWithWarning(() => deleteDisposableAccount(page));
   }
 });

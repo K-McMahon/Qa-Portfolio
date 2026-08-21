@@ -7,11 +7,14 @@ import { HomePage } from '../../pages/HomePage';
 import { OrderConfirmationPage } from '../../pages/OrderConfirmationPage';
 import { PaymentPage } from '../../pages/PaymentPage';
 import { SignupLoginPage } from '../../pages/SignupLoginPage';
+import { cleanupWithWarning } from '../support/cleanup';
 import { getPaymentData, test } from './support/ui-test';
+import { hasPaymentData } from './support/credential-availability';
 
 test('AE-AUTO-ORDER-005 | AEQA-126 | Download invoice after purchase', async ({
   page,
 }, testInfo) => {
+  test.skip(!hasPaymentData(), 'Requires payment test data.');
   testInfo.annotations.push({
     type: 'preserve-evidence',
     description: 'The order confirmation and invoice download evidence is preserved before cleanup.',
@@ -96,7 +99,7 @@ test('AE-AUTO-ORDER-005 | AEQA-126 | Download invoice after purchase', async ({
         await accountStatusPage.expectDeleted();
       };
 
-      if (primaryError) await cleanup().catch(() => undefined);
+      if (primaryError) await cleanupWithWarning(cleanup);
       else await cleanup();
     }
   }

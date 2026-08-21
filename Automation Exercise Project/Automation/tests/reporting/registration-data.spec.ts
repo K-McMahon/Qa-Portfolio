@@ -1,5 +1,14 @@
 import { expect, test } from '@playwright/test';
 import { createRegistrationData } from '../../data/registration-data';
+import playwrightConfig from '../../playwright.config';
+
+test('CI runs serially with two retries and isolated Playwright artifacts', () => {
+  test.skip(!process.env.CI, 'CI-only Playwright configuration assertion.');
+  expect(playwrightConfig.workers).toBe(1);
+  expect(playwrightConfig.retries).toBe(2);
+  expect(playwrightConfig.outputDir).toBe('test-results/artifacts');
+  expect(playwrightConfig.use?.screenshot).toBe('only-on-failure');
+});
 
 test('registration data is synthetic, complete, unique, and opts into both selections', () => {
   const first = createRegistrationData();
