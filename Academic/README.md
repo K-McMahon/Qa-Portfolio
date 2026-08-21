@@ -1,10 +1,21 @@
 # Academic Projects
 
-This collection brings together coursework in software quality assurance and web analytics. The files show how I turn requirements, test evidence, and business data into structured deliverables for technical and non-technical readers.
+This section contains original coursework in software quality assurance and web analytics. Together, the projects show how I turn requirements, test results, defects, and business data into organized reports that can be understood by both technical and non-technical readers.
 
-## Project Areas
+## Quality Assurance
 
-- [Quality Assurance](Quality%20Assurance/README.md): requirements, configuration management, test plans, execution reports, defect reports, and automation framework recommendations.
-- [Web Analytics](Web%20Analytics/README.md): analytics case studies, visualization proposals, social-media measurement, dashboard design, and data ethics.
+[Browse the Quality Assurance files](Quality%20Assurance/README.md)
 
-These are original academic submissions retained as portfolio artifacts. The landing pages summarize the work in plain language while the source files preserve the full analysis.
+The Quality Assurance coursework follows two sample applications through the software testing lifecycle. The files include a configuration management plan, requirements, test plans, manual execution reports, defect reports, process analysis, and automation framework recommendations.
+
+Skills demonstrated include requirements analysis, test design, black-box testing, defect documentation, traceability, software quality processes, and automation planning.
+
+## Web Analytics
+
+[Browse the Web Analytics files](Web%20Analytics/README.md)
+
+The Web Analytics coursework focuses on using data to support practical decisions. The files cover higher-education analytics, financial visualization, social media measurement, YouTube performance, website analytics, dashboard design, privacy, and responsible data use.
+
+Skills demonstrated include KPI selection, data interpretation, visualization planning, dashboard design, audience-focused reporting, and analytics strategy.
+
+Each subject landing page lists the exact source filename with a plain-language synopsis of the work.
