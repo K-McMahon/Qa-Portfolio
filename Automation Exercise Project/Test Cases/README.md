@@ -17,12 +17,12 @@ The workbook records 34 manual UI cases and 5 separate UI automation cases with 
 | Execution measure | Portfolio Test Cases | Manual workbook subset |
 |---|---:|---:|
 | Documented | 53 | 39 |
-| Executed | 51 | 37 |
-| Passed | 49 | 35 |
+| Executed | 53 | 39 |
+| Passed | 51 | 37 |
 | Failed | 2 | 2 |
-| Not Run | 2 | 2 |
+| Not Run | 0 | 0 |
 
-Thirteen manual cases were synchronized from Jira after the RTM gap analysis and cover checkout, catalog navigation, reviews, recommended items, cart persistence, address and invoice checks, and scroll navigation. Twelve are now Passed and `AE-CATALOG-002 / AEQA-111` remains Not Run. Five separate automation Test Cases extend that design: four are Passed and `AE-AUTO-NAV-003 / AEQA-128` remains Not Run. The two current failures remain traceable to open product defects.
+Thirteen manual cases were synchronized from Jira after the RTM gap analysis and cover checkout, catalog navigation, reviews, recommended items, cart persistence, address and invoice checks, and scroll navigation. All 13 passed. Five separate automation Test Cases extend that design, and all five passed with local evidence. The two current failures remain traceable to open product defects.
 
 ## Related Evidence
 

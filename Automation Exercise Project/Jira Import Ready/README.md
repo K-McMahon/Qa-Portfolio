@@ -53,10 +53,10 @@ The following cleanup decisions, package counts, and sequence document the origi
 ## Current Reconciled State - August 17, 2026
 
 - Portfolio scope: 44 Requirements, 53 Test Cases, and 6 Bugs.
-- Execution outcomes: 51 executed, with 49 Passed, 2 Failed, and 2 Not Run.
-- Of the 13 manual coverage-gap cases, 12 are Passed and `AE-CATALOG-002 / AEQA-111` remains Not Run.
+- Execution outcomes: 53 executed, with 51 Passed and 2 Failed.
+- All 13 manual coverage-gap cases are Passed.
 - The latest saved automation report is a focused Chromium run of `AE-AUTO-NAV-002 / AEQA-127`: Passed, 1/1 passed, 0 failed, 0 skipped (`ae-20260818014448`, run locally on August 17, 2026).
-- Automation Test Cases `AEQA-125` through `AEQA-127` are implemented, Passed, and linked to evidence. `AEQA-128` remains In Progress and Not Run.
+- Automation Test Cases `AEQA-124` through `AEQA-128` are implemented, Passed, and linked to evidence.
 
 The Reports dashboard provides the current 122-item project view across workflow status, work-item type, assignee, creation, completion, lead-time, and cycle-time trends.
 

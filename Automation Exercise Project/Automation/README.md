@@ -6,7 +6,7 @@ This workstream adds browser and API automation to the Automation Exercise QA po
 
 ## Current coverage
 
-The suite currently implements **14 API scenarios** and **24 UI scenarios**.
+The suite currently implements **14 API scenarios** and **25 UI scenarios**.
 
 | Area | Automated test IDs | Source coverage |
 |---|---|---|
@@ -20,7 +20,7 @@ The suite currently implements **14 API scenarios** and **24 UI scenarios**.
 | Cart | `AE-CART-001` through `AE-CART-004`; `AE-AUTO-CART-005 / AEQA-125` | `SRC-TC-12`, `SRC-TC-13`, `SRC-TC-17`, `SRC-TC-20`, `SRC-TC-22` |
 | Checkout address | `AE-ORDER-004` / Jira `AEQA-115` | `REQ-ORDER-004` / Jira `AEQA-23` |
 | Checkout invoice | `AE-AUTO-ORDER-005` / Jira `AEQA-126` | `SRC-TC-24` / `REQ-ORDER-005` |
-| Scroll navigation | `AE-AUTO-NAV-002` / Jira `AEQA-127` | `SRC-TC-25` / `REQ-NAV-002` |
+| Scroll navigation | `AE-AUTO-NAV-002` / Jira `AEQA-127`; `AE-AUTO-NAV-003` / Jira `AEQA-128` | `SRC-TC-25`, `SRC-TC-26` / `REQ-NAV-002`, `REQ-NAV-003` |
 | Security | `AE-LOGIN-002` | Tester-derived SQL injection coverage |
 | API | `API-PRODUCT`, `API-BRAND`, `API-SEARCH`, `API-AUTH`, `API-ACCOUNT` suites | Automation Exercise API requirements |
 
@@ -32,11 +32,11 @@ The suite currently implements **14 API scenarios** and **24 UI scenarios**.
 
 `AE-REVIEW-001` expands the Page Object Model with reusable product-details and review-form behavior. Each run generates a synthetic name and email, enters the exact message `QA By The McMahon Standard`, submits the review, and verifies the success confirmation. It publishes `AE-REVIEW-001(1).png` and `AE-REVIEW-001(2).png` in both shared run-level reports.
 
-## Latest Saved Report Run: August 17, 2026
+## Latest Saved Focused Evidence: August 20, 2026
 
-The latest saved QA analytics run is **Passed** on Chromium: **1/1 passed, 0 failed, 0 skipped**. It is run `ae-20260818014448` and covers `AE-AUTO-NAV-002 | AEQA-127 | Scroll down and return with the arrow`.
+The latest focused evidence covers `AE-AUTO-NAV-003 | AEQA-128 | Scroll down and return without the arrow`. The test passed in Jira and saved a screenshot plus a short video in `Execution Evidence`.
 
-This automated run is traceable to the completed manual case `AEQA-117`, automation test `AEQA-127`, and requirement `AEQA-25`. The screenshot and short video remain independently auditable.
+This automated result is traceable to manual case `AEQA-118`, automation Test Case `AEQA-128`, and requirement `AEQA-26`. The earlier `AE-AUTO-NAV-002` report screenshot remains the latest saved full analytics-report image.
 
 ## Report Evidence
 

@@ -75,6 +75,22 @@ export class HomePage {
       .toBeLessThan(100);
   }
 
+  async returnToTopWithoutArrow() {
+    for (let step = 0; step < 50; step += 1) {
+      const previousScrollY = await this.page.evaluate(() => window.scrollY);
+      if (previousScrollY < 100) return;
+
+      await this.page.mouse.wheel(0, -800);
+      await expect
+        .poll(() => this.page.evaluate(() => window.scrollY), {
+          message: `page moves up during scroll step ${step + 1}`,
+        })
+        .toBeLessThan(previousScrollY);
+    }
+
+    throw new Error('The page did not return to the top after scrolling upward.');
+  }
+
   async captureEvidence(fileName: string) {
     const screenshotPath = resolve(process.cwd(), 'Execution Evidence', fileName);
     await mkdir(dirname(screenshotPath), { recursive: true });
