@@ -1,4 +1,3 @@
-# Workflow Definitions
+# GitHub Automation
 
-- `playwright-qa-regression.yml` runs trusted regression checks, retains evidence, and updates the Jira run ledger.
-- `monthly-qa-summary.yml` creates a sanitized monthly portfolio summary from scheduled run history.
+The workflows in this folder run the Playwright regression suite and publish a sanitized monthly QA summary. Runtime credentials remain in encrypted repository secrets.
