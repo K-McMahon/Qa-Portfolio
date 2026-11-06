@@ -13,7 +13,7 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230d1b23'/%3E%3Cpath d='M18 32l9 9 19-20' fill='none' stroke='%2387d9cb' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="styles.css">
   <title>Kevin McMahon | QA Analyst Portfolio</title>
-</head>
+<script src="site.js" defer></script></head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="site-shell">
@@ -24,18 +24,18 @@
           <span class="brand-text"><strong>Kevin McMahon</strong><small>QUALITY ASSURANCE</small></span>
         </a>
         <nav class="desktop-nav" aria-label="Main navigation">
-          <a href="#work">Selected work</a>
-          <a href="#process">My approach</a>
+          <a href="projects/index.html">Projects</a>
+          <a href="about.html">My approach</a>
           <a href="#skills">Skills &amp; tools</a>
-          <a href="#about">About</a>
+          <a href="about.html">About</a>
         </nav>
         <details class="mobile-menu">
           <summary>Menu <span aria-hidden="true">☰</span></summary>
           <nav aria-label="Mobile navigation">
-            <a href="#work">Selected work</a>
-            <a href="#process">My approach</a>
+            <a href="projects/index.html">Projects</a>
+            <a href="about.html">My approach</a>
             <a href="#skills">Skills &amp; tools</a>
-            <a href="#about">About</a>
+            <a href="about.html">About</a>
             <a href="https://github.com/K-McMahon/Qa-Portfolio">GitHub portfolio ↗</a>
           </nav>
         </details>
@@ -47,10 +47,10 @@
       <section class="hero container" id="top" aria-labelledby="hero-title">
         <div class="hero-copy">
           <p class="eyebrow"><span class="pulse-dot" aria-hidden="true"></span> SOFTWARE QA · AUTOMATION · DATA VALIDATION</p>
-          <h1 id="hero-title">Quality isn't a guess.<br><span class="gradient-text">It's something you prove.</span></h1>
+          <h1 id="hero-title">Better quality starts<br><span class="gradient-text">with better questions.</span></h1>
           <p class="hero-description">I'm Kevin McMahon, a computer science graduate building my career in software quality assurance. I turn requirements into testable expectations, investigate what goes wrong, and make the evidence understandable.</p>
           <div class="hero-actions">
-            <a class="button button-primary" href="#work">Explore my projects <span aria-hidden="true">↘</span></a>
+            <a class="button button-primary" href="projects/index.html">Explore all projects <span aria-hidden="true">↘</span></a>
             <a class="button button-secondary" href="https://github.com/K-McMahon" target="_blank" rel="noopener noreferrer">My GitHub <span aria-hidden="true">↗</span></a>
           </div>
           <div class="hero-note"><span class="mini-check" aria-hidden="true">✓</span> Real documentation and test evidence behind every project</div>
@@ -90,7 +90,7 @@
       <section class="section container" id="work" aria-labelledby="work-title">
         <div class="section-heading">
           <div><p class="section-kicker">01 / SELECTED WORK</p><h2 id="work-title">Work you can <em>actually inspect.</em></h2></div>
-          <p>Each case study leads back to the requirements, code, reports, or test artifacts behind the outcome.</p>
+          <p>Each project now has a dedicated website page with my approach, metrics, real screenshots, and links to the original QA evidence.</p>
         </div>
 
         <article class="featured-project">
@@ -110,7 +110,7 @@
             </div>
             <p class="metric-note">Accepted checkpoint: November 5, 2026. These are dated local results, not live CI or final playable-game acceptance.</p>
             <div class="tech-list"><span>Unity 6.3</span><span>C#</span><span>NUnit</span><span>SQLite</span><span>Jira</span><span>GitHub</span><span>AI-assisted SDLC / STLC</span></div>
-            <a class="project-link" href="https://github.com/K-McMahon/Qa-Portfolio/blob/main/Ark%20of%20Amerigo/README.md" target="_blank" rel="noopener noreferrer">Explore the QA case study <span aria-hidden="true">↗</span></a>
+            <a class="project-link" href="projects/ark-of-amerigo.html">Explore the QA case study <span aria-hidden="true">↗</span></a>
           </div>
         </article>
 
@@ -123,7 +123,7 @@
               <p>Manual testing, requirement traceability, bug investigations, Postman API checks, and Playwright automation for an e-commerce application.</p>
               <div class="stat-chips"><span><strong>44</strong> requirements</span><span><strong>53</strong> test cases</span><span><strong>14</strong> API cases</span></div>
               <div class="tech-list"><span>Jira</span><span>Postman</span><span>Playwright</span><span>TypeScript</span></div>
-              <a class="project-link" href="https://github.com/K-McMahon/Qa-Portfolio/blob/main/Automation%20Exercise%20Project/README.md" target="_blank" rel="noopener noreferrer">View testing evidence <span aria-hidden="true">↗</span></a>
+              <a class="project-link" href="projects/automation-exercise.html">View testing evidence <span aria-hidden="true">↗</span></a>
             </div>
           </article>
           <article class="project-card">
@@ -134,7 +134,7 @@
               <p>An independent Playwright challenge that collects exactly 100 articles across multiple pages, validates chronological order, and generates readable HTML evidence.</p>
               <div class="stat-chips"><span><strong>100</strong> articles checked</span><span><strong>4</strong> pages traversed</span></div>
               <div class="tech-list"><span>JavaScript</span><span>Playwright</span><span>HTML reporting</span></div>
-              <a class="project-link" href="https://github.com/K-McMahon/Qa-Portfolio/blob/main/QA%20Wolf%20Take%20Home/README.md" target="_blank" rel="noopener noreferrer">Review the validation <span aria-hidden="true">↗</span></a>
+              <a class="project-link" href="projects/hacker-news.html">Review the validation <span aria-hidden="true">↗</span></a>
             </div>
           </article>
           <article class="project-card">
@@ -145,7 +145,7 @@
               <p>A six-table sales database, verified SQL analyses, and a two-page Power BI report that translates raw business data into useful decisions.</p>
               <div class="stat-chips"><span><strong>6</strong> related tables</span><span><strong>15</strong> verified queries</span></div>
               <div class="tech-list"><span>MySQL</span><span>Power BI</span><span>DAX</span><span>Power Query</span></div>
-              <a class="project-link" href="https://github.com/K-McMahon/Qa-Portfolio/blob/main/SQL%20Analysis%20Project/README.md" target="_blank" rel="noopener noreferrer">Explore the analysis <span aria-hidden="true">↗</span></a>
+              <a class="project-link" href="projects/sql-analysis.html">Explore the analysis <span aria-hidden="true">↗</span></a>
             </div>
           </article>
           <article class="project-card">
@@ -156,7 +156,7 @@
               <p>Coursework spanning requirements, test plans, defects, software quality processes, dashboards, performance metrics, and stakeholder communication.</p>
               <div class="stat-chips"><span><strong>21</strong> original artifacts</span><span><strong>2</strong> disciplines</span></div>
               <div class="tech-list"><span>Test design</span><span>Excel</span><span>Analytics</span></div>
-              <a class="project-link" href="https://github.com/K-McMahon/Qa-Portfolio/blob/main/Academic/README.md" target="_blank" rel="noopener noreferrer">Browse the coursework <span aria-hidden="true">↗</span></a>
+              <a class="project-link" href="projects/academic.html">Browse the coursework <span aria-hidden="true">↗</span></a>
             </div>
           </article>
         </div>
@@ -202,7 +202,7 @@
       <section class="container closing-section" aria-labelledby="closing-title">
         <div class="closing-inner"><div><p class="section-kicker">LET'S TALK QUALITY</p><h2 id="closing-title">Curiosity. Follow-through.<br><em>Evidence.</em></h2><p>Explore my source material, test reports, and project decisions. The work is documented so you can see the process behind the results.</p></div><a class="button button-primary" href="https://github.com/K-McMahon/Qa-Portfolio" target="_blank" rel="noopener noreferrer">Explore my GitHub portfolio <span aria-hidden="true">↗</span></a></div>
       </section>
-    </main>
+    <div class="container v2-home-cta"><div><span>EXPLORE BEYOND THE HOME PAGE</span><h2>Five projects. Five complete case studies.</h2><p>Methods, evidence, original files, and meaningful outcomes in one place.</p></div><a class="v2-button " href="projects/index.html">Browse all project pages <span aria-hidden="true">↗</span></a></div></main>
 
     <footer class="site-footer"><div class="container footer-inner"><span>© 2026 Kevin McMahon</span><span>Software Quality Assurance · Built on GitHub Pages</span><a href="#top">Back to top ↑</a></div><p class="container footer-note">Metrics shown are project evidence snapshots, not live test feeds. Detailed results, context, and limitations are available in the linked case studies.</p></footer>
   </div>

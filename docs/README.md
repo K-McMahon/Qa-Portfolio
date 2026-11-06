@@ -1,15 +1,9 @@
-# GitHub Pages website
+# QA Portfolio Website
 
-This folder contains the public-facing, static QA portfolio website.
+This website is published from `main /docs` at https://k-mcmahon.github.io/Qa-Portfolio/.
 
-- **Published URL:** https://k-mcmahon.github.io/Qa-Portfolio/
-- **Pages source:** main branch, /docs folder
-- **Entry page:** index.html
-- **Styling:** styles.css
-- **Graphics:** assets/ (copies of existing project SVG banners)
+Pages: home, projects index, five full case studies (Ark of Amerigo, Automation Exercise, Hacker News, SQL/Power BI, Academic), and about.
 
-The original repository README and every project folder remain the source of truth for project documentation and evidence. This website is a curated presentation layer and links directly to those original materials.
+The existing project documentation and original source files are preserved. The public pages link to those sources. Images under /docs/media reference existing GitHub image blobs.
 
-The displayed test figures are dated snapshots from the project READMEs, not live CI results. When project evidence changes, update the website summaries separately and check the linked documentation.
-
-GitHub Pages serves only the configured /docs directory. Website copies of SVGs live here so that images work without relying on files outside the publishing root.
+Project results are dated recorded evidence, not live CI metrics. Ark of Amerigo's complete human-playable text RPG has not passed final acceptance.
