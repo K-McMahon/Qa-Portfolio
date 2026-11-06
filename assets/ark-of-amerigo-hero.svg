@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="410" viewBox="0 0 1400 410" role="img" aria-labelledby="title desc">
+<title id="title">Ark of Amerigo, by Spike N Surge</title>
+<desc id="desc">Dark atmospheric survival landscape, pixel-art ruins, distant mountains, glowing amber sun, and a teal title: Ark of Amerigo. A world that does not wait for you.</desc>
+<defs>
+  <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0B1720"/><stop offset=".55" stop-color="#152B32"/><stop offset="1" stop-color="#0E151E"/></linearGradient>
+  <radialGradient id="sunlight" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#EDA96C" stop-opacity=".37"/><stop offset=".64" stop-color="#CF8061" stop-opacity=".12"/><stop offset="1" stop-color="#CF8061" stop-opacity="0"/></radialGradient>
+  <linearGradient id="fade" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#101B24" stop-opacity=".98"/><stop offset=".49" stop-color="#101B24" stop-opacity=".88"/><stop offset=".72" stop-color="#101B24" stop-opacity=".06"/><stop offset="1" stop-color="#101B24" stop-opacity="0"/></linearGradient>
+  <pattern id="grid" width="35" height="35" patternUnits="userSpaceOnUse"><path d="M35 0H0V35" fill="none" stroke="#A0C4C8" stroke-opacity=".09" stroke-width="1"/></pattern>
+  <pattern id="scan" width="4" height="4" patternUnits="userSpaceOnUse"><path d="M0 0H4" stroke="#ffffff" stroke-opacity=".022"/></pattern>
+  <clipPath id="frame"><rect x="0" y="0" width="1400" height="410" rx="12"/></clipPath>
+</defs>
+<g clip-path="url(#frame)">
+<rect width="1400" height="410" fill="url(#sky)"/>
+<rect width="1400" height="410" fill="url(#grid)"/>
+<circle cx="1121" cy="157" r="205" fill="url(#sunlight)"/>
+<circle cx="1121" cy="165" r="86" fill="#DF9768"/>
+<circle cx="1121" cy="165" r="70" fill="#F1B27D"/>
+<g stroke="#F9CE9C" stroke-opacity=".36" stroke-width="2"><path d="M1038 179h166M1032 197h179M1048 214h146"/></g>
+<path d="M660 296L742 219 782 245 832 181 899 257 960 208 1030 265 1116 202 1243 281 1303 227 1400 304V410H660Z" fill="#24404A"/>
+<path d="M695 310L784 260 838 285 918 238 1013 291 1080 261 1168 296 1298 250 1400 302V410H695Z" fill="#1B343B"/>
+<path d="M692 333L773 307 860 335 945 292 1043 329 1130 301 1258 345 1340 315 1400 336V410H692Z" fill="#112A31"/>
+<g fill="#0A1A21">
+<rect x="1016" y="260" width="82" height="78"/><path d="M1003 266l52-43 54 43z"/>
+<rect x="1140" y="274" width="110" height="73"/><path d="M1128 276l57-38 77 38z"/>
+<rect x="1241" y="225" width="42" height="124"/><rect x="1252" y="190" width="21" height="43"/>
+<rect x="1285" y="279" width="60" height="70"/><path d="M1280 279l35-31 36 31z"/>
+<rect x="943" y="288" width="50" height="58"/><path d="M936 289l33-31 31 31z"/>
+<rect x="1056" y="242" width="7" height="14"/><rect x="1074" y="251" width="7" height="12"/>
+</g>
+<g fill="#CF9066" opacity=".82"><rect x="1039" y="295" width="13" height="19"/><rect x="1170" y="303" width="16" height="21"/><rect x="1197" y="303" width="14" height="21"/><rect x="1254" y="242" width="9" height="13"/></g>
+<g fill="#0A1A21">
+<path d="M734 360v-75h8v75zM714 309l24-51 27 51zM720 288l18-52 20 52z"/>
+<path d="M837 357v-77h9v77zM815 302l26-60 29 60zM822 277l19-55 23 55z"/>
+<path d="M1360 365v-81h8v81zM1337 306l27-59 28 59zM1345 282l18-55 20 55z"/>
+<path d="M890 359v-45h6v45zM875 332l18-35 17 35z"/>
+</g>
+<g stroke="#8CCFC9" stroke-width="2" stroke-opacity=".65" fill="none" stroke-dasharray="3 8"><path d="M871 360L957 309 1106 351 1243 314"/></g>
+<g fill="#92DDD2" stroke="#0B1A22" stroke-width="5"><circle cx="871" cy="360" r="7"/><circle cx="957" cy="309" r="7"/><circle cx="1106" cy="351" r="7"/><circle cx="1243" cy="314" r="7"/></g>
+<path d="M0 358L130 350 280 364 437 350 570 362 702 346 810 355 930 340 1020 356 1103 341 1216 359 1312 344 1400 351V410H0Z" fill="#08181E"/>
+<g fill="#0D262C"><rect x="0" y="368" width="1400" height="42"/><rect x="693" y="350" width="90" height="9"/><rect x="888" y="340" width="50" height="8"/><rect x="1260" y="348" width="43" height="9"/></g>
+<rect x="0" y="0" width="1400" height="410" fill="url(#fade)"/>
+<g fill="#FFFFFF" opacity=".4"><rect x="716" y="66" width="3" height="3"/><rect x="907" y="81" width="2" height="2"/><rect x="1290" y="58" width="3" height="3"/><rect x="1338" y="144" width="2" height="2"/><rect x="790" y="123" width="3" height="3"/></g>
+<g font-family="Arial, Helvetica, sans-serif">
+<text x="70" y="65" fill="#F3B078" font-size="18" font-weight="700" letter-spacing="6">SPIKE N SURGE / PROJECT 001</text>
+<text x="65" y="165" fill="#F3F7F1" font-size="91" font-family="Arial Black, Arial, Helvetica, sans-serif" font-weight="900" letter-spacing="-3">ARK OF</text>
+<text x="65" y="263" fill="#85DFD1" font-size="103" font-family="Arial Black, Arial, Helvetica, sans-serif" font-weight="900" letter-spacing="-4">AMERIGO</text>
+<rect x="70" y="283" width="66" height="5" fill="#EEA56E"/>
+<text x="70" y="328" fill="#D1DFDE" font-size="24" font-weight="500" letter-spacing="1.5">A WORLD THAT DOESN'T WAIT FOR YOU.</text>
+<text x="71" y="374" fill="#9EB2B5" font-size="17" font-weight="600" letter-spacing="3">SIMULATION FIRST  /  PERSISTENT SURVIVAL RPG</text>
+</g>
+<rect x="1.5" y="1.5" width="1397" height="407" rx="11" fill="none" stroke="#6E9D9D" stroke-opacity=".38" stroke-width="3"/>
+<rect width="1400" height="410" fill="url(#scan)" opacity=".5"/>
+</g>
+</svg>
