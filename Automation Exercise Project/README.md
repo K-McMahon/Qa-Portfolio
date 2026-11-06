@@ -1,4 +1,8 @@
 <p align="center">
+  <img src="../assets/banners/automation-exercise.svg" alt="Automation Exercise testing banner" width="100%" />
+</p>
+
+<p align="center">
   <img src="Assets/automation-exercise-logo.png" alt="Automation Exercise" width="420" />
 </p>
 

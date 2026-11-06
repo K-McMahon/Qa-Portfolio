@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="../../assets/banners/academic-qa.svg" alt="QA coursework banner" width="100%" />
+</p>
+
 # Quality Assurance Coursework
 
 This coursework follows a Student Grading System and a Hangman application through planning, testing, reporting, and defect management. It also includes research on software quality processes and test automation frameworks.

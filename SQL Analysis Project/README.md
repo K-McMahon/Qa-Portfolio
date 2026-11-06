@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="../assets/banners/sql-analytics.svg" alt="SQL and Power BI analysis banner" width="100%" />
+</p>
+
 # Online Sales Portal | SQL Analysis and Power BI Project
 
 ## Project Synopsis

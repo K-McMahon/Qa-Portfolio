@@ -1,4 +1,8 @@
 <p align="center">
+  <img src="../assets/banners/qa-wolf.svg" alt="Hacker News Playwright testing banner" width="100%" />
+</p>
+
+<p align="center">
   <img src="assets/qa-wolf-logo.png" alt="QA Wolf" width="300" />
 </p>
 

@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="../../assets/banners/academic-web.svg" alt="Web analytics coursework banner" width="100%" />
+</p>
+
 # Web Analytics Coursework
 
 This coursework focuses on using data to understand performance and support business decisions. The projects cover education, finance, social media, YouTube, and website analytics, with attention to dashboards, data collection, privacy, and clear communication.

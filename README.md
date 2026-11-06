@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/qa-portfolio-banner.svg" alt="Kevin McMahon Software Quality Assurance Portfolio banner" width="100%" />
+</p>
+
 # Kevin McMahon | Software Quality Assurance Portfolio
 
 I am a computer science graduate building a career in software quality assurance and data analysis. My professional background includes operations, project coordination, process improvement, employee training, troubleshooting, production quality, and customer service.
@@ -8,10 +12,21 @@ This portfolio shows how I approach quality from several directions: planning an
 
 | Project | Focus | Result |
 |---|---|---|
+| [Ark of Amerigo](Ark%20of%20Amerigo/README.md) | Game QA, regression strategy, and AI-assisted SDLC/STLC | 7,020-test accepted Unity regression checkpoint, independent save/restore evidence, Jira/GitHub traceability, active development |
 | [Automation Exercise QA](Automation%20Exercise%20Project/README.md) | Full QA lifecycle for an e-commerce website | 44 requirements covered, 53 Jira test cases, 6 investigated defects, 14 API cases, and Playwright automation |
 | [QA Wolf Hacker News Validation](QA%20Wolf%20Take%20Home/README.md) | Independent Playwright coding challenge | Exactly 100 unique articles validated in newest-to-oldest order with an HTML evidence report |
 | [Online Sales Portal Analysis](SQL%20Analysis%20Project/README.md) | SQL database design and business intelligence | Six-table database, 15 verified SQL analyses, and a two-page Power BI dashboard |
 | [Academic Projects](Academic/README.md) | Quality assurance and web analytics coursework | 21 original artifacts covering requirements, test planning, execution, defects, automation research, analytics, and dashboards |
+
+## Project Spotlight | Ark of Amerigo
+
+**An original survival RPG and a hands-on exercise in large-scale software quality.** I lead design, development planning, and QA for Ark of Amerigo, a simulation-first game under the Spike N Surge studio name. The workflow connects human-led architecture and acceptance decisions with Jira, GitHub, and a single inline AI coding agent.
+
+The game is actively being developed. Its underlying systems have real implementation and regression evidence, but its fully integrated, human-playable text RPG has **not** yet passed final acceptance. This case study focuses on the work behind the project: tracing requirements, preventing regressions, investigating defects, verifying save data, and deciding when a feature is genuinely ready.
+
+**Recorded November 5, 2026 acceptance:** 7,020/7,020 Unity EditMode tests passed on Decision V3, with 1,616/1,616 Persistence cases and an independent 91-world save/restore continuation proof. These are dated local acceptance results, not live GitHub Actions CI.
+
+[**Read the Ark of Amerigo QA case study**](Ark%20of%20Amerigo/README.md)
 
 ## Automation Exercise QA
 
@@ -81,6 +96,7 @@ Key evidence:
 
 | Skill | How It Is Demonstrated |
 |---|---|
+| Simulation and integration QA | Cross-system regression, negative/boundary testing, persistence and replay verification in Ark of Amerigo |
 | Requirements analysis | Requirements specification coursework and 44 traced e-commerce requirements |
 | Test planning | Formal academic test plans and a portfolio RTM connecting requirements to coverage |
 | Manual testing | Positive, negative, functional, regression, exploratory, and security-focused cases |
@@ -103,12 +119,17 @@ Key evidence:
 | Automation | Playwright, JavaScript, TypeScript, Node.js, Chromium, GitHub Actions |
 | Database and analysis | MySQL, MySQL Workbench, SQL, Microsoft Excel |
 | Business intelligence | Power BI, Power Query, DAX, ODBC |
+| Game QA and simulation | Unity 6.3, C#, NUnit/EditMode, SQLite, separate-process save/restore verification |
+| AI-assisted project workflow | ChatGPT-assisted planning, Jira, inline Codex implementation support, Git/GitHub acceptance evidence |
 | Version control | Git and GitHub |
 
 ## Repository Guide
 
 ```text
 Qa-Portfolio/
+├── Ark of Amerigo/
+│   ├── assets/
+│   └── README.md
 ├── Academic/
 │   ├── Quality Assurance/
 │   └── Web Analytics/

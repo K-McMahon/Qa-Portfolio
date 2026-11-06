@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="../assets/banners/academic.svg" alt="Academic projects banner" width="100%" />
+</p>
+
 # Academic Projects
 
 This section contains original coursework in software quality assurance and web analytics. Together, the projects show how I turn requirements, test results, defects, and business data into organized reports that can be understood by both technical and non-technical readers.
